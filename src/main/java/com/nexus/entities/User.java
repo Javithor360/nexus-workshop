@@ -1,6 +1,9 @@
 package com.nexus.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -12,20 +15,25 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull(message = "The 'role' field is mandatory")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @NotEmpty(message = "The 'dui' field is mandatory")
     @Column(name = "dui", nullable = false, length = 10)
     private String dui;
 
+    @NotEmpty(message = "The 'email' field is mandatory")
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 
+    @NotEmpty(message = "The 'gender' field is mandatory")
     @Lob
     @Column(name = "gender", nullable = false)
     private String gender;
 
+    @NotNull(message = "The 'birthday' field is mandatory")
     @Column(name = "birthday")
     private LocalDate birthday;
 
