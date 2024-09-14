@@ -15,7 +15,7 @@ public class Activity {
     @Column(name = "project_id", nullable = false)
     private Long projectId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -28,7 +28,7 @@ public class Activity {
     @Column(name = "img")
     private String img;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private ActivityType type;
 
