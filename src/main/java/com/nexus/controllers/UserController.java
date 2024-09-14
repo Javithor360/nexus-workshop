@@ -13,9 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/users") // http://localhost:8080/api/users
 public class UserController {
 
+    /*
+        BEFORE CONSUMING THE API MAKE SURE:
+        1. You have created a database named "nexus_workshop" in your MySQL provider.
+        2. You hava ran JUnit tests to make sure the API is working as expected
+           and created default information in the database.
+     */
     private final UserService userService;
 
     @Autowired
@@ -53,6 +59,19 @@ public class UserController {
      * @param user User
      * @return User
      * @route POST /api/users
+     */
+
+    /*
+        Example of a request body:
+        {
+            "role": {
+                "id": 3
+            },
+            "dui": "87654321-0",
+            "email": "beto@example.com",
+            "gender": "M",
+            "birthday": "1990-02-01"
+        }
      */
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
