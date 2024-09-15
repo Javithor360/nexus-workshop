@@ -50,7 +50,33 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id '" + id + "' not found")));
+    }
+
+    /**
+     * Get user by username
+     *
+     * @param username Username
+     * @return User
+     * @route GET /api/users/username/{username}
+     */
+    @GetMapping("/username/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User with username '" + username + "' not found")));
+    }
+
+    /**
+     * Get user by email
+     *
+     * @param email Email
+     * @return User
+     * @route GET /api/users/email/{email}
+     */
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email '" + email + "' not found")));
     }
 
     /**
@@ -67,6 +93,8 @@ public class UserController {
             "role": {
                 "id": 3
             },
+            "username": "beto",
+            "password": "123456",
             "dui": "87654321-0",
             "email": "beto@example.com",
             "gender": "M",
