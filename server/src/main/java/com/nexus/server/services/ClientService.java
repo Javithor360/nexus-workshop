@@ -1,4 +1,4 @@
-package com.nexus.server.service;
+package com.nexus.server.services;
 
 import com.nexus.server.entities.Client;
 import com.nexus.server.repositories.IClientRepository;

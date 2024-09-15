@@ -2,7 +2,7 @@ package com.nexus.server.controllers;
 
 import com.nexus.server.entities.User;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
-import com.nexus.server.service.UserService;
+import com.nexus.server.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

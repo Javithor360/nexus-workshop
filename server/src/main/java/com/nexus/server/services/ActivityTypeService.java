@@ -1,4 +1,4 @@
-package com.nexus.server.service;
+package com.nexus.server.services;
 
 import com.nexus.server.entities.ActivityType;
 import com.nexus.server.repositories.IActivityTypeRepository;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ActivityService {
+public class ActivityTypeService {
 
     private final IActivityTypeRepository activityTypeRepository;
 
     @Autowired
-    public ActivityService(IActivityTypeRepository activityTypeRepository) {
+    public ActivityTypeService(IActivityTypeRepository activityTypeRepository) {
         this.activityTypeRepository = activityTypeRepository;
     }
 

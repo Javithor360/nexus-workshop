@@ -1,4 +1,4 @@
-package com.nexus.server.service;
+package com.nexus.server.services;
 
 import com.nexus.server.entities.ProjectStatus;
 import com.nexus.server.repositories.IProjectStatusRepository;
