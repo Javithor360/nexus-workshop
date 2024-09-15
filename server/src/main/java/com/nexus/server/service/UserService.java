@@ -3,6 +3,8 @@ package com.nexus.server.service;
 import com.nexus.server.entities.User;
 import com.nexus.server.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class UserService {
 
     private final IUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository) {
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -36,11 +40,22 @@ public class UserService {
     }
 
     /**
+     * Get user by username
+     * @param username Username
+     * @return User
+     */
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
+
+    /**
      * Create user
      * @param user User
      * @return User
      */
     public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -54,6 +69,8 @@ public class UserService {
         return userRepository.findById(id)
                 .map(user -> {
                     user.setRole(userDetails.getRole());
+                    user.setUsername(userDetails.getUsername());
+                    user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
                     user.setDui(userDetails.getDui());
                     user.setEmail(userDetails.getEmail());
                     user.setGender(userDetails.getGender());

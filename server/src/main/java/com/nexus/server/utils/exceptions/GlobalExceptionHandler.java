@@ -1,6 +1,5 @@
-package com.nexus.server.utils;
+package com.nexus.server.utils.exceptions;
 
-import com.nexus.server.utils.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

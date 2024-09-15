@@ -1,4 +1,4 @@
-package com.nexus.server.utils;
+package com.nexus.server.utils.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

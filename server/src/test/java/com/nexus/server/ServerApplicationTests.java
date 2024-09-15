@@ -8,6 +8,8 @@ import com.nexus.server.repositories.IUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +28,9 @@ class ServerApplicationTests {
 
 	@Autowired
 	private IActivityTypeRepository activityTypeRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Test
 	public void createDefaultRoles() {
@@ -46,8 +51,10 @@ class ServerApplicationTests {
 	public void createDefaultUsers() {
 		User admin = new User();
 		admin.setRole(roleRepository.findById(1L).orElse(null));
+		admin.setUsername("admin");
+		admin.setPassword(passwordEncoder.encode("admin"));
 		admin.setDui("00000000-0");
-		admin.setEmail("admin");
+		admin.setEmail("a@dm.in");
 		admin.setGender("M");
 		admin.setBirthday(LocalDate.now());
 		User saved = userRepository.save(admin);
