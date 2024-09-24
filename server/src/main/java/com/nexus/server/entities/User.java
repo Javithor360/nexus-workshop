@@ -1,4 +1,4 @@
-package com.nexus.entities;
+package com.nexus.server.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
