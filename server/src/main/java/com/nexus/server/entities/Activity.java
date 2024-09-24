@@ -1,6 +1,7 @@
 package com.nexus.server.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
@@ -31,6 +32,18 @@ public class Activity {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @Size(max = 6)
+    @Column(name = "percentage", length = 6)
+    private String percentage;
+
+    public String getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(String percentage) {
+        this.percentage = percentage;
+    }
 
     public Long getId() {
         return id;

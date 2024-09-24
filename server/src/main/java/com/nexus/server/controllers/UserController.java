@@ -96,6 +96,8 @@ public class UserController {
             "username": "beto",
             "password": "123456",
             "dui": "87654321-0",
+            "username": "beto",
+            "password": "12345",
             "email": "beto@example.com",
             "gender": "M",
             "birthday": "1990-02-01"
@@ -138,4 +140,18 @@ public class UserController {
         response.put("message", "User deleted successfully");
         return ResponseEntity.ok(response);
     }
+
+    /**
+     * Get user by username
+     *
+     * @param username User username
+     * @return User
+     * @route GET /api/users/username/{username}
+     */
+    @GetMapping("/username/{username}")
+    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username)));
+    }
+
 }
