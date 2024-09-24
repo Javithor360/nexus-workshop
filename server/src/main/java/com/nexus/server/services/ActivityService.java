@@ -1,7 +1,12 @@
 package com.nexus.server.services;
 
+<<<<<<< Updated upstream:server/src/main/java/com/nexus/server/services/ActivityService.java
 import com.nexus.server.entities.ActivityType;
 import com.nexus.server.repositories.IActivityTypeRepository;
+=======
+import com.nexus.entities.Activity;
+import com.nexus.repositories.IActivityRepository;
+>>>>>>> Stashed changes:src/main/java/com/nexus/service/ActivityService.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +16,19 @@ import java.util.Optional;
 @Service
 public class ActivityService {
 
-    private final IActivityTypeRepository activityTypeRepository;
+    private final IActivityRepository activityRepository;
 
     @Autowired
-    public ActivityService(IActivityTypeRepository activityTypeRepository) {
-        this.activityTypeRepository = activityTypeRepository;
+    public ActivityService(IActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
     }
 
     /**
      * Get all activity types
      * @return List of all activity types
      */
-    public List<ActivityType> getAllActivityTypes() {
-        return activityTypeRepository.findAll();
+    public List<Activity> getAllActivities() {
+        return activityRepository.findAll();
     }
 
     /**
@@ -31,8 +36,8 @@ public class ActivityService {
      * @param id Activity type id
      * @return Activity type
      */
-    public Optional<ActivityType> getActivityTypeById(Long id) {
-        return activityTypeRepository.findById(id);
+    public Optional<Activity> getActivityById(Long id) {
+        return activityRepository.findById(id);
     }
 
     /**
@@ -40,21 +45,22 @@ public class ActivityService {
      * @param activityType Activity type
      * @return Activity type
      */
-    public ActivityType createActivityType(ActivityType activityType) {
-        return activityTypeRepository.save(activityType);
+    public Activity createActivityType(Activity activityType) {
+        return activityRepository.save(activityType);
     }
 
     /**
      * Update activity type
      * @param id Activity type id
-     * @param activityTypeDetails Activity type details
+     * @param activityDetails Activity type details
      * @return Activity type
      */
-    public Optional<ActivityType> updateActivityType(Long id, ActivityType activityTypeDetails) {
-        return activityTypeRepository.findById(id)
-                .map(activityType -> {
-                    activityType.setName(activityTypeDetails.getName());
-                    return activityTypeRepository.save(activityType);
+    public Optional<Activity> updateActivityType(Long id, Activity activityDetails) {
+        return activityRepository.findById(id)
+                .map(activity -> {
+                    activity.setDescription(activityDetails.getDescription());
+
+                    return activityRepository.save(activity);
                 });
     }
 
@@ -63,6 +69,6 @@ public class ActivityService {
      * @param id Activity type id
      */
     public void deleteActivityType(Long id) {
-        activityTypeRepository.deleteById(id);
+        activityRepository.deleteById(id);
     }
 }

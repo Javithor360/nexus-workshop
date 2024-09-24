@@ -25,9 +25,6 @@ public class Activity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "img")
-    private String img;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private ActivityType type;
@@ -73,14 +70,6 @@ public class Activity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public ActivityType getType() {

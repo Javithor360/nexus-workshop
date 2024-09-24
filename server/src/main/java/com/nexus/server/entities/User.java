@@ -1,6 +1,8 @@
 package com.nexus.server.entities;
 
+import com.nexus.server.entities.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,6 +16,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @NotNull(message = "The 'username' field is mandatory")
+    @Column(name = "username", nullable = false, length = 32)
+    private String username;
+
+    @NotNull(message = "The 'password' field is mandatory")
+    @Column(name = "password", nullable = false, length = 64)
+    private String password;
 
     @NotNull(message = "The 'role' field is mandatory")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -37,15 +47,6 @@ public class User {
     @Column(name = "birthday")
     private LocalDate birthday;
 
-    @Size(max = 50)
-    @NotNull
-    @Column(name = "username", nullable = false, length = 50)
-    private String username;
-
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "password", nullable = false)
-    private String password;
 
     public String getPassword() {
         return password;
