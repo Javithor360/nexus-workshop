@@ -95,4 +95,13 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    /**
+     * Get user by username
+     * @param username User username
+     * @return User
+     */
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 }
