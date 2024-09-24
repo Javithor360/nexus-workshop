@@ -53,6 +53,8 @@ public class UserService {
     public Optional<User> updateUser(Long id, User userDetails) {
         return userRepository.findById(id)
                 .map(user -> {
+                    user.setUsername(userDetails.getUsername());
+                    user.setPassword(userDetails.getPassword());
                     user.setRole(userDetails.getRole());
                     user.setDui(userDetails.getDui());
                     user.setEmail(userDetails.getEmail());
@@ -68,5 +70,14 @@ public class UserService {
      */
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    /**
+     * Get user by username
+     * @param username User username
+     * @return User
+     */
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 }

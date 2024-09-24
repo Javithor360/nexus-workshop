@@ -15,6 +15,14 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull(message = "The 'username' field is mandatory")
+    @Column(name = "username", nullable = false, length = 32)
+    private String username;
+
+    @NotNull(message = "The 'password' field is mandatory")
+    @Column(name = "password", nullable = false, length = 120)
+    private String password;
+
     @NotNull(message = "The 'role' field is mandatory")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
@@ -44,6 +52,14 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 
     public Role getRole() {
         return role;
