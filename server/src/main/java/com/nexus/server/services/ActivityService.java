@@ -1,12 +1,7 @@
 package com.nexus.server.services;
 
-<<<<<<< Updated upstream:server/src/main/java/com/nexus/server/services/ActivityService.java
-import com.nexus.server.entities.ActivityType;
-import com.nexus.server.repositories.IActivityTypeRepository;
-=======
-import com.nexus.entities.Activity;
-import com.nexus.repositories.IActivityRepository;
->>>>>>> Stashed changes:src/main/java/com/nexus/service/ActivityService.java
+import com.nexus.server.entities.Activity;
+import com.nexus.server.repositories.IActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
