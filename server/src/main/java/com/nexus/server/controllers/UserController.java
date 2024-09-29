@@ -88,22 +88,26 @@ public class UserController {
      * @route POST /api/users
      */
 
-    /*
-        Example of a request body:
-        {
-            "role": {
-                "id": 3
-            },
-            "username": "beto",
-            "password": "123456",
-            "dui": "87654321-0",
-            "username": "beto",
-            "password": "12345",
-            "email": "beto@example.com",
-            "gender": "M",
-            "birthday": "1990-02-01"
-        }
+    /**
+     * Create a user - Request body:
+     * <pre>
+     * {
+     *     "role": {
+     *         "id": 3
+     *     },
+     *     "username": "beto",
+     *     "password": "123456",
+     *     "dui": "87654321-0",
+     *     "email": "beto@example.com",
+     *     "gender": "M",
+     *     "birthday": "1990-02-01"
+     * }
+     * </pre>
+     *
+     * @return User
+     * @route GET /api/user
      */
+
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
