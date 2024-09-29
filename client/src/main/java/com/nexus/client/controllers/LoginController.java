@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nexus.client.models.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Value("${api.baseURL}")
+    private String BASE_URL;
 
     // Simple GET request to show the login form
     @GetMapping("/login")
@@ -59,7 +63,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
-        String loginUrl = "http://localhost:8081/api/auth/login"; // The URL of the login endpoint
+        String loginUrl = BASE_URL + "/auth/login"; // The URL of the login endpoint
 
         // Set the Content-Type header to application/json
         HttpHeaders headers = new HttpHeaders();

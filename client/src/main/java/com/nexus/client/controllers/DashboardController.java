@@ -38,6 +38,6 @@ public class DashboardController {
 
     @GetMapping("/unauthorized")
     public String unauthorizedAccess() {
-        return "error/unauthorized";
+        return "error/403";
     }
 }
