@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `activities` (
                               `id` bigint NOT NULL,
-                              `project_id` bigint NOT NULL,
                               `user_id` bigint NOT NULL,
                               `title` varchar(100) NOT NULL,
                               `description` varchar(255) DEFAULT NULL,
