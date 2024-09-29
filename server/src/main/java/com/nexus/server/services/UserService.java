@@ -1,6 +1,8 @@
 package com.nexus.server.services;
 
+import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.User;
+import com.nexus.server.repositories.IActivityRepository;
 import com.nexus.server.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,16 +15,19 @@ import java.util.Optional;
 public class UserService {
 
     private final IUserRepository userRepository;
+    private final IActivityRepository activityRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IActivityRepository activityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.activityRepository = activityRepository;
     }
 
     /**
      * Get all users
+     *
      * @return List of all users
      */
     public List<User> getAllUsers() {
@@ -31,6 +36,7 @@ public class UserService {
 
     /**
      * Get user by id
+     *
      * @param id User id
      * @return User
      */
@@ -40,6 +46,7 @@ public class UserService {
 
     /**
      * Get user by username
+     *
      * @param username Username
      * @return User
      */
@@ -49,6 +56,7 @@ public class UserService {
 
     /**
      * Get user by email
+     *
      * @param email Email
      * @return User
      */
@@ -58,6 +66,7 @@ public class UserService {
 
     /**
      * Create user
+     *
      * @param user User
      * @return User
      */
@@ -68,7 +77,8 @@ public class UserService {
 
     /**
      * Update user
-     * @param id User id
+     *
+     * @param id          User id
      * @param userDetails User details
      * @return User
      */
@@ -90,6 +100,7 @@ public class UserService {
 
     /**
      * Delete user
+     *
      * @param id User id
      */
     public void deleteUser(Long id) {
@@ -97,11 +108,12 @@ public class UserService {
     }
 
     /**
-     * Get user by username
-     * @param username User username
-     * @return User
+     * Get the user activities by user id
+     *
+     * @param id User id
+     * @return List Activities
      */
-    public Optional<User> findByUsername(String username){
-        return userRepository.findByUsername(username);
+    public List<Activity> getUserActivities(Long id) {
+        return activityRepository.findByUserId(id);
     }
 }

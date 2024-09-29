@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth") // http://localhost:8080/api/auth/
+@RequestMapping("/api/auth") // http://localhost:8081/api/auth/
 public class AuthController {
 
     private final AuthService authService;

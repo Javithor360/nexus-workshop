@@ -47,6 +47,23 @@ public class User {
     @Column(name = "birthday")
     private LocalDate birthday;
 
+    /**
+     * Data Relationships -----------------------------------------------------
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Activity> activities;
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    /**
+     * Getters and Setters ---------------------------------------------------
+     * */
     public String getPassword() {
         return password;
     }

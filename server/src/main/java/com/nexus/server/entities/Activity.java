@@ -13,13 +13,6 @@ public class Activity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "project_id", nullable = false)
-    private Long projectId;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
@@ -37,6 +30,29 @@ public class Activity {
     @Column(name = "percentage", length = 6)
     private String percentage;
 
+    /**
+     * Data Relationships -----------------------------------------------------
+     */
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    /**
+     * Getters and Setters ---------------------------------------------------
+     */
     public String getPercentage() {
         return percentage;
     }
@@ -51,14 +67,6 @@ public class Activity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
     }
 
     public User getUser() {

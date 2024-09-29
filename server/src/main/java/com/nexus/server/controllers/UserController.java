@@ -1,5 +1,6 @@
 package com.nexus.server.controllers;
 
+import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.User;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import com.nexus.server.services.UserService;
@@ -141,17 +142,9 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * Get user by username
-     *
-     * @param username User username
-     * @return User
-     * @route GET /api/users/username/{username}
-     */
-    @GetMapping("/username/{username}")
-    public ResponseEntity<User> findByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username)));
+    @GetMapping("/{id}/activities")
+    public List<Activity> getUserActivities(@PathVariable Long id) {
+        return userService.getUserActivities(id);
     }
 
 }

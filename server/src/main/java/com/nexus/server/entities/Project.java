@@ -3,6 +3,7 @@ package com.nexus.server.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -38,6 +39,25 @@ public class Project {
 
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
+
+    /**
+     * Data Relationships -----------------------------------------------------
+     */
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private List<Activity> activities;
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    /**
+     * Getters and Setters ---------------------------------------------------
+     */
 
     public Long getId() {
         return id;
