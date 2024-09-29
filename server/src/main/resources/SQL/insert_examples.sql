@@ -30,10 +30,10 @@ INSERT INTO `activities` (`id`, `user_id`, `title`, `description`, `percentage`,
 
 -- Insertar datos de prueba para la tabla `logs`
 INSERT INTO `logs` (`id`, `project_id`, `activity_id`, `date`, `description`) VALUES
-                                                                                  (1, 1, 1, '2024-01-15', 'Design phase started.'),
-                                                                                  (2, 1, 2, '2024-02-20', 'Prototype completed.'),
-                                                                                  (3, 2, 3, '2024-03-25', 'Market research results analyzed.'),
-                                                                                  (4, 3, 4, '2024-04-30', 'Quality assurance completed.');
+                                                                                  (1, 1, 1),
+                                                                                  (2, 1, 2),
+                                                                                  (3, 2, 3),
+                                                                                  (4, 3, 4);
 
 -- Confirmar la transacción
 COMMIT;

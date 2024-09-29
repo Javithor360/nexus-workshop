@@ -85,9 +85,9 @@ CREATE TABLE `clients` (
 CREATE TABLE `logs` (
                         `id` bigint NOT NULL,
                         `project_id` bigint DEFAULT NULL,
-                        `activity_id` bigint DEFAULT NULL,
-                        `date` date NOT NULL,
-                        `description` varchar(255) DEFAULT NULL
+                        `activity_id` bigint DEFAULT NULL
+#                         ,`date` date NOT NULL,
+#                         `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
