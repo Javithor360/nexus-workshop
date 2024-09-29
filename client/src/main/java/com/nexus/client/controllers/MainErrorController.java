@@ -14,6 +14,8 @@ public class MainErrorController implements ErrorController {
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
+        System.out.println("CODE STATUS: " + request);
+
         if (status != null) {
             int statusCode = Integer.parseInt(status.toString());
 

@@ -40,13 +40,7 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .permitAll()
                         .logoutSuccessUrl("/login?logout") // Redirect to the login page after logout
-                )
-                .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.setStatus(HttpStatus.FORBIDDEN.value());
-                            response.sendRedirect("/error");
-                        })
-        );
+            );
 
         return http.build();
     }
