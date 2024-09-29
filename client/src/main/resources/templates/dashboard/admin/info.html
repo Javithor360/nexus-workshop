@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard - Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Administrator Information</h5>
+            <p class="card-text">ID: <span th:text="${user.id}"></span></p>
+            <p class="card-text">Email: <span th:text="${user.email}"></span></p>
+            <p class="card-text">DUI: <span th:text="${user.dui}"></span></p>
+            <p class="card-text">Gender: <span th:text="${user.gender}"></span></p>
+            <p class="card-text">Birthday: <span th:text="${user.birthday}"></span></p>
+        </div>
+        <a th:href="@{/dashboard/admin/index}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+</body>
+</html>

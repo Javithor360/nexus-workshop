@@ -6,47 +6,20 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1>Panel de Administración</h1>
-    <p>Bienvenido, <span th:text="${user.username}"></span>!</p>
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Información del Administrador</h5>
-            <p class="card-text">Email: <span th:text="${user.email}"></span></p>
-            <p class="card-text">DUI: <span th:text="${user.dui}"></span></p>
-            <p class="card-text">Género: <span th:text="${user.gender}"></span></p>
-            <p class="card-text">Fecha de nacimiento: <span th:text="${user.birthday}"></span></p>
-        </div>
-    </div>
+    <h1>Admins dashboard</h1>
+    <p>Welcome, <span th:text="${user.username}"></span>!</p>
     <div class="row">
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Gestión de Usuarios</h5>
-                    <p class="card-text">Administra las cuentas de usuario del sistema.</p>
-                    <a href="#" class="btn btn-primary">Ir a Gestión de Usuarios</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Configuración del Sistema</h5>
-                    <p class="card-text">Ajusta la configuración global del sistema.</p>
-                    <a href="#" class="btn btn-primary">Ir a Configuración</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Reportes</h5>
-                    <p class="card-text">Genera y visualiza reportes del sistema.</p>
-                    <a href="#" class="btn btn-primary">Ver Reportes</a>
+                    <h5 class="card-title">Account Details</h5>
+                    <p class="card-text">Check your user information</p>
+                    <a th:href="@{/dashboard/admin/info}" class="btn btn-primary">Go</a>
                 </div>
             </div>
         </div>
     </div>
-    <a href="/logout" class="btn btn-danger mt-3">Cerrar sesión</a>
+    <a href="/logout" class="btn btn-danger mt-3">Log out</a>
 </div>
 </body>
 </html>

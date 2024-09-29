@@ -36,6 +36,14 @@ public class DashboardController {
         return "dashboard/admin/index";
     }
 
+    @GetMapping("/admin/info")
+    @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
+    public String adminInfo(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        return "dashboard/admin/info";
+    }
+
     @GetMapping("/unauthorized")
     public String unauthorizedAccess() {
         return "error/403";
