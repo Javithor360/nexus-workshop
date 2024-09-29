@@ -1,9 +1,14 @@
 package com.nexus.server.entities;
 
+import com.nexus.server.entities.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 
@@ -20,7 +25,7 @@ public class User {
     private String username;
 
     @NotNull(message = "The 'password' field is mandatory")
-    @Column(name = "password", nullable = false, length = 120)
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
     @NotNull(message = "The 'role' field is mandatory")
@@ -45,6 +50,22 @@ public class User {
     @Column(name = "birthday")
     private LocalDate birthday;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Long getId() {
         return id;
     }
@@ -52,14 +73,6 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getUsername() { return username; }
-
-    public void setUsername(String username) { this.username = username; }
-
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) { this.password = password; }
 
     public Role getRole() {
         return role;
@@ -99,6 +112,32 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    // UserDetails overridden methods for authentication
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.getName())));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }
