@@ -11,4 +11,14 @@ public interface IActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByUserId(Long userId);
 
     List<Activity> findByProjectId(Long projectId);
+
+    List<Activity> findByTypeId(Long activityTypeId);
+
+    /**
+     * Find all activities by
+     */
+
+    List<Activity> findAllByUserId(Long userId);
+
+    List<Activity> findAllByProjectId(Long projectId);
 }
