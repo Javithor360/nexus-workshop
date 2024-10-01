@@ -3,6 +3,7 @@ package com.nexus.server.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,9 +47,27 @@ public class User implements UserDetails {
     private String gender;
 
     @NotNull(message = "The 'birthday' field is mandatory")
+    @Past(message = "The birthday must be a date in the past")
     @Column(name = "birthday")
     private LocalDate birthday;
 
+    /**
+     * Data Relationships -----------------------------------------------------
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Activity> activities;
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    /**
+     * Getters and Setters ---------------------------------------------------
+     * */
     public String getPassword() {
         return password;
     }

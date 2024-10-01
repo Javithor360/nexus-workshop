@@ -54,8 +54,6 @@ public class LogService {
                 .map(log -> {
                     log.setProject(logDetails.getProject());
                     log.setActivity(logDetails.getActivity());
-                    log.setDate(logDetails.getDate());
-                    log.setDescription(logDetails.getDescription());
                     return logRepository.save(log);
                 });
     }

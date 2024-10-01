@@ -20,6 +20,7 @@ public class ActivityService {
 
     /**
      * Get all activity types
+     *
      * @return List of all activity types
      */
     public List<Activity> getAllActivities() {
@@ -28,6 +29,7 @@ public class ActivityService {
 
     /**
      * Get activity type by id
+     *
      * @param id Activity type id
      * @return Activity type
      */
@@ -37,20 +39,22 @@ public class ActivityService {
 
     /**
      * Create activity type
+     *
      * @param activityType Activity type
      * @return Activity type
      */
-    public Activity createActivityType(Activity activityType) {
+    public Activity createActivity(Activity activityType) {
         return activityRepository.save(activityType);
     }
 
     /**
      * Update activity type
-     * @param id Activity type id
+     *
+     * @param id              Activity type id
      * @param activityDetails Activity type details
      * @return Activity type
      */
-    public Optional<Activity> updateActivityType(Long id, Activity activityDetails) {
+    public Optional<Activity> updateActivity(Long id, Activity activityDetails) {
         return activityRepository.findById(id)
                 .map(activity -> {
                     activity.setDescription(activityDetails.getDescription());
@@ -61,9 +65,10 @@ public class ActivityService {
 
     /**
      * Delete activity type
+     *
      * @param id Activity type id
      */
-    public void deleteActivityType(Long id) {
+    public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
     }
 }
