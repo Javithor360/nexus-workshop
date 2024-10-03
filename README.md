@@ -86,9 +86,7 @@ processes, such as turning, grinding, and bench work, among others. Currently, t
 its projects and inventory due to the absence of digital tools, which affects its efficiency and competitiveness.
 
 ## What is Nexus Workshop? ⚒️
-Nexus Workshop is a web application designed to streamline project management in metal fabrication workshops.
-It allows administrators to create and track projects, assign tasks to staff, and manage inventory. Operators can log
-their progress in real-time, justify work pauses, and complete tasks more efficiently.
+Nexus Workshop is a web application designed to improve the management in metal fabricarion workshops and also keep on track the projects in MAELSA S.A DE C.V by providing a complete management panel to administrators, employees of their projects and their corresponding details. The main idea of Nexus Project is to be an easy and functional solution in order to improve profiency on projects management, from the creation and assignment to the process monitoring and completion.
 
 ## Technology Ecosystem Overview 🔍
 Discover  the variety of tools and technologies that make up our architecture, optimizing the performance and efficiency
@@ -107,24 +105,17 @@ of our solutions.
 
 ## Features Summary 🪄
 
-### 👤 User Management.
-Administrators manage staff and projects. Operators update tasks and justify pauses.
-
-
 ### 📋 Project Management.
-Project creation with task assignment and deadlines. Real-time tracking of project progress and status.
+Administrators can create and initialize projects by assigning them to employees, and also having the permission to add a description, customer's name and establishing statuses and deadlines.
 
-### 🛒 Inventory Management.
-Register and update the status of production pieces. View available inventory.
+### 👤 Employees Management.
+Administrators can add and visualize all the employees and their relevant information (full name, e-mail, username status). Administrator can also edit and delete employees.
 
-### 🔔 Automated Notifications.
-Project completion confirmations sent to clients. Task status alerts for users.
-
-### 🎫 Justification System.
-Operators can justify work pauses without stopping the production timer.
+### 🔔 Project Tracking.
+Administrators and employees can keep on track in real time all of the projects, by looking for their description, status, initial and final date. In addition, the projects are filtered by In process, Expired  and Finished to be easier to manage.
 
 ### 🔐 Authentication System.
-Role-based login with specific permissions for each user.
+Role-based login with specific permissions and functionalities for each user, validated routes for each role and limited access to their features.
 
 ## Installation Process 📦
 1. Clone the repository
