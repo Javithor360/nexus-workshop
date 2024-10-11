@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="My Website">Title</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body class="font-poppins">
+    <div class="w-full h-svh relative flex">
+        <!-- ASIDE O MENU LATERAL -->
+        <aside th:insert="fragments/assets/sidebar.html :: aside"></aside>
+        <!-- HEADER -->
+        <header class="absolute">
+
+        </header>
+        <main class="p-4 w-full h-full overflow-hidden overflow-y-auto" layout:fragment="custom-content">
+            <!-- Contenido dinámico -->
+        </main>
+    </div>
+</body>
+</html>
