@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="Nexus Workshop">Nexus Workshop</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link rel="icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body class="font-poppins">
+    <div class="w-full h-svh relative flex">
+        <!-- ASIDE O MENU LATERAL -->
+        <aside th:insert="fragments/assets/sidebar.html :: aside"></aside>
+
+        <main class="p-4 w-full h-full overflow-hidden overflow-y-auto">
+            <!-- HEADER -->
+            <header class="p-6" th:insert="fragments/assets/navbar.html :: header"></header>
+
+                <div layout:fragment="custom-content">
+                    <!-- Contenido dinámico -->
+                </div>
+        </main>
+    </div>
+</body>
+</html>

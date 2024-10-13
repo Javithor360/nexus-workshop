@@ -1,0 +1,62 @@
+<div class="flex flex-col lg:flex-row" th:fragment="aside">
+
+    <!-- Botón de menú hamburguesa para pantallas pequeñas -->
+    <button id="menu-button" class="lg:hidden p-4 text-white bg-[#244444]">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+
+    <!-- Sidebar hamburguesa para pantallas pequeñas -->
+    <div id="hamburger-menu" class="hamburger-menu w-full bg-[#244444] text-white z-50 hidden">
+        <div class="mb-10 flex items-center pt-5 pb-1 pl-9 pr-4 space-x-4">
+            <!-- Imagen de nexxus y direccion -->
+            <img th:src="@{/img/logo.png}" alt="Descripción de la imagen" class="mx-auto">
+        </div>
+
+        <nav class="space-y-2 pl-4 pr-4 overflow-auto">
+            <a href="#" class="flex items-center py-2 px-4 bg-[#1e3a3a] rounded">
+                <span class="material-symbols-outlined mr-2">space_dashboard</span>
+                Dashboard
+            </a>
+            <a href="#" class="flex items-center py-2 px-4 hover:bg-gray-700 rounded">
+                <span class="material-symbols-outlined mr-2">hardware</span>
+                Proyectos
+            </a>
+            <a href="#" class="flex items-center py-2 px-4 hover:bg-gray-700 rounded">
+                <span class="material-symbols-outlined mr-2">engineering</span>
+                Operadores
+            </a>
+            <a id="close-button" class="flex items-center pb-10 py-2 px-4 rounded">
+                <span class="material-symbols-outlined mr-2">close</span>
+                Cerrar menú
+            </a>
+        </nav>
+    </div>
+
+    <!-- Sidebar normal para pantallas grandes -->
+    <div class="sidebar w-full lg:w-60 min-h-screen bg-[#244444] lg:rounded-r-2xl hidden lg:block">
+        <div class="w-full p-4 flex gap-1 items-center my-2">
+            <div>
+                <span class="material-symbols-outlined text-white !text-4xl">lightbulb</span>
+            </div>
+            <div>
+                <h1 class="font-bold text-xl uppercase text-white leading-none">Nexus</h1>
+                <h2 class="font-bold text-xl uppercase text-slate-400 leading-none">WorkShop</h2>
+            </div>
+        </div>
+
+        <nav class="space-y-2 px-3 overflow-auto">
+            <a href="#" class="items-nav-active">
+                <span class="material-symbols-outlined mr-2">space_dashboard</span>
+                Dashboard
+            </a>
+            <a href="#" class="items-nav">
+                <span class="material-symbols-outlined mr-2">hardware</span>
+                Proyectos
+            </a>
+            <a href="#" class="items-nav">
+                <span class="material-symbols-outlined mr-2">engineering</span>
+                Operadores
+            </a>
+        </nav>
+    </div>
+</div>

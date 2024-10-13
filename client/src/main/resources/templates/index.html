@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="template" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <aside th:insert="fragments/assets/sidebar.html :: aside" ></aside>
+
+    <main layout:fragment="custom-content">
+        <!-- Contenido dinámico -->
+        <h1 class="mt-2 text-xl font-bold text-8xl text-red-700" th:text="'Hello word!'" />
+    </main>
+
+</body>
+</html>
