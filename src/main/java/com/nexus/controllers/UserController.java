@@ -1,8 +1,9 @@
-package com.nexus.controllers;
+package com.nexus.server.controllers;
 
-import com.nexus.entities.User;
-import com.nexus.utils.ResourceNotFoundException;
-import com.nexus.service.UserService;
+import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.User;
+import com.nexus.server.utils.exceptions.ResourceNotFoundException;
+import com.nexus.server.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,33 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id)));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id '" + id + "' not found")));
+    }
+
+    /**
+     * Get user by username
+     *
+     * @param username Username
+     * @return User
+     * @route GET /api/users/username/{username}
+     */
+    @GetMapping("/username/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(userService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User with username '" + username + "' not found")));
+    }
+
+    /**
+     * Get user by email
+     *
+     * @param email Email
+     * @return User
+     * @route GET /api/users/email/{email}
+     */
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email '" + email + "' not found")));
     }
 
     /**
@@ -61,18 +88,26 @@ public class UserController {
      * @route POST /api/users
      */
 
-    /*
-        Example of a request body:
-        {
-            "role": {
-                "id": 3
-            },
-            "dui": "87654321-0",
-            "email": "beto@example.com",
-            "gender": "M",
-            "birthday": "1990-02-01"
-        }
+    /**
+     * Create a user - Request body:
+     * <pre>
+     * {
+     *     "role": {
+     *         "id": 3
+     *     },
+     *     "username": "beto",
+     *     "password": "123456",
+     *     "dui": "87654321-0",
+     *     "email": "beto@example.com",
+     *     "gender": "M",
+     *     "birthday": "1990-02-01"
+     * }
+     * </pre>
+     *
+     * @return User
+     * @route GET /api/user
      */
+
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
@@ -110,4 +145,10 @@ public class UserController {
         response.put("message", "User deleted successfully");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/activities")
+    public List<Activity> getUserActivities(@PathVariable Long id) {
+        return userService.getUserActivities(id);
+    }
+
 }

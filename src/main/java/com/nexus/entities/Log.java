@@ -20,11 +20,11 @@ public class Log {
     @JoinColumn(name = "activity_id")
     private Activity activity;
 
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
-
-    @Column(name = "description")
-    private String description;
+//    @Column(name = "date", nullable = false)
+//    private LocalDate date;
+//
+//    @Column(name = "description")
+//    private String description;
 
     public Long getId() {
         return id;
@@ -50,20 +50,20 @@ public class Log {
         this.activity = activity;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public LocalDate getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(LocalDate date) {
+//        this.date = date;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
 }

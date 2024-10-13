@@ -1,6 +1,7 @@
 package com.nexus.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "roles")
@@ -10,6 +11,7 @@ public class Role {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull(message = "The 'name' field is mandatory")
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
