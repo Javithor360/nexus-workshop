@@ -1,6 +1,8 @@
 package com.nexus.server.services;
 
+import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.User;
+import com.nexus.server.repositories.IActivityRepository;
 import com.nexus.server.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +15,14 @@ import java.util.Optional;
 public class UserService {
 
     private final IUserRepository userRepository;
+    private final IActivityRepository activityRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IActivityRepository activityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.activityRepository = activityRepository;
     }
 
     /**
@@ -92,5 +96,15 @@ public class UserService {
      */
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    /**
+     * Get the user activities by user id
+     *
+     * @param id User id
+     * @return List Activities
+     */
+    public List<Activity> getUserActivities(Long id) {
+        return activityRepository.findByUserId(id);
     }
 }
