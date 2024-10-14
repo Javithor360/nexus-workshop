@@ -27,6 +27,7 @@ public class UserService {
 
     /**
      * Get all users
+     *
      * @return List of all users
      */
     public List<User> getAllUsers() {
@@ -35,6 +36,7 @@ public class UserService {
 
     /**
      * Get user by id
+     *
      * @param id User id
      * @return User
      */
@@ -44,6 +46,7 @@ public class UserService {
 
     /**
      * Get user by username
+     *
      * @param username Username
      * @return User
      */
@@ -53,6 +56,7 @@ public class UserService {
 
     /**
      * Get user by email
+     *
      * @param email Email
      * @return User
      */
@@ -62,6 +66,7 @@ public class UserService {
 
     /**
      * Create user
+     *
      * @param user User
      * @return User
      */
@@ -72,13 +77,16 @@ public class UserService {
 
     /**
      * Update user
-     * @param id User id
+     *
+     * @param id          User id
      * @param userDetails User details
      * @return User
      */
     public Optional<User> updateUser(Long id, User userDetails) {
         return userRepository.findById(id)
                 .map(user -> {
+                    user.setUsername(userDetails.getUsername());
+                    user.setPassword(userDetails.getPassword());
                     user.setRole(userDetails.getRole());
                     user.setUsername(userDetails.getUsername());
                     user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
@@ -92,6 +100,7 @@ public class UserService {
 
     /**
      * Delete user
+     *
      * @param id User id
      */
     public void deleteUser(Long id) {

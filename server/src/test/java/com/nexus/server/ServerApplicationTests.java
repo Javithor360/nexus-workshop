@@ -56,7 +56,7 @@ class ServerApplicationTests {
 		admin.setDui("00000000-0");
 		admin.setEmail("a@dm.in");
 		admin.setGender("M");
-		admin.setBirthday(LocalDate.now());
+		admin.setBirthday(LocalDate.parse("2004-01-01"));
 		User saved = userRepository.save(admin);
 
 		assertTrue(saved.getEmail().equalsIgnoreCase(admin.getEmail()));
