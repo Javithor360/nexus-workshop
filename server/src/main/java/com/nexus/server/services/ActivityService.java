@@ -1,12 +1,7 @@
 package com.nexus.server.services;
 
-<<<<<<< Updated upstream:server/src/main/java/com/nexus/server/services/ActivityService.java
-import com.nexus.server.entities.ActivityType;
-import com.nexus.server.repositories.IActivityTypeRepository;
-=======
-import com.nexus.entities.Activity;
-import com.nexus.repositories.IActivityRepository;
->>>>>>> Stashed changes:src/main/java/com/nexus/service/ActivityService.java
+import com.nexus.server.entities.Activity;
+import com.nexus.server.repositories.IActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +20,7 @@ public class ActivityService {
 
     /**
      * Get all activity types
+     *
      * @return List of all activity types
      */
     public List<Activity> getAllActivities() {
@@ -33,6 +29,7 @@ public class ActivityService {
 
     /**
      * Get activity type by id
+     *
      * @param id Activity type id
      * @return Activity type
      */
@@ -42,20 +39,22 @@ public class ActivityService {
 
     /**
      * Create activity type
+     *
      * @param activityType Activity type
      * @return Activity type
      */
-    public Activity createActivityType(Activity activityType) {
+    public Activity createActivity(Activity activityType) {
         return activityRepository.save(activityType);
     }
 
     /**
      * Update activity type
-     * @param id Activity type id
+     *
+     * @param id              Activity type id
      * @param activityDetails Activity type details
      * @return Activity type
      */
-    public Optional<Activity> updateActivityType(Long id, Activity activityDetails) {
+    public Optional<Activity> updateActivity(Long id, Activity activityDetails) {
         return activityRepository.findById(id)
                 .map(activity -> {
                     activity.setDescription(activityDetails.getDescription());
@@ -66,9 +65,10 @@ public class ActivityService {
 
     /**
      * Delete activity type
+     *
      * @param id Activity type id
      */
-    public void deleteActivityType(Long id) {
+    public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
     }
 }

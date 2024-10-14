@@ -1,5 +1,6 @@
 package com.nexus.server.controllers;
 
+import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.User;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import com.nexus.server.services.UserService;
@@ -87,20 +88,26 @@ public class UserController {
      * @route POST /api/users
      */
 
-    /*
-        Example of a request body:
-        {
-            "role": {
-                "id": 3
-            },
-            "username": "beto",
-            "password": "123456",
-            "dui": "87654321-0",
-            "email": "beto@example.com",
-            "gender": "M",
-            "birthday": "1990-02-01"
-        }
+    /**
+     * Create a user - Request body:
+     * <pre>
+     * {
+     *     "role": {
+     *         "id": 3
+     *     },
+     *     "username": "beto",
+     *     "password": "123456",
+     *     "dui": "87654321-0",
+     *     "email": "beto@example.com",
+     *     "gender": "M",
+     *     "birthday": "1990-02-01"
+     * }
+     * </pre>
+     *
+     * @return User
+     * @route GET /api/user
      */
+
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
@@ -138,4 +145,10 @@ public class UserController {
         response.put("message", "User deleted successfully");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}/activities")
+    public List<Activity> getUserActivities(@PathVariable Long id) {
+        return userService.getUserActivities(id);
+    }
+
 }
