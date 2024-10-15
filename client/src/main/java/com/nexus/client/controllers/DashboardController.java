@@ -27,4 +27,10 @@ public class DashboardController {
         model.addAttribute("pageTitle", "Manejo de Clientes");
         return "dashboard/admin/clientManagement";
     }
+
+    @GetMapping("/dashboard/admin/management/project")
+    public String projectManagement(Model model) {
+        model.addAttribute("pageTitle", "Gestion de Proyectos");
+        return "dashboard/admin/projectManagement";
+    }
 }
