@@ -38,24 +38,18 @@ public class DashboardController {
     }
 
     // ======================================== BOSS DASHBOARD ========================================
-    @GetMapping("/boss/index")
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-    public String bossDashboard(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        return "dashboard/boss/index";
-    }
+//    @GetMapping("/boss/index")
+//    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+//    public String bossDashboard(HttpSession session, Model model) {
+//        User user = (User) session.getAttribute("user");
+//        model.addAttribute("user", user);
+//        return "dashboard/boss/index";
+//    }
 
     @GetMapping("/dashboard/admin")
     public String adminDashboard(Model model) {
         model.addAttribute("pageTitle", "Inicio");
         return "dashboard/admin/index";
-    }
-
-    @GetMapping("/dashboard/admin/management/client")
-    public String clientManagement(Model model) {
-        model.addAttribute("pageTitle", "Manejo de Clientes");
-        return "dashboard/admin/clientManagement";
     }
 
     @GetMapping("/dashboard/admin/management/project")
