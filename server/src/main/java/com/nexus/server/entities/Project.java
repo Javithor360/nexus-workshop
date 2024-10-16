@@ -44,8 +44,8 @@ public class Project {
      * Data Relationships -----------------------------------------------------
      */
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
-    private List<Activity> activities;
+    /*@OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private List<Activity> activities;*/
 
 
     /**
