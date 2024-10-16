@@ -29,6 +29,7 @@ public class DashboardController {
      */
 
     // ======================================== EMPLOYEE DASHBOARD ========================================
+    /*
     @GetMapping("/employee/index")
     @PreAuthorize("hasAuthority('ACCESS_EMPLOYEE_DASHBOARD')")
     public String employeeDashboard(HttpSession session, Model model) {
@@ -63,14 +64,18 @@ public class DashboardController {
         model.addAttribute("pageTitle", "Gestion de Proyectos");
         return "dashboard/admin/projectManagement";
     }
+
+    */
   
     // ======================================== ADMIN DASHBOARD ========================================
+
     @GetMapping("/admin/index")
     @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
     public String adminDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "dashboard/admin/index";
+    }
 
     @GetMapping("/admin/info")
     @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
@@ -95,6 +100,7 @@ public class DashboardController {
         model.addAttribute("pageTitle", "Empleados");
         return "dashboard/admin/employeeManagement";
     }
+
 
     // ======================================== EXTRA ========================================
     @GetMapping("/unauthorized")
