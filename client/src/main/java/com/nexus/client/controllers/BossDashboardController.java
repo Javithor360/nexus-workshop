@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -37,5 +40,12 @@ public class BossDashboardController {
         model.addAttribute("user", user);
         model.addAttribute("pageTitle", "Gestión de Clientes");
         return "dashboard/boss/clientManagement";
+    }
+
+    @GetMapping("/boss/management/client/get") // === Request to get clients
+    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    @ResponseBody
+    public List<User> clientList(HttpSession session) {
+        return userService.getUsers(session.getAttribute("token").toString());
     }
 }
