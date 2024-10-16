@@ -5,12 +5,27 @@
       layout:decorate="~{layouts/layoutDashboard.html}">
 <head>
     <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .form-input:focus-within label,
+        .form-input.has-value label {
+            transform: translateY(-1.4rem) translateX(0.25rem);
+            color: #718096;
+            background-color: white;
+            padding: 0 0.25rem;
+        }
+        .form-input input:focus,
+        .form-input select:focus {
+            border-color: #FCD34D; /* Tailwind yellow-300 */
+        }
+    </style>
+
 </head>
 <body>
 <main layout:fragment="custom-content">
 
     <!-- Contadores de proyectos -->
-    <section class="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-6 gap-4 2xl:gap-5 mb-5 p-5 border">
+    <section class="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-5 gap-4 2xl:gap-5 mb-5 p-5 border">
 
         <!-- Total de Proyectos -->
         <div class="flex flex-row justify-center w-full">
@@ -43,9 +58,9 @@
         </div>
 
         <!-- Botón Añadir Proyecto -->
-        <button class="bg-[#244444] text-white rounded-lg shadow hover:bg-emerald-800 px-4 py-2 w-full">
+        <!--<button class="bg-[#244444] text-white rounded-lg shadow hover:bg-emerald-800 px-4 py-2 w-full">
             Añadir Proyecto +
-        </button>
+        </button>-->
 
     </section>
 
@@ -165,13 +180,14 @@
         <div class="bg-white p-6 rounded-lg border col-span-1 md:col-span-2 lg:col-span-1">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">| Crear un Nuevo Proyecto</h3>
             <form>
-                <div class="mb-4">
-                    <label class="block text-gray-600">Nombre Proyecto</label>
-                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Nombre del proyecto">
+
+                <div class="form-input relative mb-4">
+                    <label class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Nombre Proyecto</label>
+                    <input type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Nombre del proyecto">
                 </div>
-                <div class="mb-4">
-                    <label class="block text-gray-600">Descripción</label>
-                    <textarea class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Agrega los detalles del proyecto..."></textarea>
+                <div class="form-input relative mb-2">
+                    <label class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Descripción</label>
+                    <textarea type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Descripción"></textarea>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-600">Selecciona al cliente</label>
@@ -209,5 +225,16 @@
     </section>
 </main>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script>
+    document.querySelectorAll('.form-input input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.parentNode.classList.toggle('has-value', this.value.length > 0);
+        });
+        // Inicializar el estado para campos pre-llenados
+        input.dispatchEvent(new Event('input'));
+    });
+</script>
+
 </body>
 </html>
