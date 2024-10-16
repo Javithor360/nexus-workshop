@@ -2,15 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Employee Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 </head>
 <body>
 <div class="container mt-5">
-    <h1>Welcome, Employee <span th:text="${#authentication.principal.user.username}"></span>!</h1>
-    <p>This is your employee dashboard.</p>
-    <form th:action="@{/auth/logout}" method="post">
-        <button type="submit" class="btn btn-danger">Logout</button>
-    </form>
+    <h1>Bienvenido al Dashboard de Empleado</h1>
+    <p>Hola, <span th:text="${user.username}"></span>!</p>
+    <p>Tu rol es: <span th:text="${user.role.name}"></span></p>
+    <p>Tu email es: <span th:text="${user.email}"></span></p>
+    <p>Tu DUI es: <span th:text="${user.dui}"></span></p>
+    <p>Tu género es: <span th:text="${user.gender}"></span></p>
+    <p>Tu fecha de nacimiento es: <span th:text="${user.birthday}"></span></p>
+    <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
 </div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>

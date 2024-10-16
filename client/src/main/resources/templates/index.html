@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" th:fragment="template" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title>Index</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -12,7 +12,7 @@
     <main layout:fragment="custom-content">
         <!-- Contenido dinámico -->
         <h1 class="mt-2 text-xl font-bold text-8xl text-red-700" th:text="'Hello word!'" />
+        <a th:href="@{/login}" class="btn btn-primary">Login</a>
     </main>
-
 </body>
 </html>
