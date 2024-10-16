@@ -46,6 +46,24 @@ public class DashboardController {
         return "dashboard/boss/index";
     }
 
+    @GetMapping("/dashboard/admin")
+    public String adminDashboard(Model model) {
+        model.addAttribute("pageTitle", "Inicio");
+        return "dashboard/admin/index";
+    }
+
+    @GetMapping("/dashboard/admin/management/client")
+    public String clientManagement(Model model) {
+        model.addAttribute("pageTitle", "Manejo de Clientes");
+        return "dashboard/admin/clientManagement";
+    }
+
+    @GetMapping("/dashboard/admin/management/project")
+    public String projectManagement(Model model) {
+        model.addAttribute("pageTitle", "Gestion de Proyectos");
+        return "dashboard/admin/projectManagement";
+    }
+  
     // ======================================== ADMIN DASHBOARD ========================================
     @GetMapping("/admin/index")
     @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
