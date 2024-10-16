@@ -15,10 +15,4 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findByStatusId(Long statusId);
 
     List<Project> findByClientId(Long clientId);
-
-    /**
-     * Find all projects by
-     */
-
-    List<Project> findAllByUserId(Long userId);
 }

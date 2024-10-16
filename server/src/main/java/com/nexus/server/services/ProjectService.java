@@ -36,6 +36,42 @@ public class ProjectService {
     }
 
     /**
+     * Get project by user id
+     * @param userId User id
+     * @return Projects that match the user id provided
+     */
+    public Optional<List<Project>> getProjectByUserId(Long userId) {
+        return Optional.of(projectRepository.findByUserId(userId));
+    }
+
+    /**
+     * Get project by title
+     * @param title Project title
+     * @return Project(s) that match the title provided
+     */
+    public Optional<List<Project>> getProjectByTitle(String title) {
+        return Optional.of(projectRepository.findByTitle(title));
+    }
+
+    /**
+     * Get project by status id
+     * @param statusId Status id
+     * @return Projects that match the status id provided
+     */
+    public Optional<List<Project>> getProjectByStatusId(Long statusId) {
+        return Optional.of(projectRepository.findByStatusId(statusId));
+    }
+
+    /**
+     * Get project by client id
+     * @param clientId Client id
+     * @return Projects that match the client id provided
+     */
+    public Optional<List<Project>> getProjectByClientId(Long clientId) {
+        return Optional.of(projectRepository.findByClientId(clientId));
+    }
+
+    /**
      * Create project
      * @param project Project
      * @return Project
