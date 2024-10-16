@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutDashboard.html}">
+<head>
+    <style>
+        .form-input {
+            position: relative;
+        }
+
+        .form-input label {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.75rem;
+            font-size: 1rem;
+            color: #718096;
+            transition: all 0.2s;
+            background-color: white;
+            padding: 0 0.25rem;
+            pointer-events: none; /* Para que no bloquee los clics */
+        }
+
+        .form-input.has-value label,
+        .form-input input:focus + label {
+            transform: translateY(-1.5rem);
+            font-size: 0.875rem; /* Reducimos el tamaño del texto */
+            color: #4A5568;
+        }
+
+        .form-input input:focus {
+            border-color: #FCD34D; /* Tailwind yellow-300 */
+        }
+
+        .label-class {
+            font-weight: bold; /* Estilo: texto en negrita */
+            color: #333;      /* Color del texto */
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="custom-content">
+    <div>
+        <section class="p-6 mb-4">
+            <h2 class="text-xl font-bold mb-4">Agregar Cliente</h2>
+
+            <form method="post" class="space-y-4">
+                <div class="grid grid-cols-4 grid-rows-2 gap-6">
+                    <!-- Input con etiqueta flotante -->
+                    <div class="form-input">
+                        <input type="text" id="primerNombre"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="primerNombre" class="label-class">Primer Nombre</label>
+                    </div>
+
+                    <div class="form-input">
+                        <input type="text" id="segundoNombre"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="segundoNombre" class="label-class">Segundo Nombre</label>
+                    </div>
+
+                    <div class="form-input">
+                        <input type="text" id="primerApellido"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="primerApellido" class="label-class">Primer Apellido</label>
+                    </div>
+
+                    <div class="form-input">
+                        <input type="text" id="segundoApellido"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="segundoApellido" class="label-class">Segundo Apellido</label>
+                    </div>
+
+                    <div class="form-input row-start-2">
+                        <input type="email" id="email"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="email" class="label-class">Correo Electrónico</label>
+                    </div>
+
+                    <div class="form-input row-start-2">
+                        <input type="text" id="direccion"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="direccion" class="label-class">Dirección</label>
+                    </div>
+
+                    <div class="form-input row-start-2">
+                        <input type="text" id="telefono"
+                               class="w-full border border-black rounded-md p-2 focus:outline-none"
+                               placeholder=" " />
+                        <label for="telefono" class="label-class">Teléfono</label>
+                    </div>
+
+                    <button type="submit"
+                            class="bg-yellow-400 text-black p-2 font-bold rounded hover:bg-yellow-300 w-1/2 justify-self-center">
+                        + Crear Usuario
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="p-6">
+            <h2 class="text-xl font-bold mb-4">Lista de Clientes</h2>
+            <table class="w-full text-center rounded-t-xl overflow-hidden">
+                <thead>
+                <tr class="bg-gray-500 py-1 text-white">
+                    <th class="p-2">N°</th>
+                    <th class="p-2">Nombre</th>
+                    <th class="p-2">Dirección</th>
+                    <th class="p-2">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="border-b-2">
+                    <td class="p-2 py-3">1</td>
+                    <td class="p-2 py-3">Javier Enrique Mejia Flores</td>
+                    <td class="p-2 py-3">Champa Aesthetic UDB</td>
+                    <td class="p-2 py-3 flex justify-center">
+                        <a class="bg-yellow-400 text-black px-2 py-1 rounded w-20 mr-2">Editar</a>
+                        <a class="bg-red-500 text-white px-2 py-1 rounded w-20 ml-2">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Agregar la clase 'has-value' si el input tiene valor al cargar
+        $('.form-input input').each(function () {
+            if ($(this).val().length > 0) {
+                $(this).parent().addClass('has-value');
+            }
+        });
+
+        // Escuchar cambios en los inputs para añadir o quitar la clase 'has-value'
+        $('.form-input input').on('focus input', function () {
+            if ($(this).val().length > 0){
+                $(this).parent().addClass('has-value');
+            } else {
+                $(this).parent().removeClass('has-value');
+            }
+        });
+    });
+</script>
+</body>
+</html>
