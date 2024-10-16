@@ -42,14 +42,6 @@ public class Activity {
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
     /**
      * Getters and Setters ---------------------------------------------------
      */
@@ -107,6 +99,14 @@ public class Activity {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
 }
