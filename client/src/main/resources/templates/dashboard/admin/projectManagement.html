@@ -6,6 +6,38 @@
 <head>
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('new-project-form');
+            const grid = document.getElementById('project-grid');
+            const toggleButton = document.getElementById('toggle-form-button');
+            const scrollableContainer = document.getElementById('scrollable-container');
+
+            toggleButton?.addEventListener('click', () => {
+                // Alterna la visibilidad del formulario
+                form.classList.toggle('hidden');
+                console.log("hidden toggle:", form.classList.contains('hidden')); // Esto muestra en consola si el formulario está oculto
+
+                // Alterna entre grid-cols-1 y grid-cols-2
+                if (form.classList.contains('hidden')) {
+                    grid.classList.add('lg:grid-cols-1');
+                    grid.classList.remove('lg:grid-cols-2');
+                    scrollableContainer.classList.add('2xl:grid-cols-3');
+
+                    toggleButton.textContent = 'Añadir Proyecto +'; // Cambia el texto del botón a "Añadir Proyecto +"
+                } else {
+                    grid.classList.add('lg:grid-cols-2');
+                    grid.classList.remove('lg:grid-cols-1');
+                    scrollableContainer.classList.remove('2xl:grid-cols-3');
+                    toggleButton.textContent = 'Cancelar'; // Cambia el texto del botón a "Cancelar"
+                }
+
+                console.log("Grid classes:", grid.className); // Verifica cómo se están aplicando las clases al grid
+            });
+        });
+
+    </script>
+
     <style>
         .form-input:focus-within label,
         .form-input.has-value label {
@@ -25,7 +57,7 @@
 <main layout:fragment="custom-content">
 
     <!-- Contadores de proyectos -->
-    <section class="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-5 gap-4 2xl:gap-5 mb-5 p-5 border">
+    <section class="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-6 gap-4 2xl:gap-5 mb-5 p-5 border">
 
         <!-- Total de Proyectos -->
         <div class="flex flex-row justify-center w-full">
@@ -58,20 +90,20 @@
         </div>
 
         <!-- Botón Añadir Proyecto -->
-        <!--<button class="bg-[#244444] text-white rounded-lg shadow hover:bg-emerald-800 px-4 py-2 w-full">
+        <button id="toggle-form-button" class="bg-[#244444] text-white rounded-lg shadow hover:bg-emerald-800 px-4 py-2 w-full">
             Añadir Proyecto +
-        </button>-->
+        </button>
 
     </section>
 
 
 
     <!-- Lista de proyectos -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 border p-5">
+    <section id="project-grid" class="grid grid-cols-1 lg:grid-cols-1 gap-4 border p-5">
 
         <!-- Contenedor scrolleable -->
-        <div class="overflow-y-auto max-h-[28rem] rounded-lg">
-            <section class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
+        <div class="order-2 lg:order-1 overflow-y-auto max-h-[28rem] rounded-lg">
+            <section id="scrollable-container" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 p-5">
 
                 <!-- Ejemplo de tarjeta de proyecto -->
                 <div class="bg-white p-5 rounded-lg border max-w-sm">
@@ -177,7 +209,7 @@
 
 
         <!-- Formulario para agregar nuevo proyecto -->
-        <div class="bg-white p-6 rounded-lg border col-span-1 md:col-span-2 lg:col-span-1">
+        <div id="new-project-form" class="hidden bg-white p-6 rounded-lg border order-1 lg:order-2">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">| Crear un Nuevo Proyecto</h3>
             <form>
 
@@ -226,6 +258,7 @@
 </main>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+<!-- Estilo de Inputs -->
 <script>
     document.querySelectorAll('.form-input input').forEach(input => {
         input.addEventListener('input', function() {
@@ -235,6 +268,9 @@
         input.dispatchEvent(new Event('input'));
     });
 </script>
+
+
+
 
 </body>
 </html>
