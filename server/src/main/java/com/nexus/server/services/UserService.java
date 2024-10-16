@@ -1,8 +1,10 @@
 package com.nexus.server.services;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.Project;
 import com.nexus.server.entities.User;
 import com.nexus.server.repositories.IActivityRepository;
+import com.nexus.server.repositories.IProjectRepository;
 import com.nexus.server.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,14 +17,16 @@ import java.util.Optional;
 public class UserService {
 
     private final IUserRepository userRepository;
+    private final IProjectRepository projectRepository;
     private final IActivityRepository activityRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IActivityRepository activityRepository) {
+    public UserService(IUserRepository userRepository, IProjectRepository projectRepository, IActivityRepository activityRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.projectRepository = projectRepository;
         this.activityRepository = activityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -113,7 +117,17 @@ public class UserService {
      * @param id User id
      * @return List Activities
      */
-    public List<Activity> getUserActivities(Long id) {
-        return activityRepository.findByUserId(id);
+    public Optional<List<Activity>> getUserActivities(Long id) {
+        return Optional.of(activityRepository.findByUserId(id));
+    }
+
+    /**
+     * Get the projects assigned to a user id
+     *
+     * @param id User id
+     * @return List of projects
+     */
+    public Optional<List<Project>> getUserProjects(Long id) {
+        return Optional.of(projectRepository.findByUserId(id));
     }
 }

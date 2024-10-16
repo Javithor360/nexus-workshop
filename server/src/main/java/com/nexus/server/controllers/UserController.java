@@ -1,6 +1,7 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.Project;
 import com.nexus.server.entities.User;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import com.nexus.server.services.UserService;
@@ -146,9 +147,32 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    /* ================================= EXTRA METHODS ================================= */
+
+    /**
+     * Get user activities
+     *
+     * @param id User id
+     * @return List of activities
+     * @route GET /api/users/{id}/activities
+     */
     @GetMapping("/{id}/activities")
-    public List<Activity> getUserActivities(@PathVariable Long id) {
-        return userService.getUserActivities(id);
+    public ResponseEntity<List<Activity>> getUserActivities(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserActivities(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities not found for user with id: " + id)));
+    }
+
+    /**
+     * Get assigned projects by user id
+     *
+     * @param id User id
+     * @return List of projects
+     * @route GET /api/users/{id}/projects
+     */
+    @GetMapping("/{id}/projects")
+    public ResponseEntity<List<Project>> getUserProjects(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserProjects(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projects not found for user with id: " + id)));
     }
 
 }
