@@ -6,7 +6,7 @@
 </head>
 <body>
     <main layout:fragment="custom-content">
-        <div class="w-full p-6">
+        <div class="w-full md:p-6">
             <div>
                 <div class="pr-6 pl-6 pb-4">
                     <h3 class="text-xl text-center font-bold mb-3">Resumen del día</h3>
@@ -14,112 +14,112 @@
             </div>
 
             <!-- Sección de Tarjetas -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
-
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-20 mb-4">
                 <!-- Tarjeta 1 -->
-                <div class="bg-white p-6 rounded-lg border border-grey text-center">
+                <div class="bg-white p-4 rounded-lg border border-grey text-center">
                     <div class="flex items-center justify-center">
                         <!-- Icono en una caja separada -->
-                        <div class="flex items-center justify-center text-white bg-blue-600 p-4 rounded-full">
-                            <span class="material-symbols-outlined !text-2xl lg:!text-5xl">handyman</span>
+                        <div class="flex items-center justify-center text-white bg-blue-600 py-2 px-3 rounded-full">
+                            <span class="material-symbols-outlined !text-2xl xl:!text-4xl">handyman</span>
                         </div>
                         <!-- Texto en otra caja separada -->
                         <div class="ml-4">
                             <div class="text-4xl lg:text-5xl font-bold">29</div>
                             <p class="mt-2 font-bold text-sm lg:text-base">Proyectos en Proceso</p>
-                            <p class="text-gray-600 text-xs lg:text-sm">Solicitados en fase de desarrollo</p>
+                            <p class="text-gray-600 text-xs">Solicitados en fase de desarrollo</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tarjeta 2 -->
-                <div class="bg-white p-6 rounded-lg border border-grey text-center">
+                <div class="bg-white p-4 rounded-lg border border-grey text-center">
                     <div class="flex items-center justify-center">
                         <!-- Icono en una caja separada -->
-                        <div class="flex items-center justify-center text-white bg-red-600 p-4 rounded-full">
-                            <span class="material-symbols-outlined !text-2xl lg:!text-5xl">warning</span>
+                        <div class="flex items-center justify-center text-white bg-red-600 py-2 px-3 rounded-full">
+                            <span class="material-symbols-outlined !text-2xl xl:!text-4xl">warning</span>
                         </div>
                         <!-- Texto en otra caja separada -->
                         <div class="ml-4">
                             <div class="text-4xl lg:text-5xl font-bold">0</div>
                             <p class="mt-2 font-bold text-sm lg:text-base">Proyectos Vencidos</p>
-                            <p class="text-gray-600 text-xs lg:text-sm">Solicitados en fase de desarrollo</p>
+                            <p class="text-gray-600 text-xs">Solicitados en fase de desarrollo</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tarjeta 3 -->
-                <div class="bg-white p-6 rounded-lg border border-grey text-center">
+                <div class="bg-white p-4 rounded-lg border border-grey text-center">
                     <div class="flex items-center justify-center">
                         <!-- Icono en una caja separada -->
-                        <div class="flex items-center justify-center text-white bg-green-600 p-4 rounded-full">
-                            <span class="material-symbols-outlined !text-2xl lg:!text-5xl">check</span>
+                        <div class="flex items-center justify-center text-white bg-green-600 py-2 px-3 rounded-full">
+                            <span class="material-symbols-outlined !text-2xl xl:!text-4xl">check</span>
                         </div>
 
                         <!-- Texto en otra caja separada -->
                         <div class="ml-4">
                             <div class="text-4xl font-bold">9</div>
                             <p class="mt-2 font-bold text-sm lg:text-base">Proyectos Finalizados</p>
-                            <p class="text-gray-600 text-xs lg:text-sm">Solicitados en fase de desarrollo</p>
+                            <p class="text-gray-600 text-xs">Solicitados en fase de desarrollo</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Sección de Historial, Próximas Entregas y Entregas Caducadas -->
-            <div class="grid grid-cols-1 pt-5 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 pt-5 lg:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-20">
                 <!-- Historial de Actividades -->
                 <div class="flex flex-col h-full">
                     <h3 class="text-lg font-bold mb-1">Historial de Actividades</h3>
                     <p class="text-gray-500 pb-4 text-sm">Echa un vistazo a lo que está ocurriendo</p>
-                    <div class="relative bg-white flex-grow p-6 rounded-lg border border-grey">
+                    <div class="bg-white flex-grow p-6 rounded-lg border border-grey">
                         <div class="relative pt-4 pb-5 max-h-96 overflow-hidden overflow-y-auto">
-                            <div class="absolute left-4 top-0 h-full w-0.5 bg-black"></div>
-                            <ul class="pl-4">
-                                <li class="relative flex items-start my-4 pb-3">
+                            <!-- <div class="fixed left-4 top-0 h-full w-0.5 bg-black"></div> -->
+                            <ul class="p-4">
+                                <li class="item-historial">
                                     <div
-                                            class="absolute transform translate-x-[-0.45rem] bg-yellow-500 w-4 h-4 rounded-full z-10">
+                                            class="absolute transform translate-x-[-0.45rem] translate-y-4 bg-yellow-500 w-3 h-3 rounded-full z-10">
                                     </div>
-                                    <div class="ml-8">
+                                    <div class="ml-6 mb-4">
                                         <p class="text-gray-500 text-xs leading-none">Septiembre 29</p>
                                         <h3 class="font-bold text-sm">Se agregó con éxito el proyecto:</h3>
                                         <h2 class="font-bold text-yellow-500 uppercase">Pieza metálica</h2>
                                     </div>
                                 </li>
-                                <li class="relative flex items-start my-4 pb-3">
+                                <li class="item-historial">
                                     <div
-                                            class="absolute transform translate-x-[-0.45rem] bg-yellow-500 w-4 h-4 rounded-full z-10">
+                                            class="absolute transform translate-x-[-0.45rem] translate-y-4 bg-yellow-500 w-3 h-3 rounded-full z-10">
                                     </div>
-                                    <div class="ml-8">
-                                        <p class="text-gray-500 text-xs">Septiembre 29</p>
-                                        <h3 class="font-bold text-sm">Javier Flores finalizó con su asignación:</h3>
-                                        <h2 class="font-bold text-yellow-500 uppercase">Herramienta en Torno</h2>
+                                    <div class="ml-6 mb-4">
+                                        <p class="text-gray-500 text-xs leading-none">Septiembre 29</p>
+                                        <h3 class="font-bold text-sm">Se agregó con éxito el proyecto:</h3>
+                                        <h2 class="font-bold text-yellow-500 uppercase">Pieza metálica</h2>
                                     </div>
                                 </li>
-                                <li class="relative flex items-start my-4 pb-3">
+                                <li class="item-historial">
                                     <div
-                                            class="absolute transform translate-x-[-0.45rem] bg-yellow-500 w-4 h-4 rounded-full z-10">
+                                            class="absolute transform translate-x-[-0.45rem] translate-y-4 bg-yellow-500 w-3 h-3 rounded-full z-10">
                                     </div>
-                                    <div class="ml-8">
-                                        <p class="text-gray-500 text-xs">Septiembre 29</p>
-                                        <h3 class="font-bold text-sm">Javier Flores finalizó con su asignación:</h3>
-                                        <h2 class="font-bold text-yellow-500 uppercase">Herramienta en Torno</h2>
+                                    <div class="ml-6 mb-4">
+                                        <p class="text-gray-500 text-xs leading-none">Septiembre 29</p>
+                                        <h3 class="font-bold text-sm">Se agregó con éxito el proyecto:</h3>
+                                        <h2 class="font-bold text-yellow-500 uppercase">Pieza metálica</h2>
                                     </div>
                                 </li>
-                                <li class="relative flex items-start my-4 pb-3">
+                                <li class="item-historial">
                                     <div
-                                            class="absolute transform translate-x-[-0.45rem] bg-yellow-500 w-4 h-4 rounded-full z-10">
+                                            class="absolute transform translate-x-[-0.45rem] translate-y-4 bg-yellow-500 w-3 h-3 rounded-full z-10">
                                     </div>
-                                    <div class="ml-8">
-                                        <p class="text-gray-500 text-xs">Septiembre 29</p>
-                                        <h3 class="font-bold text-sm">Javier Flores finalizó con su asignación:</h3>
-                                        <h2 class="font-bold text-yellow-500 uppercase">Herramienta en Torno</h2>
+                                    <div class="ml-6 mb-4">
+                                        <p class="text-gray-500 text-xs leading-none">Septiembre 29</p>
+                                        <h3 class="font-bold text-sm">Se agregó con éxito el proyecto:</h3>
+                                        <h2 class="font-bold text-yellow-500 uppercase">Pieza metálica</h2>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
-                        <div class="text-center p-6">
-                            <p class="text-gray-500 text-sm">Espera a ver más acciones realizadas por ti o por los empleados</p>
+                        <div class="text-center p-2 mt-2">
+                            <p class="text-slate-400 text-xs">Espera a ver más acciones realizadas por ti o por los empleados</p>
                         </div>
                     </div>
                 </div>
@@ -128,72 +128,58 @@
                 <div class="flex flex-col h-full">
                     <h3 class="text-lg font-bold mb-1">Próximas Entregas</h3>
                     <p class="text-gray-500 pb-4 text-sm">Echa un vistazo a lo que está ocurriendo</p>
-                    <div class="bg-white flex-grow p-4 rounded-lg border border-grey">
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 1</span>
-                                <span class="text-yellow-600 text-lg font-bold">Hoy</span>
+
+                    <div class="bg-white flex flex-col flex-grow gap-3 p-4 rounded-lg border border-grey">
+                        <div class="p-3 border border-slate-500 rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="font-bold">Pieza Ejemplo 1</span>
+                                <span class="text-yellow-500 font-bold">Hoy</span>
                             </div>
-                            <div class="flex mt-1 justify-between">
+                            <div class="flex justify-between">
                                 <span class="text-xs xl:text-sm text-gray-400">Cliente: Alejandra Flores</span>
                                 <span class="text-xs xl:text-sm text-gray-400">29/09/2023</span>
                             </div>
                         </div>
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 2</span>
-                                <span class="text-yellow-600 text-lg font-bold">Hoy</span>
+                        <div class="p-3 border border-slate-500 rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="font-bold">Pieza Ejemplo 2</span>
+                                <span class="text-yellow-500 font-bold">Hoy</span>
                             </div>
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-xs xl:text-sm text-gray-400">Cliente: Javier Flores</span>
+                            <div class="flex justify-between">
+                                <span class="text-xs xl:text-sm text-gray-400">Cliente: Alejandra Flores</span>
                                 <span class="text-xs xl:text-sm text-gray-400">29/09/2023</span>
                             </div>
                         </div>
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 3</span>
-                                <span class="text-yellow-600 text-lg font-bold">Hoy</span>
-                            </div>
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-md text-gray-400">Cliente: Kevin Rivera</span>
-                                <span class="text-md text-gray-400">29/09/2023</span>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
+
                 <!-- Entregas Caducadas -->
                 <div class=" flex flex-col h-full">
                     <h3 class="text-lg font-bold mb-1">Entregas Caducadas</h3>
                     <p class="text-gray-600 pb-4">Echa un vistazo a lo que está ocurriendo</p>
-                    <div class="bg-white flex-grow p-4 rounded-lg border border-grey">
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 1</span>
-                                <span class="text-red-600 text-lg font-bold">Hoy</span>
+                    <div class="bg-white flex flex-col flex-grow gap-3 p-4 rounded-lg border border-grey">
+
+                        <div class="p-3 border border-slate-500 rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="font-bold">Pieza Ejemplo 1</span>
+                                <span class="text-red-500 font-bold">Hoy</span>
                             </div>
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-md text-gray-400">Cliente: Alejandra Flores</span>
-                                <span class="text-md text-gray-400">29/09/2023</span>
-                            </div>
-                        </div>
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 2</span>
-                                <span class="text-red-600 text-lg font-bold">Hoy</span>
-                            </div>
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-md text-gray-400">Cliente: Javier Flores</span>
-                                <span class="text-md text-gray-400">29/09/2023</span>
+                            <div class="flex justify-between">
+                                <span class="text-xs xl:text-sm text-gray-400">Cliente: Alejandra Flores</span>
+                                <span class="text-xs xl:text-sm text-gray-400">29/09/2023</span>
                             </div>
                         </div>
-                        <div class="mb-4 p-4 border border-black rounded-lg">
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-lg font-bold">Pieza Ejemplo 3</span>
-                                <span class="text-red-600 text-lg font-bold">Hoy</span>
+
+                        <div class="p-3 border border-slate-500 rounded-lg">
+                            <div class="flex justify-between">
+                                <span class="font-bold">Pieza Ejemplo 1</span>
+                                <span class="text-red-500 font-bold">Hoy</span>
                             </div>
-                            <div class="flex mt-1 justify-between">
-                                <span class="text-md text-gray-400">Cliente: Kevin Rivera</span>
-                                <span class="text-md text-gray-400">29/09/2023</span>
+                            <div class="flex justify-between">
+                                <span class="text-xs xl:text-sm text-gray-400">Cliente: Alejandra Flores</span>
+                                <span class="text-xs xl:text-sm text-gray-400">29/09/2023</span>
                             </div>
                         </div>
                     </div>
