@@ -29,6 +29,7 @@ public class DashboardController {
      */
 
     // ======================================== EMPLOYEE DASHBOARD ========================================
+    /*
     @GetMapping("/employee/index")
     @PreAuthorize("hasAuthority('ACCESS_EMPLOYEE_DASHBOARD')")
     public String employeeDashboard(HttpSession session, Model model) {
@@ -38,13 +39,13 @@ public class DashboardController {
     }
 
     // ======================================== BOSS DASHBOARD ========================================
-    @GetMapping("/boss/index")
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-    public String bossDashboard(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        return "dashboard/boss/index";
-    }
+//    @GetMapping("/boss/index")
+//    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+//    public String bossDashboard(HttpSession session, Model model) {
+//        User user = (User) session.getAttribute("user");
+//        model.addAttribute("user", user);
+//        return "dashboard/boss/index";
+//    }
 
     @GetMapping("/dashboard/admin")
     public String adminDashboard(Model model) {
@@ -52,19 +53,16 @@ public class DashboardController {
         return "dashboard/admin/index";
     }
 
-    @GetMapping("/dashboard/admin/management/client")
-    public String clientManagement(Model model) {
-        model.addAttribute("pageTitle", "Manejo de Clientes");
-        return "dashboard/admin/clientManagement";
-    }
-
     @GetMapping("/dashboard/admin/management/project")
     public String projectManagement(Model model) {
         model.addAttribute("pageTitle", "Gestion de Proyectos");
         return "dashboard/admin/projectManagement";
     }
+
+    */
   
     // ======================================== ADMIN DASHBOARD ========================================
+
     @GetMapping("/admin/index")
     @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
     public String adminDashboard(HttpSession session, Model model) {
@@ -91,9 +89,17 @@ public class DashboardController {
         return "dashboard/admin/users";
     }
 
+    @GetMapping("/dashboard/admin/management/employee")
+    public String employeeManagement(Model model) {
+        model.addAttribute("pageTitle", "Empleados");
+        return "dashboard/admin/employeeManagement";
+    }
+
+
     // ======================================== EXTRA ========================================
     @GetMapping("/unauthorized")
     public String unauthorizedAccess() {
         return "error/403";
     }
+    
 }

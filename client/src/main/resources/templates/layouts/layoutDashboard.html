@@ -6,6 +6,7 @@
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link rel="icon" th:href="@{/img/favicon.png}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 </head>
 <body class="font-poppins">
     <div class="w-full h-svh relative flex">
@@ -14,7 +15,7 @@
 
         <main class="p-4 w-full h-full overflow-hidden overflow-y-auto">
             <!-- HEADER -->
-            <header class="p-6" th:insert="fragments/assets/navbar.html :: header"></header>
+            <header class="p-2" th:insert="fragments/assets/navbar.html :: header"></header>
 
                 <div layout:fragment="custom-content">
                     <!-- Contenido dinámico -->
