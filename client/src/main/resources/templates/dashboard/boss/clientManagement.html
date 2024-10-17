@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutDashboard.html}">
+<head>
+    <script th:src="@{/js/getTokenRequest.js}"></script>
+    <script th:src="@{/js/floatPlaceholder.js}"></script>
+    <script th:src="@{/js/clientManagement.js}"></script>
+
+    <style>
+        .form-input:focus-within label,
+        .form-input.has-value label {
+            transform: translateY(-1.4rem) translateX(0.25rem);
+            color: #718096;
+            background-color: white;
+            padding: 0 0.25rem;
+        }
+        .form-input input:focus,
+        .form-input select:focus {
+            border-color: #FCD34D;
+        }
+    </style>
+</head>
+<body>
+
+<main class="flex-1 sm:p-6" layout:fragment="custom-content">
+
+    <section class="px-6 mb-4">
+        <h2 class="text-xl font-bold mb-6">Agregar Cliente</h2>
+
+        <form method="post" class="space-y-4">
+            <div class="space-y-2">
+
+                <div class="grid grid-cols-1 grid-rows-8 sm:grid-cols-2 sm:grid-rows-4 lg:grid-cols-4 lg:grid-rows-2 gap-6">
+                    <div class="form-input relative">
+                        <input type="text" id="primerNombre" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Primer Nombre">
+                        <label for="primerNombre" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Primer Nombre</label>
+                    </div>
+                    <div class="form-input relative">
+                        <input type="text" id="segundoNombre" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Segundo Nombre">
+                        <label for="segundoNombre" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Segundo Nombre</label>
+                    </div>
+                    <div class="form-input relative">
+                        <input type="text" id="primerApellido" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Primer Apellido">
+                        <label for="primerApellido" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Primer Apellido</label>
+                    </div>
+                    <div class="form-input relative">
+                        <input type="text" id="segundoApellido" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Segundo Apellido">
+                        <label for="segundoApellido" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Segundo Apellido</label>
+                    </div>
+                    <div class="form-input relative">
+                        <input type="email" id="email" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Correo Electrónico">
+                        <label for="email" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Correo Electrónico</label>
+                    </div>
+                    <div class="form-input relative">
+                        <input type="text" id="direccion" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Dirección">
+                        <label for="direccion" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Dirección</label>
+                    </div>
+
+                    <div class="form-input relative">
+                        <input type="text" id="telefono" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Teléfono">
+                        <label for="telefono" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Teléfono</label>
+                    </div>
+
+                    <button type="submit" class="bg-yellow-400 text-black p-2 !text-bold rounded hover:bg-yellow-400 w-4/5 justify-self-center">+ Crear Usuario</button>
+                </div>
+
+            </div>
+
+        </form>
+    </section>
+
+    <section class="p-6">
+        <h2 class="text-xl font-bold mb-4">Lista de Clientes</h2>
+        <table class="w-full table-fixed text-center rounded-t-xl overflow-hidden" id="clientsTable">
+            <thead>
+            <tr class="bg-gray-500 py-1 text-white">
+                <th class="p-2 w-14">N°</th>
+                <th class="p-2">Nombre</th>
+                <th class="p-2">Dirección</th>
+                <th class="p-2">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic Data -->
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>
