@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +30,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.addAllowedOriginPattern("*"); // Allow all origins (domains) to access the API
+                    config.addAllowedMethod("*"); // Allow all methods (GET, POST, PUT, DELETE, etc.)
+                    config.addAllowedHeader("*"); // Allow all headers (Authorization, Content-Type, etc.)
+                    config.setAllowCredentials(true); // Allow credentials (cookies, authentication, etc.)
+                    return config;
+                }))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/users/**").authenticated()
                         .requestMatchers("/api/projects/**").authenticated()
