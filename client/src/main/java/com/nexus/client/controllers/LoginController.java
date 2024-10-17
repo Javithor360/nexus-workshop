@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -125,5 +127,14 @@ public class LoginController {
             model.addAttribute("error", "An unexpected error occurred. Please try again later.");
             return "login";
         }
+    }
+
+    // Endpoint adicional para obtener el token JWT actual
+    @GetMapping("/token")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    public Map<String, String> getToken(HttpSession session) {
+        String token = session.getAttribute("token").toString();
+        return Collections.singletonMap("token", token);
     }
 }
