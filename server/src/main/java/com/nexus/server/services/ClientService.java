@@ -54,6 +54,9 @@ public class ClientService {
         return clientRepository.findById(id)
                 .map(client -> {
                     client.setName(clientDetails.getName());
+                    client.setEmail(clientDetails.getEmail());
+                    client.setAddress(clientDetails.getAddress());
+                    client.setPhone(clientDetails.getPhone());
                     return clientRepository.save(client);
                 });
     }
