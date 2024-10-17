@@ -38,14 +38,7 @@ public class BossDashboardController {
     public String clientManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("pageTitle", "Gestión de Clientes");
+        model.addAttribute("pageTitle", "Client Management");
         return "dashboard/boss/clientManagement";
-    }
-
-    @GetMapping("/boss/management/client/get") // === Request to get clients
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-    @ResponseBody
-    public List<User> clientList(HttpSession session) {
-        return userService.getUsers(session.getAttribute("token").toString());
     }
 }
