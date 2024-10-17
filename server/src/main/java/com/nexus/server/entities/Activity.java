@@ -38,10 +38,6 @@ public class Activity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
-
     /**
      * Getters and Setters ---------------------------------------------------
      */
@@ -100,13 +96,4 @@ public class Activity {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
 }
