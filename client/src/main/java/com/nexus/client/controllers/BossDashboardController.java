@@ -48,4 +48,19 @@ public class BossDashboardController {
     public List<User> clientList(HttpSession session) {
         return userService.getUsers(session.getAttribute("token").toString());
     }
+
+    // ======================================== Boss Projects Management ========================================
+
+    @GetMapping("/boss/management/project")
+    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    public String projectManagement(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("pageTitle", "Placeholder");
+        return "dashboard/boss/projectManagement";
+    }
+
+
+
+
 }
