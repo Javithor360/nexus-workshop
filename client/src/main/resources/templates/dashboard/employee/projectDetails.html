@@ -98,9 +98,9 @@
         </div>
 
         <div class="flex flex-row gap-5 mx-5 mt-5">
-            <button class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600" th:href="@{dashboard/employee/management/project}">
+            <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
-            </button>
+            </a>
             <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600"
                     th:disabled="${(project.activities[project.activities.size() - 1].percentage.replace('%', '').trim() == '100') or project.status.id == 3 }">
                 + Add New Log

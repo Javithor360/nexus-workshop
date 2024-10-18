@@ -98,9 +98,9 @@
         </div>
 
         <div class="flex flex-row gap-5 mx-5 mt-5 justify-between">
-            <button class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600">
+            <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
-            </button>
+            </a>
             <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed" th:disabled="${project.status.id == 3 }">
                 Accept Project
             </button>
