@@ -55,45 +55,45 @@
         <!-- Form to Add New Project -->
         <div id="new-project-form" class="hidden bg-white p-6 rounded-lg border order-1 lg:order-2">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">| Create a New Project</h3>
-            <form>
+            <form id="create-project-form">
 
                 <div class="form-input relative mb-4">
-                    <label class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Project Name</label>
-                    <input type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Project Name">
+                    <label for="project-name" class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Project Name</label>
+                    <input type="text" id="project-name" name="projectName" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Project Name" maxlength="30" required>
                 </div>
                 <div class="form-input relative mb-2">
-                    <label class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
-                    <textarea type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Description"></textarea>
+                    <label for="project-description" class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
+                    <textarea id="project-description" name="description" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" maxlength="255" required></textarea>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-600">Customer</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-lg">
-                        <option>Alejandra Flores</option>
+                    <label for="customer" class="block text-gray-600">Customer</label>
+                    <select id="customer" name="clientId" class="w-full p-2 border border-gray-300 rounded-lg" required>
+                        <!-- Options will be populated via JavaScript -->
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-600">Assign Operator</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-lg">
+                    <label for="operator" class="block text-gray-600">Assign Operator</label>
+                    <select id="operator" name="userId" class="w-full p-2 border border-gray-300 rounded-lg">
                         <option>Operator 1</option>
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-600">Status</label>
-                    <select class="w-full p-2 border border-gray-300 rounded-lg">
-                        <option>In Progress</option>
+                    <label for="status" class="block text-gray-600">Status</label>
+                    <select id="status" name="statusId" class="w-full p-2 border border-gray-300 rounded-lg" required>
+                        <option value="1">In Progress</option>
                     </select>
                 </div>
                 <div class="flex space-x-4">
                     <div class="w-1/2">
-                        <label class="block text-gray-600">Start Date</label>
-                        <input type="date" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <label for="start-date" class="block text-gray-600">Start Date</label>
+                        <input type="date" id="start-date" name="startDate" class="w-full p-2 border border-gray-300 rounded-lg" required>
                     </div>
                     <div class="w-1/2">
-                        <label class="block text-gray-600">Due Date</label>
-                        <input type="date" class="w-full p-2 border border-gray-300 rounded-lg">
+                        <label for="due-date" class="block text-gray-600">Due Date</label>
+                        <input type="date" id="due-date" name="dueDate" class="w-full p-2 border border-gray-300 rounded-lg" required>
                     </div>
                 </div>
-                <button class="bg-yellow-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-yellow-600">
+                <button type="submit" class="bg-yellow-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-yellow-600">
                     Add Project +
                 </button>
             </form>
