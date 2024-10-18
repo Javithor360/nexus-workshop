@@ -1,7 +1,6 @@
 package com.nexus.server.services.extra;
 
 import com.nexus.server.entities.Activity;
-import com.nexus.server.entities.Log;
 import com.nexus.server.entities.Project;
 import com.nexus.server.entities.User;
 import com.nexus.server.entities.dto.ActivityDTO;

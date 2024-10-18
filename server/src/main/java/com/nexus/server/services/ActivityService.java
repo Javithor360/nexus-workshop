@@ -2,10 +2,13 @@ package com.nexus.server.services;
 
 import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.Log;
+import com.nexus.server.entities.Project;
 import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.repositories.IActivityRepository;
 import com.nexus.server.repositories.ILogRepository;
+import com.nexus.server.repositories.IProjectRepository;
 import com.nexus.server.services.extra.DTOConverter;
+import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +21,14 @@ public class ActivityService {
 
     private final IActivityRepository activityRepository;
     private final ILogRepository logRepository;
+    private final IProjectRepository projectRepository;
     private final DTOConverter dtoConverter;
 
     @Autowired
-    public ActivityService(IActivityRepository activityRepository, ILogRepository logRepository, DTOConverter dtoConverter) {
+    public ActivityService(IActivityRepository activityRepository, ILogRepository logRepository, IProjectRepository projectRepository, DTOConverter dtoConverter) {
         this.activityRepository = activityRepository;
         this.logRepository = logRepository;
+        this.projectRepository = projectRepository;
         this.dtoConverter = dtoConverter;
     }
 
@@ -90,8 +95,22 @@ public class ActivityService {
      * @param activityType Activity type
      * @return Activity type
      */
-    public Activity createActivity(Activity activityType) {
-        return activityRepository.save(activityType);
+    public Activity createActivity(Activity activityType, Long projectId) {
+        Activity savedActivity = activityRepository.save(activityType);
+
+        // Creating the new log entry
+        Log log = new Log();
+        log.setActivity(savedActivity);
+
+        // Fetch the project entity
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Project with id '" + projectId + "' not found"));
+        log.setProject(project);
+
+        // Save the log entry
+        logRepository.save(log);
+
+        return savedActivity;
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.nexus.server.services;
 
-import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.Log;
 import com.nexus.server.entities.Project;
 import com.nexus.server.entities.dto.ActivityDTO;
@@ -12,7 +11,6 @@ import com.nexus.server.services.extra.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
