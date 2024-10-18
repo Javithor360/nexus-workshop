@@ -1,34 +1,42 @@
 package com.nexus.server.services;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.Log;
 import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.repositories.IActivityRepository;
+import com.nexus.server.repositories.ILogRepository;
 import com.nexus.server.services.extra.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityService {
 
     private final IActivityRepository activityRepository;
+    private final ILogRepository logRepository;
     private final DTOConverter dtoConverter;
 
     @Autowired
-    public ActivityService(IActivityRepository activityRepository, DTOConverter dtoConverter) {
+    public ActivityService(IActivityRepository activityRepository, ILogRepository logRepository, DTOConverter dtoConverter) {
         this.activityRepository = activityRepository;
+        this.logRepository = logRepository;
         this.dtoConverter = dtoConverter;
     }
 
     /**
-     * Get all activity types
+     * Get all activities
      *
      * @return List of all activity types
      */
-    public List<Activity> getAllActivities() {
-        return activityRepository.findAll();
+    public List<ActivityDTO> getAllActivities() {
+        List<Activity> activities = activityRepository.findAll();
+        return activities.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -37,8 +45,43 @@ public class ActivityService {
      * @param id Activity type id
      * @return Activity type
      */
-    public Optional<Activity> getActivityById(Long id) {
-        return activityRepository.findById(id);
+    public Optional<ActivityDTO> getActivityById(Long id) {
+        return activityRepository.findById(id)
+                .map(this::convertToDTO);
+    }
+
+    /**
+     * Get all activities that match the user id
+     *
+     * @param userId the user id
+     * @return List of all activities related to the user
+     */
+    public Optional<List<ActivityDTO>> getAllActivitiesByUserId(Long userId) {
+        List<Activity> activities = activityRepository.findAllByUserId(userId);
+        return Optional.of(activities.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList()));
+    }
+
+    /**
+     * Get all activities that match the project id
+     *
+     * @param projectId the project id
+     * @return List of all activities related to the project
+     */
+    public Optional<List<ActivityDTO>> getAllActivitiesByProjectId(Long projectId) {
+        Optional<List<Log>> logsOptional = logRepository.findByProjectId(projectId);
+        if (logsOptional.isEmpty()) {
+            return Optional.empty();
+        }
+        List<Log> logs = logsOptional.get();
+        List<Activity> activities = logs.stream()
+                .map(Log::getActivity)
+                .distinct()
+                .toList();
+        return Optional.of(activities.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList()));
     }
 
     /**
