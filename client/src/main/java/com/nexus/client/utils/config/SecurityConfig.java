@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add the JWT authentication filter
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/error/**", "/login", "/css/**", "/js/**").permitAll() // Allow access to these paths without authentication
+                        .requestMatchers("/", "/home", "/error/**", "/login", "/css/**", "/js/**", "/img/**", "main.css").permitAll() // Allow access to these paths without authentication
                         .requestMatchers("/dashboard/admin/**").hasAuthority("ACCESS_ADMIN_DASHBOARD") // Allow access to the admin dashboard only to users with the ACCESS_ADMIN_DASHBOARD authority
                         .requestMatchers("/dashboard/boss/**").hasAuthority("ACCESS_BOSS_DASHBOARD") // Allow access to the boss dashboard only to users with the ACCESS_BOSS_DASHBOARD authority
                         .requestMatchers("/dashboard/employee/**").hasAuthority("ACCESS_EMPLOYEE_DASHBOARD") // Allow access to the employee dashboard only to users with the ACCESS_EMPLOYEE_DASHBOARD authority

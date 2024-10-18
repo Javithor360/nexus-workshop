@@ -10,10 +10,10 @@ public class ActivityDTO {
     private String description;
     private ActivityType type;
     private LocalDate createdAt;
-    private String percentage;
+    private double percentage;
     private UserDTO user;
 
-    public ActivityDTO(Long id, String title, String description, ActivityType type, LocalDate createdAt, String percentage, UserDTO user) {
+    public ActivityDTO(Long id, String title, String description, ActivityType type, LocalDate createdAt, double percentage, UserDTO user) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -63,11 +63,11 @@ public class ActivityDTO {
         this.createdAt = createdAt;
     }
 
-    public String getPercentage() {
+    public double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(String percentage) {
+    public void setPercentage(double percentage) {
         this.percentage = percentage;
     }
 

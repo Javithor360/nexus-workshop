@@ -1,7 +1,5 @@
 package com.nexus.server.controllers;
 
-import com.nexus.server.entities.Activity;
-import com.nexus.server.entities.Project;
 import com.nexus.server.entities.User;
 import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.entities.dto.ProjectDTO;
@@ -85,14 +83,6 @@ public class UserController {
     }
 
     /**
-     * Create user
-     *
-     * @param user User
-     * @return User
-     * @route POST /api/users
-     */
-
-    /**
      * Create a user - Request body:
      * <pre>
      * {
@@ -108,8 +98,9 @@ public class UserController {
      * }
      * </pre>
      *
+     * @param user User
      * @return User
-     * @route GET /api/user
+     * @route POST /api/users
      */
 
     @PostMapping

@@ -1,6 +1,7 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.beans.ActivityRequest;
 import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.services.ActivityService;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
@@ -76,21 +77,35 @@ public class ActivityController {
      * Create activity - Request body:
      * <pre>
      *     {
+     *         "projectId": 1,
      *         "title": "Activity N°",
      *         "description": "This is an activity example",
      *         "percentage": "10%",
-     *         "type_id":   1,
-     *         "user_id": 1
+     *         "type": {
+     *             "id": 1,
+     *         },
+     *         "user": {
+     *             "id": 1
+     *         },
+     *         "createdAt": "2021-10-10"
      *     }
      * </pre>
      *
-     * @param activity Activity
+     * @param activityRequest activity
      * @return Activity
      * @route POST /api/activities
      */
     @PostMapping
-    public ResponseEntity<Activity> createActivity(@Valid @RequestBody Activity activity) {
-        return ResponseEntity.ok(activityService.createActivity(activity));
+    public ResponseEntity<Activity> createActivity(@Valid @RequestBody ActivityRequest activityRequest) {
+        Activity activity = new Activity();
+        activity.setTitle(activityRequest.getTitle());
+        activity.setDescription(activityRequest.getDescription());
+        activity.setPercentage(activityRequest.getPercentage());
+        activity.setType(activityRequest.getType());
+        activity.setUser(activityRequest.getUser());
+        activity.setCreatedAt(activityRequest.getCreatedAt());
+
+        return ResponseEntity.ok(activityService.createActivity(activity, activityRequest.getProjectId()));
     }
 
     /**

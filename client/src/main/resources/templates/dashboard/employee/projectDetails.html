@@ -6,9 +6,9 @@
 <head>
     <title>Project Details | Employee</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="@{/js/jQuery-validate.js}"></script>
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
-    <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
 
     <style>
@@ -22,6 +22,18 @@
         .form-input input:focus,
         .form-input select:focus {
             border-color: #FCD34D;
+        }
+        .form-input div.error{
+            color: rgb(239 68 68);
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+        .form-input div.error:before{
+            content: "⚠";
+            margin-right: 0.25rem;;
+        }
+        #modal {
+            transition: opacity 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -69,7 +81,7 @@
         <!-- Table responsive wrapper -->
         <div class="overflow-x-auto bg-white mt-5">
             <!-- Table -->
-            <table class="min-w-full text-left text-sm whitespace-nowrap">
+            <table class="min-w-full text-left text-sm whitespace-nowrap" id="activitiesTable">
                 <!-- Table head -->
                 <thead class="uppercase tracking-wider border-b-2 bg-neutral-50">
                 <tr class="text-center">
@@ -84,15 +96,7 @@
 
                 <!-- Table body -->
                 <tbody class="text-center">
-                    <!--Each for list all the logs-->
-                    <tr class="border-b hover:bg-neutral-100" th:each="activity : ${project.activities}">
-                        <th scope="row" class="px-6 py-4 capitalize" th:text="${activity.user.username}"></th>
-                        <td class="px-6 py-4 capitalize" th:text="${activity.title}"></td>
-                        <td class="px-6 py-4 capitalize" th:text="${activity.description}"></td>
-                        <td class="px-6 py-4 capitalize" th:text="${activity.percentage}"></td>
-                        <td class="px-6 py-4 capitalize" th:text="${activity.type.name}"></td>
-                        <td class="px-6 py-4" th:text="${activity.createdAt}"></td>
-                    </tr>
+                    <!-- Dynamic Data -->
                 </tbody>
             </table>
         </div>
@@ -101,13 +105,8 @@
             <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
             </a>
-            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600"
-                    th:disabled="${(project.activities[project.activities.size() - 1].percentage.replace('%', '').trim() == '100') or project.status.id == 3 }">
+            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600" hidden>
                 + Add New Log
-            </button>
-            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed"
-                    th:disabled="${project.status.id != 3 }">
-                Submit Project
             </button>
         </div>
 
@@ -118,23 +117,22 @@
             <!-- Form to Add New Log -->
             <div class="bg-white p-6 rounded-lg order-1 lg:order-2">
                 <h3 class="text-2xl font-bold text-gray-800 mb-5">Create a New Log</h3>
-                <form>
-
+                <form method="post" id="new-log-form">
                     <div class="form-input relative mb-4">
-                        <label class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Title</label>
-                        <input type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Project Name">
+                        <label for="title" class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Title</label>
+                        <input id="title" name="title" type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Project Name">
                     </div>
                     <div class="form-input relative mb-2">
-                        <label class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
-                        <textarea type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Description"></textarea>
+                        <label for="description" class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
+                        <textarea id="description" name="description" type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Description"></textarea>
                     </div>
                     <div class="form-input relative mb-4">
-                        <label class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Progress</label>
-                        <input type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Progress">
+                        <label for="progress" class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Progress</label>
+                        <input id="progress" name="progress" type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Progress">
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-600">Type</label>
-                        <select class="w-full p-2 border border-gray-300 rounded-lg">
+                    <div class="form-input relative mb-4">
+                        <label for="type" class="block text-gray-600">Type</label>
+                        <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
                             <option value="" selected disabled hidden>Choose here</option>
                             <option value="1">Design</option>
                             <option value="2">Prototyping</option>
@@ -146,9 +144,15 @@
                             <option value="8">Maintenance</option>
                         </select>
                     </div>
-                    <button class="bg-green-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600">
-                        Add Log +
-                    </button>
+                    <div class="flex flex-row justify-center items-center gap-2">
+                        <input type="hidden" id="userId" name="userId" th:value="${user.id}"/>
+                        <button type="button" id="submitLogBtn" class="bg-green-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600">
+                            Add Log +
+                        </button>
+                        <button type="button" id="closeModalBtn" class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600">
+                            Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
