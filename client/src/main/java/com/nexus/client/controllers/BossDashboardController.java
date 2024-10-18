@@ -1,5 +1,6 @@
 package com.nexus.client.controllers;
 
+import com.nexus.client.models.Project;
 import com.nexus.client.models.User;
 import com.nexus.client.services.ProjectService;
 import com.nexus.client.services.UserService;
