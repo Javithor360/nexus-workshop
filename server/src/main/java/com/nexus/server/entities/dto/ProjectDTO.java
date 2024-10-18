@@ -8,16 +8,16 @@ import java.util.List;
 public class ProjectDTO {
     private Long id;
     private Client client;
-    private User user;
+    private UserDTO user;
     private String title;
     private String description;
     private ProjectStatus status;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDate dueDate;
-    private List<Activity> activities;
+    private List<ActivityDTO> activities;
 
-    public ProjectDTO(Long id, Client client, User user, String title, String description, ProjectStatus status, LocalDate startDate, LocalDate endDate, LocalDate dueDate, List<Activity> activities) {
+    public ProjectDTO(Long id, Client client, UserDTO user, String title, String description, ProjectStatus status, LocalDate startDate, LocalDate endDate, LocalDate dueDate, List<ActivityDTO> activities) {
         this.id = id;
         this.client = client;
         this.user = user;
@@ -49,11 +49,11 @@ public class ProjectDTO {
         this.client = client;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -105,11 +105,11 @@ public class ProjectDTO {
         this.dueDate = dueDate;
     }
 
-    public List<Activity> getActivities() {
+    public List<ActivityDTO> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<Activity> activities) {
+    public void setActivities(List<ActivityDTO> activities) {
         this.activities = activities;
     }
 }
