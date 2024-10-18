@@ -59,4 +59,13 @@ public class BossDashboardController {
         model.addAttribute("pageTitle", "Placeholder");
         return "dashboard/boss/projectManagement";
     }
+
+    @GetMapping("/boss/management/projectDetails")
+    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    public String projectDetails(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("pageTitle", "Placeholder");
+        return "dashboard/boss/projectDetails";
+    }
 }

@@ -8,8 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
-    <script th:src="@{/js/projectManagementBoss.js}"></script>
-    <script th:src="@{/js/gridsToggleProjectManagementBoss.js}"></script>
+    <script th:src="@{/js/BOSS/projectManagementBoss.js}"></script>
+    <script th:src="@{/js/BOSS/gridsToggleProjectManagementBoss.js}"></script>
 
     <style>
         .form-input:focus-within label,
@@ -22,6 +22,14 @@
         .form-input input:focus,
         .form-input select:focus {
             border-color: #FCD34D; /* Tailwind yellow-300 */
+        }
+        /* Hover effect por cards */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
