@@ -9,6 +9,7 @@
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
+    <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
 
     <style>
         .form-input:focus-within label,
@@ -42,7 +43,6 @@
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-red-600" th:case="5">Cancelled</span>
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-purple-500" th:case="6">Under Review</span>
             </div>
-            <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-600">In Progress</span>
         </div>
 
         <form>
@@ -68,93 +68,45 @@
 
         <!-- Table responsive wrapper -->
         <div class="overflow-x-auto bg-white mt-5">
-
             <!-- Table -->
             <table class="min-w-full text-left text-sm whitespace-nowrap">
-
                 <!-- Table head -->
                 <thead class="uppercase tracking-wider border-b-2 bg-neutral-50">
-                <tr>
-                    <th scope="col" class="px-6 py-4">
-                        User
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Title
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Description
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Progress
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Type
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Created at
-                    </th>
+                <tr class="text-center">
+                    <th scope="col" class="px-6 py-4">User</th>
+                    <th scope="col" class="px-6 py-4">Title</th>
+                    <th scope="col" class="px-6 py-4">Description</th>
+                    <th scope="col" class="px-6 py-4">Progress</th>
+                    <th scope="col" class="px-6 py-4">Type</th>
+                    <th scope="col" class="px-6 py-4">Created at</th>
                 </tr>
                 </thead>
 
                 <!-- Table body -->
-                <tbody>
-
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-                
+                <tbody class="text-center">
+                    <!--Each for list all the logs-->
+                    <tr class="border-b hover:bg-neutral-100" th:each="activity : ${project.activities}">
+                        <th scope="row" class="px-6 py-4 capitalize" th:text="${activity.user.username}"></th>
+                        <td class="px-6 py-4 capitalize" th:text="${activity.title}"></td>
+                        <td class="px-6 py-4 capitalize" th:text="${activity.description}"></td>
+                        <td class="px-6 py-4 capitalize" th:text="${activity.percentage}"></td>
+                        <td class="px-6 py-4 capitalize" th:text="${activity.type.name}"></td>
+                        <td class="px-6 py-4" th:text="${activity.createdAt}"></td>
+                    </tr>
                 </tbody>
-
             </table>
-
         </div>
 
         <div class="flex flex-row gap-5 mx-5 mt-5">
-            <button class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600" href="dashboard/employee/management/project">
+            <button class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600" th:href="@{dashboard/employee/management/project}">
                 Back
             </button>
-            <button id="openModalBtn" class="bg-green-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600">
+            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600"
+                    th:disabled="${(project.activities[project.activities.size() - 1].percentage.replace('%', '').trim() == '100') or project.status.id == 3 }">
                 + Add New Log
             </button>
-            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600">
+            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed"
+                    th:disabled="${project.status.id != 3 }">
                 Submit Project
             </button>
         </div>

@@ -9,7 +9,7 @@
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
-    <script th:src="@{/js/modalProjectDetail.js}"></script>
+    <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
 
     <style>
         .form-input:focus-within label,
@@ -31,125 +31,78 @@
     <div class="bg-white p-6 rounded-lg order-1 lg:order-2">
         <div class="flex justify-between items-center">
             <div class="flex-col">
-                <h1 class="text-lg font-bold text-gray-600 mb-2">Project 001</h1>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Project Title</h3>
+                <h1 class="text-lg font-bold text-gray-600 mb-2">Project N° <span th:text="${project.id}"></span></h1>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 capitalize" th:text="${project.title}">Project Title</h3>
             </div>
-            <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-600">In Progress</span>
+
+            <div th:switch="${project.status.id}" id="status-container">
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-yellow-500" th:case="1">Pending</span>
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-600" th:case="2">In Progress</span>
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-orange-500" th:case="3">On Hold</span>
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-green-500" th:case="4">Completed</span>
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-red-600" th:case="5">Cancelled</span>
+                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-purple-500" th:case="6">Under Review</span>
+            </div>
         </div>
 
         <form>
-            <div class="form-input relative mb-2">
-                <label class="absolute block left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
-                <textarea type="text" class="min-h-[10rem] peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200"></textarea>
+            <div class="form-input relative mb-2 has-value">
+                <label class="absolute block left-2 top-2 text-gray-500 bg-transparent transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
+                <textarea type="text" th:text="${project.description}" disabled class="min-h-[10rem] peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200"></textarea>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-600">Customer</label>
-                <select class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option>Alejandra Flores</option>
-                </select>
+                <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.client.name}">
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/2">
                     <label class="block text-gray-600">Start Date</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.startDate}">
                 </div>
                 <div class="w-1/2">
                     <label class="block text-gray-600">Due Date</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.dueDate}">
                 </div>
             </div>
         </form>
 
         <!-- Table responsive wrapper -->
         <div class="overflow-x-auto bg-white mt-5">
-
             <!-- Table -->
             <table class="min-w-full text-left text-sm whitespace-nowrap">
-
                 <!-- Table head -->
                 <thead class="uppercase tracking-wider border-b-2 bg-neutral-50">
-                <tr>
-                    <th scope="col" class="px-6 py-4">
-                        User
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Title
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Description
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Progress
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Type
-                    </th>
-                    <th scope="col" class="px-6 py-4">
-                        Created at
-                    </th>
+                <tr class="text-center">
+                    <th scope="col" class="px-6 py-4">User</th>
+                    <th scope="col" class="px-6 py-4">Title</th>
+                    <th scope="col" class="px-6 py-4">Description</th>
+                    <th scope="col" class="px-6 py-4">Progress</th>
+                    <th scope="col" class="px-6 py-4">Type</th>
+                    <th scope="col" class="px-6 py-4">Created at</th>
                 </tr>
                 </thead>
 
                 <!-- Table body -->
-                <tbody>
-
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
+                <tbody class="text-center">
+                <!--Each for list all the logs-->
+                <tr class="border-b hover:bg-neutral-100" th:each="activity : ${project.activities}">
+                    <th scope="row" class="px-6 py-4 capitalize" th:text="${activity.user.username}"></th>
+                    <td class="px-6 py-4 capitalize" th:text="${activity.title}"></td>
+                    <td class="px-6 py-4 capitalize" th:text="${activity.description}"></td>
+                    <td class="px-6 py-4 capitalize" th:text="${activity.percentage}"></td>
+                    <td class="px-6 py-4 capitalize" th:text="${activity.type.name}"></td>
+                    <td class="px-6 py-4" th:text="${activity.createdAt}"></td>
                 </tr>
-
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-                <tr class="border-b hover:bg-neutral-100">
-                    <th scope="row" class="px-6 py-4">
-                        Boss
-                    </th>
-                    <td class="px-6 py-4">Project Title</td>
-                    <td class="px-6 py-4">Description</td>
-                    <td class="px-6 py-4">75%</td>
-                    <td class="px-6 py-4">Design</td>
-                    <td class="px-6 py-4">2024-01-10</td>
-                </tr>
-
                 </tbody>
-
             </table>
-
         </div>
 
-        <div class="flex flex-row gap-5 mx-5 mt-5">
+        <div class="flex flex-row gap-5 mx-5 mt-5 justify-between">
             <button class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600">
                 Back
             </button>
-            <button id="openModalBtn" class="bg-green-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600">
-                + Add New Log
-            </button>
-            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600">
-                Submit Project
+            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed" th:disabled="${project.status.id == 3 }">
+                Accept Project
             </button>
         </div>
 
