@@ -152,6 +152,11 @@ $.extend({ // Creating a repository of utils functions to use in this file
                 const updatedActivities = await $.getProjectActivities(activityData.projectId, userToken);
                 $.updateButtonStates(updatedActivities, $('#status-container span').text());
 
+                // Check if the progress is 100 and update the project status
+                if (activityData.percentage == 100) {
+                    $('#status-container span').text('Completed').removeClass().addClass('text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-green-500');
+                }
+
                 $.toggleModal(); // Closes the modal
                 $.toast({
                     text: "Activity created successfully",
