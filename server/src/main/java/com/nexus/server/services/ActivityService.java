@@ -1,7 +1,9 @@
 package com.nexus.server.services;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.repositories.IActivityRepository;
+import com.nexus.server.services.extra.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class ActivityService {
 
     private final IActivityRepository activityRepository;
+    private final DTOConverter dtoConverter;
 
     @Autowired
-    public ActivityService(IActivityRepository activityRepository) {
+    public ActivityService(IActivityRepository activityRepository, DTOConverter dtoConverter) {
         this.activityRepository = activityRepository;
+        this.dtoConverter = dtoConverter;
     }
 
     /**
@@ -70,5 +74,10 @@ public class ActivityService {
      */
     public void deleteActivity(Long id) {
         activityRepository.deleteById(id);
+    }
+
+    // Helper method to convert Activity to DTO
+    public ActivityDTO convertToDTO(Activity activity) {
+        return dtoConverter.convertToDTO(activity, dtoConverter.convertToDTO(activity.getUser()));
     }
 }

@@ -3,9 +3,12 @@ package com.nexus.server.services;
 import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.Log;
 import com.nexus.server.entities.Project;
+import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.entities.dto.ProjectDTO;
+import com.nexus.server.entities.dto.UserDTO;
 import com.nexus.server.repositories.ILogRepository;
 import com.nexus.server.repositories.IProjectRepository;
+import com.nexus.server.services.extra.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +22,13 @@ public class ProjectService {
 
     private final IProjectRepository projectRepository;
     private final ILogRepository logRepository;
+    private final DTOConverter dtoConverter;
 
     @Autowired
-    public ProjectService(IProjectRepository projectRepository, IProjectRepository projectRepository1, ILogRepository logRepository) {
+    public ProjectService(IProjectRepository projectRepository, ILogRepository logRepository, DTOConverter dtoConverter) {
         this.projectRepository = projectRepository;
         this.logRepository = logRepository;
+        this.dtoConverter = dtoConverter;
     }
 
     /**
@@ -32,25 +37,7 @@ public class ProjectService {
      */
     public List<ProjectDTO> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
-        return projects.stream().map(project -> {
-            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
-            List<Activity> activities = logs.stream()
-                    .map(Log::getActivity)
-                    .collect(Collectors.toList());
-
-            return new ProjectDTO(
-                    project.getId(),
-                    project.getClient(),
-                    project.getUser(),
-                    project.getTitle(),
-                    project.getDescription(),
-                    project.getStatus(),
-                    project.getStartDate(),
-                    project.getEndDate(),
-                    project.getDueDate(),
-                    activities
-            );
-        }).collect(Collectors.toList());
+        return projects.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     /**
@@ -59,30 +46,7 @@ public class ProjectService {
      * @return Project
      */
     public Optional<ProjectDTO> getProjectById(Long id) {
-        Optional<Project> projectOpt = projectRepository.findById(id);
-        if (projectOpt.isPresent()) {
-            Project project = projectOpt.get();
-            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
-            List<Activity> activities = logs.stream()
-                    .map(Log::getActivity)
-                    .collect(Collectors.toList());
-
-            ProjectDTO projectDTO = new ProjectDTO(
-                    project.getId(),
-                    project.getClient(),
-                    project.getUser(),
-                    project.getTitle(),
-                    project.getDescription(),
-                    project.getStatus(),
-                    project.getStartDate(),
-                    project.getEndDate(),
-                    project.getDueDate(),
-                    activities
-            );
-
-            return Optional.of(projectDTO);
-        }
-        return Optional.empty();
+        return projectRepository.findById(id).map(this::convertToDTO);
     }
 
     /**
@@ -165,26 +129,20 @@ public class ProjectService {
 
     // Helper method to append activities to projects
     private Optional<List<ProjectDTO>> appendActivities(List<Project> projects) {
-        List<ProjectDTO> projectDTOs = projects.stream().map(project -> {
-            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
-            List<Activity> activities = logs.stream()
-                    .map(Log::getActivity)
-                    .collect(Collectors.toList());
-
-            return new ProjectDTO(
-                    project.getId(),
-                    project.getClient(),
-                    project.getUser(),
-                    project.getTitle(),
-                    project.getDescription(),
-                    project.getStatus(),
-                    project.getStartDate(),
-                    project.getEndDate(),
-                    project.getDueDate(),
-                    activities
-            );
-        }).collect(Collectors.toList());
-
+        List<ProjectDTO> projectDTOs = projects.stream().map(this::convertToDTO).collect(Collectors.toList());
         return Optional.of(projectDTOs);
+    }
+
+    // Helper method to convert Project to ProjectDTO
+    private ProjectDTO convertToDTO(Project project) {
+        List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
+        List<ActivityDTO> activityDTOs = logs.stream()
+                .map(Log::getActivity)
+                .map(activity -> dtoConverter.convertToDTO(activity, dtoConverter.convertToDTO(activity.getUser())))
+                .collect(Collectors.toList());
+
+        UserDTO userDTO = dtoConverter.convertToDTO(project.getUser());
+
+        return dtoConverter.convertToDTO(project, userDTO, activityDTOs);
     }
 }
