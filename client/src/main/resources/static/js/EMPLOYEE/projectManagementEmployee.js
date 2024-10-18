@@ -67,11 +67,11 @@ function loadProjects(id, userToken) {
                 const projectCard = `
                     <div class="project-card bg-white p-5 rounded-lg border max-w-sm cursor-pointer" onclick="window.location.href='project/${project.id}'">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-gray-800">${project.title}</h3>
-                            <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full ${statusColor}">${project.status.name}</span>
+                            <h3 class="text-xl font-bold text-gray-800 capitalize">${project.title}</h3>
+                            <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full capitalize ${statusColor}">${project.status.name}</span>
                         </div>
-                        <p class="text-sm text-gray-500 mt-2">Assigned to: ${project.user ? project.user.username : 'Not assigned'}</p>
-                        <p class="text-sm text-gray-500">Customer: ${project.client.name}</p>
+                        <p class="text-sm text-gray-500 mt-2 capitalize">Assigned to: ${project.user ? project.user.username : 'Not assigned'}</p>
+                        <p class="text-sm text-gray-500 capitalize">Customer: ${project.client.name}</p>
                         <p class="text-sm text-gray-500">Due Date: ${project.dueDate}</p>
                     </div>
                 `;
