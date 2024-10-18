@@ -8,60 +8,26 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/dashboard/sin-uso")
-public class DashboardController {
+@RequestMapping("/dashboard")
+public class AdminDashboardController {
 
     @Autowired
     private final UserService userService;
 
-    public DashboardController(UserService userService) {
+    public AdminDashboardController(UserService userService) {
         this.userService = userService;
     }
 
-    /*
-        YOU MAY WANT TO SEPARATE DASHBOARD TYPES
-        INTO INDIVIDUAL CONTROLLERS PER ROLE
-     */
-
-    // ======================================== EMPLOYEE DASHBOARD ========================================
-    /*
-    @GetMapping("/employee/index")
-    @PreAuthorize("hasAuthority('ACCESS_EMPLOYEE_DASHBOARD')")
-    public String employeeDashboard(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        return "dashboard/employee/index";
+    @ModelAttribute
+    public void commonParams(Model model){
+        model.addAttribute("route", "admin");
     }
-
-    // ======================================== BOSS DASHBOARD ========================================
-//    @GetMapping("/boss/index")
-//    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-//    public String bossDashboard(HttpSession session, Model model) {
-//        User user = (User) session.getAttribute("user");
-//        model.addAttribute("user", user);
-//        return "dashboard/boss/index";
-//    }
-
-    @GetMapping("/dashboard/admin")
-    public String adminDashboard(Model model) {
-        model.addAttribute("pageTitle", "Inicio");
-        return "dashboard/admin/index";
-    }
-
-    @GetMapping("/dashboard/admin/management/project")
-    public String projectManagement(Model model) {
-        model.addAttribute("pageTitle", "Gestion de Proyectos");
-        return "dashboard/admin/projectManagement";
-    }
-
-    */
-  
-    // ======================================== ADMIN DASHBOARD ========================================
 
     @GetMapping("/admin/index")
     @PreAuthorize("hasAuthority('ACCESS_ADMIN_DASHBOARD')")
@@ -87,23 +53,27 @@ public class DashboardController {
         User user = (User) session.getAttribute("user");
         List<User> users = userService.getUsers(session.getAttribute("token").toString());
         model.addAttribute("user", user);
-        model.addAttribute("users", users);
+        model.addAttribute("activePage", "users");
         return "dashboard/users";
+    }
+
+    @GetMapping("/admin/management/client")
+    public String clientManagement(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+
+        model.addAttribute("pageTitle", "Client Management");
+        model.addAttribute("activePage", "client");
+        return "management/clientManagement";
     }
 
     @GetMapping("/admin/management/employee")
     public String employeeManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+
+        model.addAttribute("pageTitle", "Employee Management");
         model.addAttribute("activePage", "employee");
         return "management/employeeManagement";
     }
-
-
-    // ======================================== EXTRA ========================================
-    @GetMapping("/unauthorized")
-    public String unauthorizedAccess() {
-        return "error/403";
-    }
-    
 }

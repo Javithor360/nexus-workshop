@@ -1,21 +1,25 @@
-<section class="flex flex-col sm:flex-row justify-between items-center mb-4 px-6" th:fragment="header">
+<header class="flex flex-col sm:flex-row justify-between items-center p-6 px-9 bg-white/30 backdrop-blur-sm fixed right-0 top-0 w-full md:w-[calc(100%-15rem)] z-10" th:fragment="header">
     <div class="mb-4 lg:mb-0 text-center sm:text-left">
-        <h2 class="text-lg font-bold">Hi <span class="capitalize" th:text="${user.username}">%placeholderUsu%</span>, welcome</h2>
-        <h3 class="text-3xl md:text-4xl font-bold text-[#244444] mt-1" th:text="${pageTitle}">%placeholderPage%</h3>
+        <h2 class="text-lg font-bold">Hi <span class="capitalize" th:text="${user.username}">%placeholderUsu%</span>, Welcome!</h2>
+        <h3 class="text-2xl md:text-3xl font-bold text-[#244444] mt-1" th:text="${pageTitle}">%placeholderPage%</h3>
+    </div>
+    <div class="flex gap-2">
+        <div class="flex items-center space-x-2">
+            <div class="text-right">
+                <p class="font-bold text-sm hidden sm:block"><span class="uppercase" th:text="${user.username}">Usuario</span></p>
+                <p class="text-xs text-slate-500 hidden sm:block leading-none" th:switch="${user.role.id}">
+                    <span th:case="1">Admin</span>
+                    <span th:case="2">Manager</span>
+                    <span th:case="3">Employee</span>
+                </p>
+            </div>
+            <div class="w-10 h-10 bg-gray-300 rounded-full hidden sm:block" th:switch="${user.role.id}">
+                <img th:case="1" th:src="@{/img/BOSS.png}" alt="Manager - PFP" class="mx-auto rounded-full">
+                <img th:case="2" th:src="@{/img/BOSS.png}" alt="Manager - PFP" class="mx-auto rounded-full">
+                <img th:case="3" th:src="@{/img/EMPLOYEE.png}" alt="Employee - PFP" class="mx-auto rounded-full">
+            </div>
+        </div>
+
     </div>
 
-
-    <div class="flex items-center space-x-2">
-        <div class="text-right">
-            <span class="font-bold hidden md:inline-block"><span class="capitalize" th:text="${user.username}">%placeholderUsu%</span></span><br>
-            <span class="text-sm text-gray-500 hidden md:inline-block" th:switch="${user.role.id}">
-                <p th:case="2">Manager</p>
-                <p th:case="3">Employee</p>
-            </span>
-        </div>
-        <div class="w-10 h-10 bg-gray-300 rounded-full hidden sm:block" th:switch="${user.role.id}">
-            <img th:case="2" th:src="@{/img/BOSS.png}" alt="Manager - PFP" class="mx-auto rounded-full">
-            <img th:case="3" th:src="@{/img/EMPLOYEE.png}" alt="Employee - PFP" class="mx-auto rounded-full">
-        </div>
-    </div>
-</section>
+</header>
