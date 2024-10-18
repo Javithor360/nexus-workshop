@@ -1,6 +1,7 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.services.ActivityService;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -29,7 +30,7 @@ public class ActivityController {
      * @route GET /api/activities
      */
     @GetMapping
-    public List<Activity> getAllActivities() {
+    public List<ActivityDTO> getAllActivities() {
         return activityService.getAllActivities();
     }
 
@@ -41,9 +42,34 @@ public class ActivityController {
      * @route GET /api/activities/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Activity> getActivityById(@PathVariable Long id) {
+    public ResponseEntity<ActivityDTO> getActivityById(@PathVariable Long id) {
         return ResponseEntity.ok(activityService.getActivityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Activity with id '" + id + "' not found")));
+    }
+
+    /**
+     * Get all activities that match the user id
+     *
+     * @param userId the user id
+     * @return List of all activities related to the user
+     * @route GET /api/activities/user/{userId}
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ActivityDTO>> getAllActivitiesByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(activityService.getAllActivitiesByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities with user id '" + userId + "' not found")));
+    }
+
+    /**
+     * Get all activities that match the project id
+     *
+     * @param projectId the project id
+     * @return List of all activities related to the project
+     */
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<ActivityDTO>> getAllActivitiesByProjectId(@PathVariable Long projectId) {
+        return ResponseEntity.ok(activityService.getAllActivitiesByProjectId(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities with project id '" + projectId + "' not found")));
     }
 
     /**

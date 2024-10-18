@@ -1,6 +1,7 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.Project;
+import com.nexus.server.entities.dto.ProjectDTO;
 import com.nexus.server.services.ProjectService;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -29,7 +30,7 @@ public class ProjectController {
      * @route GET /api/projects
      */
     @GetMapping
-    public List<Project> getAllProjects() {
+    public List<ProjectDTO> getAllProjects() {
         return projectService.getAllProjects();
     }
 
@@ -40,7 +41,7 @@ public class ProjectController {
      * @route GET /api/projects/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Long id) {
         return ResponseEntity.ok(projectService.getProjectById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project with id '" + id + "' not found")));
     }
@@ -53,7 +54,7 @@ public class ProjectController {
      * @route GET /api/projects/user/{userId}
      */
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Project>> getProjectByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<ProjectDTO>> getProjectByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(projectService.getProjectByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("No projects assigned to user with id '" + userId + "' found")));
     }
@@ -65,7 +66,7 @@ public class ProjectController {
      * @route GET /api/projects/title/{title}
      */
     @GetMapping("/title/{title}")
-    public ResponseEntity<List<Project>> getProjectByTitle(@PathVariable String title) {
+    public ResponseEntity<List<ProjectDTO>> getProjectByTitle(@PathVariable String title) {
         return ResponseEntity.ok(projectService.getProjectByTitle(title)
                 .orElseThrow(() -> new ResourceNotFoundException("No projects with title '" + title + "' found")));
     }
@@ -77,7 +78,7 @@ public class ProjectController {
      * @route GET /api/projects/status/{statusId}
      */
     @GetMapping("/status/{statusId}")
-    public ResponseEntity<List<Project>> getProjectByStatusId(@PathVariable Long statusId) {
+    public ResponseEntity<List<ProjectDTO>> getProjectByStatusId(@PathVariable Long statusId) {
         return ResponseEntity.ok(projectService.getProjectByStatusId(statusId)
                 .orElseThrow(() -> new ResourceNotFoundException("No projects with status id '" + statusId + "' found")));
     }
@@ -90,7 +91,7 @@ public class ProjectController {
      * @route GET /api/projects/client/{clientId}
      */
     @GetMapping("/client/{clientId}")
-    public ResponseEntity<List<Project>> getProjectByClientId(@PathVariable Long clientId) {
+    public ResponseEntity<List<ProjectDTO>> getProjectByClientId(@PathVariable Long clientId) {
         return ResponseEntity.ok(projectService.getProjectByClientId(clientId)
                 .orElseThrow(() -> new ResourceNotFoundException("No projects with client id '" + clientId + "' found")));
     }

@@ -23,6 +23,9 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
+    @Value("${jwt.expiration}")
+    private Long EXPIRATION_TIME;
+
     /**
      * Main method to generate a JWT token for a given user
      *
@@ -50,7 +53,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 2 hours
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

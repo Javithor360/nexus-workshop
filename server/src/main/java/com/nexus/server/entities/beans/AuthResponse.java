@@ -1,16 +1,16 @@
 package com.nexus.server.entities.beans;
 
-import com.nexus.server.entities.User;
+import com.nexus.server.entities.dto.UserDTO;
 
 // Bean class to hold the JWT token response
 public class AuthResponse {
-    private User user;
+    private UserDTO user;
     private String token;
 
     public AuthResponse() {
     }
 
-    public AuthResponse(String token, User user) {
+    public AuthResponse(String token, UserDTO user) {
         this.token = token;
         this.user = user;
     }
@@ -23,11 +23,11 @@ public class AuthResponse {
         this.token = token;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }
