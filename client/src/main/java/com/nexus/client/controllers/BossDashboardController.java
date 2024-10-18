@@ -38,7 +38,7 @@ public class BossDashboardController {
     public String clientManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("pageTitle", "Gestión de Clientes");
+        model.addAttribute("pageTitle", "Client Management");
         return "dashboard/boss/clientManagement";
     }
 
@@ -59,8 +59,4 @@ public class BossDashboardController {
         model.addAttribute("pageTitle", "Placeholder");
         return "dashboard/boss/projectManagement";
     }
-
-
-
-
 }
