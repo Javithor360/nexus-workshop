@@ -3,6 +3,7 @@ package com.nexus.server.services.security;
 import com.nexus.server.entities.User;
 import com.nexus.server.entities.beans.AuthResponse;
 import com.nexus.server.entities.beans.LoginRequest;
+import com.nexus.server.entities.dto.UserDTO;
 import com.nexus.server.repositories.IUserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,8 +31,18 @@ public class AuthService {
      */
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.generateToken(user);
+        User userEntity = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        String token = jwtService.generateToken(userEntity);
+
+        UserDTO user = new UserDTO(
+                userEntity.getId(),
+                userEntity.getUsername(),
+                userEntity.getRole(),
+                userEntity.getDui(),
+                userEntity.getEmail(),
+                userEntity.getGender(),
+                userEntity.getBirthday()
+        );
         return new AuthResponse(token, user);
     }
 }
