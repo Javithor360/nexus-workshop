@@ -1,29 +1,56 @@
 package com.nexus.server.services;
 
+import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.Log;
 import com.nexus.server.entities.Project;
+import com.nexus.server.entities.dto.ProjectDTO;
+import com.nexus.server.repositories.ILogRepository;
 import com.nexus.server.repositories.IProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
 
     private final IProjectRepository projectRepository;
+    private final ILogRepository logRepository;
 
     @Autowired
-    public ProjectService(IProjectRepository projectRepository) {
+    public ProjectService(IProjectRepository projectRepository, IProjectRepository projectRepository1, ILogRepository logRepository) {
         this.projectRepository = projectRepository;
+        this.logRepository = logRepository;
     }
 
     /**
      * Get all projects
      * @return List of all projects
      */
-    public List<Project> getAllProjects() {
-        return projectRepository.findAll();
+    public List<ProjectDTO> getAllProjects() {
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream().map(project -> {
+            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
+            List<Activity> activities = logs.stream()
+                    .map(Log::getActivity)
+                    .collect(Collectors.toList());
+
+            return new ProjectDTO(
+                    project.getId(),
+                    project.getClient(),
+                    project.getUser(),
+                    project.getTitle(),
+                    project.getDescription(),
+                    project.getStatus(),
+                    project.getStartDate(),
+                    project.getEndDate(),
+                    project.getDueDate(),
+                    activities
+            );
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -31,8 +58,31 @@ public class ProjectService {
      * @param id Project id
      * @return Project
      */
-    public Optional<Project> getProjectById(Long id) {
-        return projectRepository.findById(id);
+    public Optional<ProjectDTO> getProjectById(Long id) {
+        Optional<Project> projectOpt = projectRepository.findById(id);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
+            List<Activity> activities = logs.stream()
+                    .map(Log::getActivity)
+                    .collect(Collectors.toList());
+
+            ProjectDTO projectDTO = new ProjectDTO(
+                    project.getId(),
+                    project.getClient(),
+                    project.getUser(),
+                    project.getTitle(),
+                    project.getDescription(),
+                    project.getStatus(),
+                    project.getStartDate(),
+                    project.getEndDate(),
+                    project.getDueDate(),
+                    activities
+            );
+
+            return Optional.of(projectDTO);
+        }
+        return Optional.empty();
     }
 
     /**
@@ -40,8 +90,9 @@ public class ProjectService {
      * @param userId User id
      * @return Projects that match the user id provided
      */
-    public Optional<List<Project>> getProjectByUserId(Long userId) {
-        return Optional.of(projectRepository.findByUserId(userId));
+    public Optional<List<ProjectDTO>> getProjectByUserId(Long userId) {
+        List<Project> projects = projectRepository.findByUserId(userId);
+        return appendActivities(projects);
     }
 
     /**
@@ -49,8 +100,9 @@ public class ProjectService {
      * @param title Project title
      * @return Project(s) that match the title provided
      */
-    public Optional<List<Project>> getProjectByTitle(String title) {
-        return Optional.of(projectRepository.findByTitle(title));
+    public Optional<List<ProjectDTO>> getProjectByTitle(String title) {
+        List<Project> projects = projectRepository.findByTitle(title);
+        return appendActivities(projects);
     }
 
     /**
@@ -58,8 +110,9 @@ public class ProjectService {
      * @param statusId Status id
      * @return Projects that match the status id provided
      */
-    public Optional<List<Project>> getProjectByStatusId(Long statusId) {
-        return Optional.of(projectRepository.findByStatusId(statusId));
+    public Optional<List<ProjectDTO>> getProjectByStatusId(Long statusId) {
+        List<Project> projects = projectRepository.findByStatusId(statusId);
+        return appendActivities(projects);
     }
 
     /**
@@ -67,8 +120,9 @@ public class ProjectService {
      * @param clientId Client id
      * @return Projects that match the client id provided
      */
-    public Optional<List<Project>> getProjectByClientId(Long clientId) {
-        return Optional.of(projectRepository.findByClientId(clientId));
+    public Optional<List<ProjectDTO>> getProjectByClientId(Long clientId) {
+        List<Project> projects = projectRepository.findByClientId(clientId);
+        return appendActivities(projects);
     }
 
     /**
@@ -107,5 +161,30 @@ public class ProjectService {
      */
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);
+    }
+
+    // Helper method to append activities to projects
+    private Optional<List<ProjectDTO>> appendActivities(List<Project> projects) {
+        List<ProjectDTO> projectDTOs = projects.stream().map(project -> {
+            List<Log> logs = logRepository.findByProjectId(project.getId()).orElseThrow();
+            List<Activity> activities = logs.stream()
+                    .map(Log::getActivity)
+                    .collect(Collectors.toList());
+
+            return new ProjectDTO(
+                    project.getId(),
+                    project.getClient(),
+                    project.getUser(),
+                    project.getTitle(),
+                    project.getDescription(),
+                    project.getStatus(),
+                    project.getStartDate(),
+                    project.getEndDate(),
+                    project.getDueDate(),
+                    activities
+            );
+        }).collect(Collectors.toList());
+
+        return Optional.of(projectDTOs);
     }
 }
