@@ -3,6 +3,7 @@ package com.nexus.server.services;
 import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.Log;
 import com.nexus.server.entities.Project;
+import com.nexus.server.entities.ProjectStatus;
 import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.repositories.IActivityRepository;
 import com.nexus.server.repositories.ILogRepository;
@@ -109,6 +110,16 @@ public class ActivityService {
 
         // Save the log entry
         logRepository.save(log);
+
+        // Check if the activity percentage is 100.0
+        if (activityType.getPercentage() == 100.0) {
+            ProjectStatus status = new ProjectStatus();
+            status.setId(4L);
+            status.setName(null);
+
+            project.setStatus(status);
+            projectRepository.save(project);
+        }
 
         return savedActivity;
     }
