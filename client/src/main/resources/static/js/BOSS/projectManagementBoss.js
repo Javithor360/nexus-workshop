@@ -64,7 +64,7 @@ function loadProjects(userToken) {
 
                 // Create the project card
                 const projectCard = `
-                    <div class="bg-white p-5 rounded-lg border max-w-sm">
+                    <div class="project-card bg-white p-5 rounded-lg border max-w-sm cursor-pointer" onclick="window.location.href='project/${project.id}'">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-bold text-gray-800">${project.title}</h3>
                             <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full ${statusColor}">${project.status.name}</span>
