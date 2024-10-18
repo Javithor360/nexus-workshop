@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutDashboard.html}">
+<head>
+    <title>Project Management | Employee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="@{/js/getTokenRequest.js}"></script>
+    <script th:src="@{/js/projectManagementEmployee.js}"></script>
+
+    <style>
+        /* Inputs styles */
+        .form-input:focus-within label,
+        .form-input.has-value label {
+            transform: translateY(-1.4rem) translateX(0.25rem);
+            color: #718096;
+            background-color: white;
+            padding: 0 0.25rem;
+        }
+        .form-input input:focus,
+        .form-input select:focus {
+            border-color: #FCD34D; /* Tailwind yellow-300 */
+        }
+        /* Hover effect por cards */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="custom-content">
+
+    <!-- Project Counters -->
+    <section class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-5 gap-4 2xl:gap-5 mb-5 p-5 border">
+
+        <!-- Total Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-gray-300 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">Total Projects</label>
+            <label id="total-projects" class="border border-gray-300 bg-gray-500 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- Completed Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-green-500 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">Completed</label>
+            <label id="completed-projects" class="bg-green-500 border border-green-500 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- In Progress Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-blue-600 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">In Progress</label>
+            <label id="in-progress-projects" class="bg-blue-600 border border-blue-600 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- Cancelled Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-red-600 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">Cancelled</label>
+            <label id="cancelled-projects" class="bg-red-600 border border-red-600 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- On Hold Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-orange-500 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">On Hold</label>
+            <label id="on-hold-projects" class="bg-orange-500 border border-orange-500 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- Pending Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-yellow-500 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">Pending</label>
+            <label id="pending-projects" class="bg-yellow-500 border border-yellow-500 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+        <!-- Under Review Projects -->
+        <div class="flex flex-row justify-center w-full">
+            <label class="border border-purple-500 rounded-l-lg w-full px-4 py-2 sm:px-[2rem] text-center content-center">Under Review</label>
+            <label id="under-review-projects" class="bg-purple-500 border border-purple-500 text-white font-bold rounded-r-lg px-4 py-2 text-center content-center">0</label>
+        </div>
+
+    </section>
+
+    <!-- Project List -->
+    <section id="project-grid" class="grid grid-cols-1 lg:grid-cols-1 gap-4 border p-5">
+
+        <!-- Scrollable Container -->
+        <div class="order-2 lg:order-1 overflow-y-auto max-h-[28rem] rounded-lg">
+            <section id="scrollable-container" class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 p-5">
+            </section>
+        </div>
+
+    </section>
+</main>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -15,48 +15,41 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/dashboard")
-public class BossDashboardController {
+public class EmployeeDashboardController {
 
     @Autowired
     private final UserService userService;
 
-    public BossDashboardController(UserService userService) {
+    public EmployeeDashboardController(UserService userService) {
         this.userService = userService;
     }
 
-    // ======================================== BOSS DASHBOARD ========================================
-    @GetMapping("/boss/index")
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    // ======================================== Employee Dashboard ========================================
+    @GetMapping("/employee/index")
+    @PreAuthorize("hasAuthority('ACCESS_EMPLOYEE_DASHBOARD')")
     public String bossDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         return "dashboard/boss/index";
     }
 
-    @GetMapping("/boss/management/client")
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-    public String clientManagement(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);
-        model.addAttribute("pageTitle", "Client Management");
-        return "dashboard/boss/clientManagement";
-    }
+    // ======================================== Employee Projects Management ========================================
 
-    @GetMapping("/boss/management/client/get") // === Request to get clients
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
-    @ResponseBody
-    public List<User> clientList(HttpSession session) {
-        return userService.getUsers(session.getAttribute("token").toString());
-    }
-
-    // ======================================== Boss Projects Management ========================================
-
-    @GetMapping("/boss/management/project")
-    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    @GetMapping("/employee/management/project")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
     public String projectManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("pageTitle", "Placeholder");
-        return "dashboard/boss/projectManagement";
+        return "dashboard/employee/projectManagement";
+    }
+
+    @GetMapping("/employee/management/projectDetails")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    public String projectDetails(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("pageTitle", "Placeholder");
+        return "dashboard/employee/projectDetails";
     }
 }
