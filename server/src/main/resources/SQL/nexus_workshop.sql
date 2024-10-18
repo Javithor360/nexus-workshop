@@ -32,7 +32,7 @@ CREATE TABLE `activities` (
                               `user_id` bigint NOT NULL,
                               `title` varchar(100) NOT NULL,
                               `description` varchar(255) DEFAULT NULL,
-                              `percentage` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+                              `percentage` double DEFAULT '0',
                               `type_id` bigint DEFAULT NULL,
                               `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -86,8 +86,8 @@ CREATE TABLE `logs` (
                         `id` bigint NOT NULL,
                         `project_id` bigint DEFAULT NULL,
                         `activity_id` bigint DEFAULT NULL
-#                         ,`date` date NOT NULL,
-#                         `description` varchar(255) DEFAULT NULL
+                            #                         ,`date` date NOT NULL,
+                        #                         `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -147,8 +147,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`) VALUES
-                                       (1, 'admin'),
-                                       (2, 'employee');
+                                       (1, 'ADMIN'),
+                                       (2, 'BOSS'),
+                                       (3, 'EMPLOYEE');
 
 -- --------------------------------------------------------
 

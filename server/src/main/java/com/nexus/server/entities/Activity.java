@@ -1,7 +1,9 @@
 package com.nexus.server.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -13,53 +15,31 @@ public class Activity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "title", nullable = false, length = 100)
-    private String title;
-
-    @Column(name = "description")
-    private String description;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
-    private ActivityType type;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
-
-    @Size(max = 6)
-    @Column(name = "percentage", length = 6)
-    private String percentage;
-
-    /**
-     * Data Relationships -----------------------------------------------------
-     */
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "title", nullable = false, length = 100)
+    private String title;
 
-    public Project getProject() {
-        return project;
-    }
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    @ColumnDefault("0")
+    @Column(name = "percentage")
+    private Double percentage;
 
-    /**
-     * Getters and Setters ---------------------------------------------------
-     */
-    public String getPercentage() {
-        return percentage;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "type_id", nullable = false)
+    private ActivityType type;
 
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
-    }
+    @NotNull
+    @Column(name = "created_at", nullable = false)
+    private LocalDate createdAt;
 
     public Long getId() {
         return id;
@@ -91,6 +71,14 @@ public class Activity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(Double percentage) {
+        this.percentage = percentage;
     }
 
     public ActivityType getType() {

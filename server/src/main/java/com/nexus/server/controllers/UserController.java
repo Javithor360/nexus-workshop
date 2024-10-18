@@ -1,7 +1,9 @@
 package com.nexus.server.controllers;
 
-import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.User;
+import com.nexus.server.entities.dto.ActivityDTO;
+import com.nexus.server.entities.dto.ProjectDTO;
+import com.nexus.server.entities.dto.UserDTO;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import com.nexus.server.services.UserService;
 import jakarta.validation.Valid;
@@ -37,7 +39,7 @@ public class UserController {
      * @route GET /api/users
      */
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
@@ -49,7 +51,7 @@ public class UserController {
      * @route GET /api/users/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id '" + id + "' not found")));
     }
@@ -62,7 +64,7 @@ public class UserController {
      * @route GET /api/users/username/{username}
      */
     @GetMapping("/username/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User with username '" + username + "' not found")));
     }
@@ -75,18 +77,10 @@ public class UserController {
      * @route GET /api/users/email/{email}
      */
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(userService.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User with email '" + email + "' not found")));
     }
-
-    /**
-     * Create user
-     *
-     * @param user User
-     * @return User
-     * @route POST /api/users
-     */
 
     /**
      * Create a user - Request body:
@@ -104,8 +98,9 @@ public class UserController {
      * }
      * </pre>
      *
+     * @param user User
      * @return User
-     * @route GET /api/user
+     * @route POST /api/users
      */
 
     @PostMapping
@@ -146,9 +141,32 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    /* ================================= EXTRA METHODS ================================= */
+
+    /**
+     * Get user activities
+     *
+     * @param id User id
+     * @return List of activities
+     * @route GET /api/users/{id}/activities
+     */
     @GetMapping("/{id}/activities")
-    public List<Activity> getUserActivities(@PathVariable Long id) {
-        return userService.getUserActivities(id);
+    public ResponseEntity<List<ActivityDTO>> getUserActivities(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserActivities(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities not found for user with id: " + id)));
+    }
+
+    /**
+     * Get assigned projects by user id
+     *
+     * @param id User id
+     * @return List of projects
+     * @route GET /api/users/{id}/projects
+     */
+    @GetMapping("/{id}/projects")
+    public ResponseEntity<List<ProjectDTO>> getUserProjects(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserProjects(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Projects not found for user with id: " + id)));
     }
 
 }

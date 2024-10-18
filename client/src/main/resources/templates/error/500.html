@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Internal Server Error</title>
+    <title>500 - Internal Server Error</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>500 - Internal Server Error</h1>
-<p>Something went wrong on our end. Please try again later.</p>
-<a href="/">Return to Home</a>
+    <div class="min-h-screen w-full flex flex-col items-center justify-center bg-white text-gray-900">
+        <h1 class="text-[180px] font-bold leading-none tracking-tighter">
+            500
+        </h1>
+        <div class="text-sm uppercase tracking-widest text-center max-w-md px-4">
+            <p class="font-bold">Internal Server Error</p>
+            <p class="mt-2">
+                Something went wrong on our end. Please try again later.
+            </p>
+            <a href="/" class="inline-block mt-8 px-6 py-2 border-2 border-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-200">
+                Return Home
+            </a>
+        </div>
+    </div>
 </body>
 </html>

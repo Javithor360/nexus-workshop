@@ -54,7 +54,7 @@ public class User implements UserDetails {
     /**
      * Data Relationships -----------------------------------------------------
      */
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    /*@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Activity> activities;
 
     public List<Activity> getActivities() {
@@ -63,7 +63,7 @@ public class User implements UserDetails {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
-    }
+    }*/
 
     /**
      * Getters and Setters ---------------------------------------------------
@@ -135,7 +135,7 @@ public class User implements UserDetails {
     // UserDetails overridden methods for authentication
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.getName())));
+        return List.of(new SimpleGrantedAuthority((role != null) ? role.getName() : "UNDEFINED"));
     }
 
     @Override

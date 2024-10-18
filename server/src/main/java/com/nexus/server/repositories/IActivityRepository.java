@@ -10,8 +10,6 @@ import java.util.List;
 public interface IActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByUserId(Long userId);
 
-    List<Activity> findByProjectId(Long projectId);
-
     List<Activity> findByTypeId(Long activityTypeId);
 
     /**
@@ -19,6 +17,4 @@ public interface IActivityRepository extends JpaRepository<Activity, Long> {
      */
 
     List<Activity> findAllByUserId(Long userId);
-
-    List<Activity> findAllByProjectId(Long projectId);
 }

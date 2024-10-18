@@ -1,6 +1,8 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.Activity;
+import com.nexus.server.entities.beans.ActivityRequest;
+import com.nexus.server.entities.dto.ActivityDTO;
 import com.nexus.server.services.ActivityService;
 import com.nexus.server.utils.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -29,7 +31,7 @@ public class ActivityController {
      * @route GET /api/activities
      */
     @GetMapping
-    public List<Activity> getAllActivities() {
+    public List<ActivityDTO> getAllActivities() {
         return activityService.getAllActivities();
     }
 
@@ -41,30 +43,69 @@ public class ActivityController {
      * @route GET /api/activities/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Activity> getActivityById(@PathVariable Long id) {
+    public ResponseEntity<ActivityDTO> getActivityById(@PathVariable Long id) {
         return ResponseEntity.ok(activityService.getActivityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Activity with id '" + id + "' not found")));
+    }
+
+    /**
+     * Get all activities that match the user id
+     *
+     * @param userId the user id
+     * @return List of all activities related to the user
+     * @route GET /api/activities/user/{userId}
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ActivityDTO>> getAllActivitiesByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(activityService.getAllActivitiesByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities with user id '" + userId + "' not found")));
+    }
+
+    /**
+     * Get all activities that match the project id
+     *
+     * @param projectId the project id
+     * @return List of all activities related to the project
+     */
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<ActivityDTO>> getAllActivitiesByProjectId(@PathVariable Long projectId) {
+        return ResponseEntity.ok(activityService.getAllActivitiesByProjectId(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Activities with project id '" + projectId + "' not found")));
     }
 
     /**
      * Create activity - Request body:
      * <pre>
      *     {
+     *         "projectId": 1,
      *         "title": "Activity N°",
      *         "description": "This is an activity example",
      *         "percentage": "10%",
-     *         "type_id":   1,
-     *         "user_id": 1
+     *         "type": {
+     *             "id": 1,
+     *         },
+     *         "user": {
+     *             "id": 1
+     *         },
+     *         "createdAt": "2021-10-10"
      *     }
      * </pre>
      *
-     * @param activity Activity
+     * @param activityRequest activity
      * @return Activity
      * @route POST /api/activities
      */
     @PostMapping
-    public ResponseEntity<Activity> createActivity(@Valid @RequestBody Activity activity) {
-        return ResponseEntity.ok(activityService.createActivity(activity));
+    public ResponseEntity<Activity> createActivity(@Valid @RequestBody ActivityRequest activityRequest) {
+        Activity activity = new Activity();
+        activity.setTitle(activityRequest.getTitle());
+        activity.setDescription(activityRequest.getDescription());
+        activity.setPercentage(activityRequest.getPercentage());
+        activity.setType(activityRequest.getType());
+        activity.setUser(activityRequest.getUser());
+        activity.setCreatedAt(activityRequest.getCreatedAt());
+
+        return ResponseEntity.ok(activityService.createActivity(activity, activityRequest.getProjectId()));
     }
 
     /**
