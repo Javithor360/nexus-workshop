@@ -11,13 +11,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 </head>
 <body class="font-poppins">
-    <div class="w-full h-svh relative flex">
+    <div class="w-full relative flex overflow-hidden">
         <!-- ASIDE O MENU LATERAL -->
         <aside th:insert="fragments/assets/sidebar.html :: aside"></aside>
+        <!-- HEADER -->
+        <header th:insert="fragments/assets/navbar.html :: header"></header>
 
-        <main class="p-4 w-full h-full overflow-hidden overflow-y-auto">
-            <!-- HEADER -->
-            <header class="p-2" th:insert="fragments/assets/navbar.html :: header"></header>
+        <main class="p-4 pt-28 w-full max-h-svh overflow-hidden overflow-y-auto h-full relative">
 
                 <div layout:fragment="custom-content">
                     <!-- Contenido dinámico -->

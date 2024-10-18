@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,10 +24,12 @@ public class BossDashboardController {
     @Autowired
     private final UserService userService;
 
-    @Autowired
-    private final ProjectService projectService;
+    @ModelAttribute
+    public void commonParams(Model model){
+        model.addAttribute("route", "boss");
+    }
 
-    public BossDashboardController(UserService userService, ProjectService projectService) {
+    public BossDashboardController(UserService userService) {
         this.userService = userService;
         this.projectService = projectService;
     }
@@ -37,7 +40,9 @@ public class BossDashboardController {
     public String bossDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "dashboard/boss/index";
+        model.addAttribute("pageTitle", "Dashboard");
+        model.addAttribute("activePage", "home");
+        return "dashboard/index";
     }
 
     // ======================================== BOSS CLIENT MANAGEMENT ========================================
@@ -46,8 +51,21 @@ public class BossDashboardController {
     public String clientManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+
         model.addAttribute("pageTitle", "Client Management");
-        return "dashboard/boss/clientManagement";
+        model.addAttribute("activePage", "client");
+        return "management/clientManagement";
+    }
+
+    @GetMapping("/boss/management/employee")
+    @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
+    public String employeeManagement(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+
+        model.addAttribute("pageTitle", "Employee Management");
+        model.addAttribute("activePage", "employee");
+        return "management/employeeManagement";
     }
 
     // ======================================== BOSS PROJECT MANAGEMENT ========================================
