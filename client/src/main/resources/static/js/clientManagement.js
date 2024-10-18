@@ -7,7 +7,8 @@ $(document).ready(async function() {
         if($.validateClientForm()){ // Validating form
             const userData = $.getFormData('client-form'); // Obtaining data of the form to crate the body of the request
 
-            if(userData.id == null){ // If the id is undefined...
+            if(userData.id === ''){ // If the id is undefined...
+                delete userData.id; // Delete the id from the object to send a clean object to the AJAX function
                 $.createClient(userData, userToken); // Call the function to CREATE a client
             }else{ // If the id exists...
                 const id = userData.id; // Save the id to use it before delete
@@ -115,6 +116,7 @@ $.extend({ // Creating a repository of utils functions to use in this file
 
     resetClientForm: function (){
         $('#client-form')[0].reset(); // Clearing all the inputs
+        $('input#id').val(''); // Clearing the id in the hidden input
 
         $('.form-input input').each(function () { // For each input this function is applied to delete the class 'has-value'
             if ($(this).val().length === 0) {
