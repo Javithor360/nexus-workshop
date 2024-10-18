@@ -1,12 +1,13 @@
 $(document).ready(async function() {
     let userToken = await getTokenRequest(); // Get the user's token
+    let userId = $('#userId').val();
 
-    await loadProjects(userToken); // Load projects
+    await loadProjects(userId, userToken); // Load projects
 });
 
-function loadProjects(userToken) {
+function loadProjects(id, userToken) {
     $.ajax({
-        url: 'http://localhost:8081/api/projects',  // Server URL
+        url: `http://localhost:8081/api/users/${id}/projects`,  // Server URL
         method: 'GET', // HTTP Method
         headers: {
             'Authorization': 'Bearer ' + userToken,
