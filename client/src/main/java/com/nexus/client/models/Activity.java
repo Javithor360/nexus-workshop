@@ -11,7 +11,7 @@ public class Activity {
     private String description;
     private ActivityType type;
     private LocalDate createdAt;
-    private String percentage;
+    private double percentage;
     private User user;
 
     // Constructor
@@ -38,9 +38,9 @@ public class Activity {
 
     public void setCreatedAt(LocalDate createdAt) { this.createdAt = createdAt; }
 
-    public String getPercentage() { return percentage; }
+    public double getPercentage() { return percentage; }
 
-    public void setPercentage(String percentage) { this.percentage = percentage; }
+    public void setPercentage(double percentage) { this.percentage = percentage; }
 
     public User getUser() { return user; }
 

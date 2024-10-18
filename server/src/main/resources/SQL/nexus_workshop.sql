@@ -32,7 +32,7 @@ CREATE TABLE `activities` (
                               `user_id` bigint NOT NULL,
                               `title` varchar(100) NOT NULL,
                               `description` varchar(255) DEFAULT NULL,
-                              `percentage` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+                              `percentage` double DEFAULT '0',
                               `type_id` bigint DEFAULT NULL,
                               `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
