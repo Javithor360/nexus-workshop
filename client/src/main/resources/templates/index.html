@@ -3,12 +3,10 @@
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title>Index</title>
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/main.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
-    <aside th:insert="fragments/assets/sidebar.html :: aside" ></aside>
-
     <main layout:fragment="custom-content">
         <!-- Contenido dinámico -->
         <h1 class="mt-2 text-xl font-bold text-8xl text-red-700" th:text="'Hello word!'" />
