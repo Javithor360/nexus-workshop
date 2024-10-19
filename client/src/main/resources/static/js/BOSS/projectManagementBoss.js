@@ -20,10 +20,6 @@ function loadProjects(userToken) {
             let totalProjects = 0;
             let deliveredProjects = 0;
             let inProgressProjects = 0;
-            let onHoldProjects = 0;
-            let pendingProjects = 0;
-            let cancelledProjects = 0;
-            let underReviewProjects = 0;
 
             // Loop through each project and process it
             projects.forEach(project => {
@@ -33,29 +29,13 @@ function loadProjects(userToken) {
                 // Set status color and update counters based on project status
                 let statusColor = '';
                 switch (project.status.name) {
-                    case 'Pending':
-                        pendingProjects++;
-                        statusColor = 'bg-yellow-500'; // Pending
-                        break;
                     case 'In Progress':
                         inProgressProjects++;
                         statusColor = 'bg-blue-600'; // In Progress
                         break;
-                    case 'On Hold':
-                        onHoldProjects++;
-                        statusColor = 'bg-orange-500'; // On Hold
-                        break;
                     case 'Completed':
                         deliveredProjects++;
                         statusColor = 'bg-green-500'; // Completed
-                        break;
-                    case 'Cancelled':
-                        cancelledProjects++;
-                        statusColor = 'bg-red-600'; // Cancelled
-                        break;
-                    case 'Under Review':
-                        underReviewProjects++;
-                        statusColor = 'bg-purple-500'; // Under Review
                         break;
                     default:
                         statusColor = 'bg-gray-500'; // Default status
@@ -83,10 +63,6 @@ function loadProjects(userToken) {
             $('#total-projects').text(totalProjects);
             $('#completed-projects').text(deliveredProjects);
             $('#in-progress-projects').text(inProgressProjects);
-            $('#on-hold-projects').text(onHoldProjects);
-            $('#cancelled-projects').text(cancelledProjects);
-            $('#under-review-projects').text(underReviewProjects);
-            $('#pending-projects').text(pendingProjects);
         },
         error: function (xhr, status, error) {
             console.error('Error loading projects:', error); // Error handling

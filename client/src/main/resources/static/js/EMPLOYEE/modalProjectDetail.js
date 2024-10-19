@@ -191,7 +191,7 @@ $.extend({ // Creating a repository of utils functions to use in this file
                                 <th scope="row" class="px-6 py-4 capitalize">${activity.user.username}</th>
                                 <td class="px-6 py-4 capitalize">${activity.title}</td>
                                 <td class="px-6 py-4 capitalize">${activity.description}</td>
-                                <td class="px-6 py-4 capitalize">${activity.percentage}</td>
+                                <td class="px-6 py-4 capitalize">${activity.percentage}%</td>
                                 <td class="px-6 py-4 capitalize">${activity.type.name}</td>
                                 <td class="px-6 py-4">${activity.createdAt}</td>
                             </tr>
