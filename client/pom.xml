@@ -70,7 +70,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -99,12 +103,12 @@
 										<command>npm.cmd install</command>
 									</exec>
 								</task>
-								<!-- then start watch task in the background and output the result to `src/main/resources/static/main.css` -->
+								<!-- then start watch task in the background and output the result to `src/main/resources/static/css/main.css` -->
 								<task>
 									<async>true</async>
 									<exec>
 										<directory>src/main/frontend</directory>
-										<command>npm.cmd run watch -- -o ../resources/static/main.css</command>
+										<command>npm.cmd run watch -- -o ../resources/static/css/main.css</command>
 									</exec>
 								</task>
 								<!--
@@ -115,7 +119,7 @@
 									<async>true</async>
 									<exec>
 										<directory>src/main/frontend</directory>
-										<command>npm run watch -- -o ${project.build.directory}/classes/static/main.css</command>
+										<command>npm run watch -- -o ${project.build.directory}/classes/static/css/main.css</command>
 									</exec>
 								</task>
 								<task>

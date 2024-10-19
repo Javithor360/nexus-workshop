@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +24,11 @@ public class EmployeeDashboardController {
     @Autowired
     private final ProjectService projectService;
 
+    @ModelAttribute
+    public void commonParams(Model model){
+        model.addAttribute("route", "employee");
+    }
+
     public EmployeeDashboardController(UserService userService, ProjectService projectService) {
         this.userService = userService;
         this.projectService = projectService;
@@ -38,7 +40,10 @@ public class EmployeeDashboardController {
     public String bossDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "dashboard/boss/index";
+        // Info Page
+        model.addAttribute("pageTitle", "Dashboard");
+        model.addAttribute("activePage", "home");
+        return "dashboard/index";
     }
 
     // ======================================== EMPLOYEE PROJECTS MANAGEMENT ========================================
@@ -48,7 +53,9 @@ public class EmployeeDashboardController {
     public String projectManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("pageTitle", "Project Management");
+        // Info Page
+        model.addAttribute("pageTitle", "Your Projects");
+        model.addAttribute("activePage", "projects");
         return "dashboard/employee/projectManagement";
     }
 
@@ -58,6 +65,7 @@ public class EmployeeDashboardController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         model.addAttribute("pageTitle", "Project Details");
+        model.addAttribute("activePage", "projects");
 
         Project project = projectService.getProject(id, session.getAttribute("token").toString()); // Getting the specific project via id
         model.addAttribute("project", project); // Adding the attribute to the view
