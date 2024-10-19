@@ -10,20 +10,7 @@
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
-
-    <style>
-        .form-input:focus-within label,
-        .form-input.has-value label {
-            transform: translateY(-1.4rem) translateX(0.25rem);
-            color: #718096;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .form-input input:focus,
-        .form-input select:focus {
-            border-color: #FCD34D; /* Tailwind yellow-300 */
-        }
-    </style>
+    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
 </head>
 <body>
 <main layout:fragment="custom-content" class="mx-0 2xl:mx-[8rem]">

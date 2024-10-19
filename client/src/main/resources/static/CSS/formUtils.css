@@ -1,0 +1,21 @@
+.form-input:focus-within label,
+.form-input.has-value label {
+    transform: translateY(-1.4rem) translateX(0.25rem);
+    color: #718096;
+    background-color: white;
+    padding: 0 0.25rem;
+}
+.form-input input:focus,
+.form-input textarea:focus{
+    border-color: #FCD34D;
+}
+.form-input div.error{
+    color: rgb(239 68 68);
+    margin-top: 0.25rem;
+    text-align: center;
+}
+.form-input div.error:before{
+    content: "⚠";
+    margin-right: 0.25rem;;
+}
+#modal { transition: opacity 0.3s ease-in-out; }

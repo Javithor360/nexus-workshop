@@ -9,29 +9,7 @@
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
-
-    <style>
-        /* Inputs styles */
-        .form-input:focus-within label,
-        .form-input.has-value label {
-            transform: translateY(-1.4rem) translateX(0.25rem);
-            color: #718096;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .form-input input:focus,
-        .form-input select:focus {
-            border-color: #FCD34D; /* Tailwind yellow-300 */
-        }
-        /* Hover effect por cards */
-        .project-card {
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
 </head>
 <body>
 <main layout:fragment="custom-content">

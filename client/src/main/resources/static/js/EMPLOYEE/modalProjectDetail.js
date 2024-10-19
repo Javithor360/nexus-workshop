@@ -103,8 +103,9 @@ $.extend({ // Creating a repository of utils functions to use in this file
     resetClientForm: function () {
         $('#new-log-form')[0].reset(); // Clearing all the inputs
         $('input#id').val(''); // Clearing the id in the hidden input
+        $('.form-input select').parent().removeClass('has-value');
 
-        $('.form-input input').each(function () { // For each input this function is applied to delete the class 'has-value'
+        $('.form-input input, .form-input textarea').each(function () { // For each input this function is applied to delete the class 'has-value'
             if ($(this).val().length === 0) {
                 $(this).parent().removeClass('has-value');
             }

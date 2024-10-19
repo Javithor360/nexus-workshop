@@ -10,33 +10,7 @@
     <script th:src="@{/js/getTokenRequest.js}"></script>
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
-
-    <style>
-        .form-input:focus-within label,
-        .form-input.has-value label {
-            transform: translateY(-1.4rem) translateX(0.25rem);
-            color: #718096;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .form-input input:focus,
-        .form-input textarea:focus,
-        .form-input select:focus {
-            border-color: #FCD34D;
-        }
-        .form-input div.error{
-            color: rgb(239 68 68);
-            margin-top: 0.25rem;
-            text-align: center;
-        }
-        .form-input div.error:before{
-            content: "⚠";
-            margin-right: 0.25rem;;
-        }
-        #modal {
-            transition: opacity 0.3s ease-in-out;
-        }
-    </style>
+    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
 </head>
 <body>
 <main layout:fragment="custom-content" class="mx-0 2xl:mx-[8rem]">
@@ -128,9 +102,9 @@
                         <input id="progress" name="progress" type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Progress">
                     </div>
                     <div class="form-input relative mb-4">
-                        <label for="type" class="block text-gray-600">Type</label>
-                        <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
-                            <option value="" selected disabled hidden>Choose here</option>
+                        <label for="type" class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Type of Activity</label>
+                        <select id="type" name="type" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200">
+                            <option value="" selected disabled hidden></option>
                             <option value="1">Design</option>
                             <option value="2">Prototyping</option>
                             <option value="3">Manufacturing</option>
