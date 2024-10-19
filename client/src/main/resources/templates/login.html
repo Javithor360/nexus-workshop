@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{css/main.css}" rel="stylesheet" />
+    <link rel="icon" th:href="@{/img/favicon.png}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="mb-4">Login</h2>
-            <form th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+<div class="w-full h-svh p-4 flex justify-center md:items-center font-poppins">
+    <div class="w-full h-fit lg:w-3/4 2xl:w-1/2 bg-white rounded-xl md:shadow-2xl flex flex-col-reverse md:flex-row">
+
+        <!-- FORMULARIO -->
+        <div class="p-8 basis-1/2">
+            <div class="mb-4">
+                <h1 class="font-extrabold text-teal-900 text-4xl">Hello Again!</h1>
+                <h2 class="font-light text-slate-600 text-sm mt-2">Welcome, it's nice to have you here</h2>
+            </div>
+
+            <form th:action="@{/login}" method="post" class="flex flex-col gap-4 my-6">
+                <div class="relative">
+                    <input type="text" class="peer styles-input" id="username" name="username" placeholder="Username" required>
+                    <label for="username" class="styles-label">Username</label>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                <div class="relative">
+                    <input type="password" class="peer styles-input" id="password" name="password" placeholder="Password" required>
+                    <label for="password" class="styles-label">Password</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="style-btn-submit">Login</button>
             </form>
             <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
         </div>
+        <!-- LOGO  --->
+        <div class="p-6 flex gap-1 items-center justify-center rounded-t-2xl md:rounded-t-none md:rounded-r-2xl md:rounded-tr-lg bg-teal-950 basis-1/2">
+            <div>
+                <span class="material-symbols-outlined text-white !text-6xl">lightbulb</span>
+            </div>
+            <div>
+                <h1 class="font-bold text-4xl sm:text-5xl uppercase text-white leading-none">Nexus</h1>
+                <h2 class="font-bold text-2xl sm:text-3xl uppercase text-slate-400 leading-none">WorkShop</h2>
+            </div>
+        </div>
     </div>
+    <!--
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Login</h2>
+
+        </div>
+    </div>
+    -->
 </div>
 </body>
 </html>

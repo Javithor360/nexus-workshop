@@ -8,10 +8,14 @@ $(document).ready(async function() {
         if($.validateUserForm()){ // Validating form
             const userData = $.getFormData('employee-form'); // Obtaining data of the form to crate the body of the request
 
-            if(userData.id == null){ // If the id is undefined...
+            if(userData.id === 0 || userData.id === undefined || userData.id === null || userData.id === ''){ // If the id is undefined...+
+                console.log(userData)
+                delete userData.id;
                 $.createUser(userData, userToken); // Call the function to CREATE a client
             }else{ // If the id exists...
+
                 const id = userData.id; // Save the id to use it before delete
+                console.log("Actualizando usuario...: " + id);
                 delete userData.id; // Delete the id from the object to send a clean object to the AJAX function
                 $.editUser(id, userData, userToken); // Call the function to EDIT a client
             }
@@ -87,22 +91,19 @@ $.extend({ // Creating a repository of utils functions to use in this file
             return acc;
         }, {});
 
-        // Concatenate the names in a single field 'name'
-        const fullName = [formData.firstName, formData.secondName,
-            formData.middleName, formData.lastName].filter(Boolean).join(' ').trim();
 
         // Reorganize the object
         return {
             id: formData.id,
-            name: fullName,
-            dui: formData.dui,
-            birthday: formData.birthday,
-            gender: formData.gender,
             username: formData.username,
             email: formData.email,
             password: formData.password,
-            confirmPassword: formData.confirmPassword,
-            roleId: formData.roleId
+            role: {
+                id: 3
+            },
+            dui: formData.dui,
+            birthday: formData.birthday,
+            gender: formData.gender,
         };
     },
 
@@ -110,21 +111,17 @@ $.extend({ // Creating a repository of utils functions to use in this file
         $("#employee-form").validate({
             errorElement: 'div',
             rules:{
-                firstName: { required: true },
-                secondName: { required: true },
-                middleName: { required: true },
-                lastName: { required: true },
-                dui: { required: true, minlength: 9, maxlength: 9 },
-                birthday: { required: true},
-                // phone: { required: true, range: [ 10000000, 99999999 ] },
-                gender: {required: true },
                 username: { required: true },
                 email: { required: true, email: true },
                 password: { required: true, minlength: 6 },
                 confirmPassword: { required: true, equalTo: "#password" },
-                roleId: { required: true, range: [2, 3] }
+                role: { required: true, range: [2, 3] },
+                dui: { required: true, minlength: 0, maxlength: 9 },
+                birthday: { required: true},
+                gender: {required: true }
             },
             messages:{
+                // example:
                 // phone: { digits: "Only digits accepted.", range: "Enter a valid phone number.", number: "Invalid data." },
                 dui: { minlength: "It must contains 9 characters", maxlength: "It must contains 9 characters"},
                 confirmPassword: { required: "Please confirm your password", equalTo: "Both passwords must match" }
@@ -163,10 +160,10 @@ $.extend({ // Creating a repository of utils functions to use in this file
                     const newRow = `
                         <tr class="border-b-2">
                             <td class="p-2 py-3">${i++}</td>
-                            <td class="p-2 py-3">${user.name}</td>
+                            <td class="p-2 py-3">${user.username}</td>
                             <td class="p-2 py-3 hidden xl:table-cell">${user.email}</td>
-                            <td class="p-2 py-3 hidden md:table-cell">${user.username}</td>
-                            <td class="p-2 py-3">${user.role.name}</td>
+                            <td class="p-2 py-3 hidden md:table-cell">${user.gender === 'F' ? 'Female' : 'Male' }</td>
+                            <td class="p-2 py-3 capitalize-first text-lowercase">${user.role.name}</td>
                             <td class="p-2 py-3 flex flex-col md:flex-row justify-center items-center">
                                 <button type="button" class="editBtn bg-amber-300 hover:bg-amber-400  px-2 py-1 rounded text-black w-20 mb-2 md:mb-0 md:mr-2" value="${user.id}">Edit</button>
                                 <button type="button" class="deleteBtn bg-red-500 hover:bg-red-600  text-white px-2 py-1 rounded w-20 mt-2 md:mt-0 md:ml-2" value="${user.id}">Delete</button>
@@ -188,15 +185,9 @@ $.extend({ // Creating a repository of utils functions to use in this file
                 'Authorization': 'Bearer ' + userToken,
                 'Content-Type': 'application/json'
             },success: function (userData) { // Setting the data of the client in the form
-                const fullName = userData.name;
-                const nameParts = fullName.split(' '); // Split the name into parts
 
                 // Assign the values to the corresponding inputs
                 $('#id').val(userData.id);
-                $('#firstName').val(nameParts[0] || '');
-                $('#secondName').val(nameParts[1] || '');
-                $('#middleName').val(nameParts[2] || '');
-                $('#lastName').val(nameParts[3] || '');
                 $('#dui').val(userData.dui);
                 $('#birthday').val(userData.birthday);
                 $('#gender').val(userData.gender);
@@ -205,7 +196,7 @@ $.extend({ // Creating a repository of utils functions to use in this file
                 $('#email').val(userData.email);
                 $('#password').val('');
                 $('#confirmPassword').val('');
-                $('#roleId').val(userData.role_id);
+                $('#roleId').val(userData.role.id);
 
                 $('.form-input input').each(function () { // For each input this function is applied to add the class 'has-value'
                     if ($(this).val().length > 0) {

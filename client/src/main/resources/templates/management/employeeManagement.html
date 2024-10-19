@@ -2,15 +2,16 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutDashboard.html}">
 <head>
-    <script th:src="@{/js/jQuery-validate.js}"></script>
-    <script th:src="@{/js/getTokenRequest.js}"></script>
-    <script th:src="@{/js/employeeManagement/employeeManagement.js}"></script>
+    <script th:src="@{/js/utils/jQuery-validate.js}"></script>
+    <script th:src="@{/js/utils/getTokenRequest.js}"></script>
+    <script th:src="@{/js/management/employeeManagement.js}"></script>
     <title>Mantenimiento Empleados</title>
     <style>
+        /*
         .form-input input:focus,
         .form-input select:focus {
             border-color: #FCD34D;
-        }
+        }*/
 
         .form-input div.error{
             color: rgb(239 68 68);
@@ -37,53 +38,16 @@
             <form method="post" class="space-y-4" id="employee-form">
 
                 <div class="space-y-2">
-                    <h2 class="text-lg font-bold mb-3">Employee Data</h2>
+                    <h2 class="text-lg font-bold mb-3">Create user</h2>
                     <input type="hidden" id="id" name="id">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-4 md:gap-6">
-                        <div class="form-input relative">
-                            <input type="text" id="firstName" name="firstName" class="peer styles-input" placeholder="First Name">
-                            <label for="firstName" class="styles-label">First Name</label>
-                        </div>
-                        <div class="form-input relative">
-                            <input type="text" id="secondName" name="secondName" class="peer styles-input" placeholder="Second Name">
-                            <label for="secondName" class="styles-label">Second Name</label>
-                        </div>
-                        <div class="form-input relative">
-                            <input type="text" id="middleName" name="middleName" class="peer styles-input" placeholder="Middle Name">
-                            <label for="middleName" class="styles-label">Middle Name</label>
-                        </div>
-                        <div class="form-input relative">
-                            <input type="text" id="lastName" name="lastName" class="peer styles-input" placeholder="Last Name">
-                            <label for="lastName" class="styles-label">Last Name</label>
-                        </div>
-                        <div class="form-input relative">
-                            <input type="email" id="dui" name="dui" class="peer w-full styles-input" placeholder="DUI">
-                            <label for="dui" class="styles-label">DUI</label>
-                        </div>
-                        <div class="form-input relative">
-                            <input type="date" id="birthday" name="birthday" class="peer styles-input" placeholder="Birthday">
-                            <label for="birthday" class="styles-label">Birthday</label>
-                        </div>
-                        <!--
-                        <div class="form-input relative">
-                            <input type="text" id="phone" name="phone" class="peer styles-input" placeholder="Phone">
-                            <label for="phone" class="styles-label">Phone</label>
-                        </div>
-                        -->
-                        <div class="form-input relative">
-                            <select id="gender" name="gender" class="peer styles-input" placeholder="Gender">
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                            </select>
-                            <label for="gender" class="styles-label">Gender</label>
-                        </div>
-
-                    </div>
-                    <h2 class="text-lg font-bold my-3">Create User for:</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-4 md:gap-6">
                         <div class="form-input relative">
                             <input type="text" id="username" name="username" class="peer styles-input" placeholder="Username">
                             <label for="username" class="styles-label">Username</label>
+                        </div>
+                        <div class="form-input relative">
+                            <input type="text" id="dui" name="dui" class="peer w-full styles-input" placeholder="DUI">
+                            <label for="dui" class="styles-label">DUI</label>
                         </div>
                         <div class="form-input relative">
                             <input type="text" id="email" name="email" class="peer styles-input" placeholder="E-mail">
@@ -98,14 +62,25 @@
                             <label for="confirmPassword" class="styles-label">Confirm Password</label>
                         </div>
                         <div class="form-input relative">
-                            <select id="roleId" name="roleId" class="peer styles-input">
+                            <select id="role" name="role" class="peer styles-input">
                                 <option value="3">Employee</option>
                                 <option value="2">Boss</option>
                             </select>
-                            <label for="roleId" class="styles-label">User Role</label>
+                            <label for="role" class="styles-label">User Role</label>
+                        </div>
+                        <div class="form-input relative">
+                            <input type="date" id="birthday" name="birthday" class="peer styles-input" placeholder="Birthday">
+                            <label for="birthday" class="styles-label">Birthday</label>
+                        </div>
+                        <div class="form-input relative">
+                            <select id="gender" name="gender" class="peer styles-input" placeholder="Gender">
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                            <label for="gender" class="styles-label">Gender</label>
                         </div>
                         <div class="flex flex-row justify-center">
-                            <button type="button" class="bg-amber-300 hover:bg-amber-400 transition-all text-black max-h-10 h-10 p-2 !text-bold rounded  w-full justify-self-center mr-1" id="submitBtn"><span class="font-bold">＋</span> Save Client</button>
+                            <button type="button" class="style-btn-submit" id="submitBtn"><span class="font-bold">＋</span> Save Client</button>
                         </div>
                         <div>
                             <button type="button" class="hidden bg-red-500 hover:bg-red-600 transition-all text-white max-h-10 h-10 p-2 !text-bold rounded  w-full justify-self-center" id="cancelSubmit">✖ Cancel</button>
@@ -122,10 +97,10 @@
                 <thead>
                 <tr class="bg-gray-500 py-1 text-white text-sm">
                     <th class="p-2 w-14">N°</th>
-                    <th class="p-2">Name</th>
+                    <th class="p-2">Username</th>
                     <th class="p-2 hidden xl:table-cell">E-mail</th>
-                    <th class="p-2 hidden md:table-cell">Username</th>
-                    <th class="p-2">Rol</th>
+                    <th class="p-2 hidden md:table-cell">Gender</th>
+                    <th class="p-2 capitalize">Rol</th>
                     <th class="p-2">Actions</th>
                 </tr>
                 </thead>

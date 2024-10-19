@@ -34,6 +34,7 @@ public class AdminDashboardController {
     public String adminDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
+        model.addAttribute("pageTitle", "Dashboard");
         model.addAttribute("activePage", "home");
         return "dashboard/index";
     }
