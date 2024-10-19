@@ -10,6 +10,17 @@
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
     <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
+
+    <style>
+        /* Hover effect por cards */
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
 <main layout:fragment="custom-content">

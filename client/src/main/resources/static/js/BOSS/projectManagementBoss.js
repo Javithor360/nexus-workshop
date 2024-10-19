@@ -58,10 +58,10 @@ $.extend({ // Creating a repository of utils functions to use in this file
                     date: true,
                     min: new Date().toISOString().split("T")[0] // Start date must be today or in the future
                 },
-                dueDate: {
+                endDate: {
                     required: true,
                     date: true,
-                    greaterThan: "#start-date" // Due date must be after start date
+                    greaterThan: "#start-date" // End date must be after start date
                 }
             },
             messages: {
@@ -253,7 +253,12 @@ $.extend({ // Creating a repository of utils functions to use in this file
                     }
                 });
                 if (!hasProjects) { // If there's no projects then...
-                    projectGrid.append('<p class="text-gray-500">There is no  projects of this category available yet...</p>');
+                    projectGrid.append(`
+                        <div class="flex items-center justify-center gap-3 text-center py-4 bg-light rounded" style="font-size: 1.2em; color: #6c757d;">
+                            <i class="fas fa-times-circle" style="font-size: 2em; color: #dc3545;"></i>
+                            <p class="mt-2">There are no projects available in this category yet...</p>
+                        </div>
+                    `);
                 }
             }
         });
