@@ -10,20 +10,7 @@
     <script th:src="@{/js/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
-
-    <style>
-        .form-input:focus-within label,
-        .form-input.has-value label {
-            transform: translateY(-1.4rem) translateX(0.25rem);
-            color: #718096;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .form-input input:focus,
-        .form-input select:focus {
-            border-color: #FCD34D; /* Tailwind yellow-300 */
-        }
-    </style>
+    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
 </head>
 <body>
 <main layout:fragment="custom-content" class="mx-0 2xl:mx-[8rem]">
@@ -36,12 +23,8 @@
             </div>
 
             <div th:switch="${project.status.id}" id="status-container">
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-yellow-500" th:case="1">Pending</span>
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-600" th:case="2">In Progress</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-orange-500" th:case="3">On Hold</span>
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-green-500" th:case="4">Completed</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-red-600" th:case="5">Cancelled</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-purple-500" th:case="6">Under Review</span>
             </div>
         </div>
 
@@ -60,8 +43,8 @@
                     <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.startDate}">
                 </div>
                 <div class="w-1/2">
-                    <label class="block text-gray-600">Due Date</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.dueDate}">
+                    <label class="block text-gray-600">End Date</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.endDate}">
                 </div>
             </div>
         </form>
@@ -89,7 +72,7 @@
                     <th scope="row" class="px-6 py-4 capitalize" th:text="${activity.user.username}"></th>
                     <td class="px-6 py-4 capitalize" th:text="${activity.title}"></td>
                     <td class="px-6 py-4 capitalize" th:text="${activity.description}"></td>
-                    <td class="px-6 py-4 capitalize" th:text="${activity.percentage}"></td>
+                    <td class="px-6 py-4 capitalize" th:text="${activity.percentage + '%'}"></td>
                     <td class="px-6 py-4 capitalize" th:text="${activity.type.name}"></td>
                     <td class="px-6 py-4" th:text="${activity.createdAt}"></td>
                 </tr>
@@ -101,9 +84,6 @@
             <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
             </a>
-            <button class="bg-amber-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-amber-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed" th:disabled="${project.status.id == 3 }">
-                Accept Project
-            </button>
         </div>
 
     </div>
