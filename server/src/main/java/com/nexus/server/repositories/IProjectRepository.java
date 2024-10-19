@@ -18,7 +18,7 @@ public interface IProjectRepository extends JpaRepository<Project, Long> {
 
     List<Project> findByUserIdAndStatusId(Long userId, Long statusId);
 
-    List<Project> findTop5AllByOrderByStartDateDesc();
+    List<Project> findTop5AllByOrderByEndDateDesc();
 
-    List<Project> findTop5ByUserIdOrderByStartDateDesc(Long userId);
+    List<Project> findTop5ByUserIdOrderByEndDateDesc(Long userId);
 }
