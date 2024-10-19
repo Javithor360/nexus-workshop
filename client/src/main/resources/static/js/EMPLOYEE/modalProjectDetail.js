@@ -103,10 +103,8 @@ $.extend({ // Creating a repository of utils functions to use in this file
     resetClientForm: function () {
         $('#new-log-form')[0].reset(); // Clearing all the inputs
         $('input#id').val(''); // Clearing the id in the hidden input
-        $('.form-input select').parent().removeClass('has-value');
-        $('#new-log-form').validate().destroy(); // Clearing the validate process
 
-        $('.form-input input, .form-input textarea').each(function () { // For each input this function is applied to delete the class 'has-value'
+        $('.form-input input').each(function () { // For each input this function is applied to delete the class 'has-value'
             if ($(this).val().length === 0) {
                 $(this).parent().removeClass('has-value');
             }
@@ -193,7 +191,7 @@ $.extend({ // Creating a repository of utils functions to use in this file
                                 <th scope="row" class="px-6 py-4 capitalize">${activity.user.username}</th>
                                 <td class="px-6 py-4 capitalize">${activity.title}</td>
                                 <td class="px-6 py-4 capitalize">${activity.description}</td>
-                                <td class="px-6 py-4 capitalize">${activity.percentage}%</td>
+                                <td class="px-6 py-4 capitalize">${activity.percentage}</td>
                                 <td class="px-6 py-4 capitalize">${activity.type.name}</td>
                                 <td class="px-6 py-4">${activity.createdAt}</td>
                             </tr>
