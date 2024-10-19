@@ -116,14 +116,14 @@ $.extend({ // Creating a repository of utils functions to use in this file
                 password: { required: true, minlength: 6 },
                 confirmPassword: { required: true, equalTo: "#password" },
                 role: { required: true, range: [2, 3] },
-                dui: { required: true, minlength: 0, maxlength: 9 },
+                dui: { required: true, minlength: 0, maxlength: 10 },
                 birthday: { required: true},
                 gender: {required: true }
             },
             messages:{
                 // example:
                 // phone: { digits: "Only digits accepted.", range: "Enter a valid phone number.", number: "Invalid data." },
-                dui: { minlength: "It must contains 9 characters", maxlength: "It must contains 9 characters"},
+                dui: { minlength: "It must contains 10 characters", maxlength: "It must contains 10 characters"},
                 confirmPassword: { required: "Please confirm your password", equalTo: "Both passwords must match" }
             }
         });
