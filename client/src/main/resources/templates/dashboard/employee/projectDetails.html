@@ -6,36 +6,12 @@
 <head>
     <title>Project Details | Employee</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script th:src="@{/js/jQuery-validate.js}"></script>
-    <script th:src="@{/js/getTokenRequest.js}"></script>
-    <script th:src="@{/js/floatPlaceholder.js}"></script>
+    <script th:src="@{/js/utils/getTokenRequest.js}"></script>
+    <script th:src="@{/js/utils/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
+    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <style>
-        .form-input:focus-within label,
-        .form-input.has-value label {
-            transform: translateY(-1.4rem) translateX(0.25rem);
-            color: #718096;
-            background-color: white;
-            padding: 0 0.25rem;
-        }
-        .form-input input:focus,
-        .form-input select:focus {
-            border-color: #FCD34D;
-        }
-        .form-input div.error{
-            color: rgb(239 68 68);
-            margin-top: 0.25rem;
-            text-align: center;
-        }
-        .form-input div.error:before{
-            content: "⚠";
-            margin-right: 0.25rem;;
-        }
-        #modal {
-            transition: opacity 0.3s ease-in-out;
-        }
-    </style>
 </head>
 <body>
 <main layout:fragment="custom-content" class="mx-0 2xl:mx-[8rem]">
@@ -48,12 +24,8 @@
             </div>
 
             <div th:switch="${project.status.id}" id="status-container">
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-yellow-500" th:case="1">Pending</span>
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-blue-600" th:case="2">In Progress</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-orange-500" th:case="3">On Hold</span>
                 <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-green-500" th:case="4">Completed</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-red-600" th:case="5">Cancelled</span>
-                <span class="text-white text-sm font-medium px-2.5 py-0.5 rounded-full bg-purple-500" th:case="6">Under Review</span>
             </div>
         </div>
 
@@ -62,9 +34,15 @@
                 <label class="absolute block left-2 top-2 text-gray-500 bg-transparent transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
                 <textarea type="text" th:text="${project.description}" disabled class="min-h-[10rem] peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200"></textarea>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-600">Customer</label>
-                <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.client.name}">
+            <div class="flex space-x-4 mb-4">
+                <div class="w-1/2">
+                    <label class="block text-gray-600">Assignee</label>
+                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.user.username}">
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-gray-600">Customer</label>
+                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.client.name}">
+                </div>
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/2">
@@ -72,8 +50,8 @@
                     <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.startDate}">
                 </div>
                 <div class="w-1/2">
-                    <label class="block text-gray-600">Due Date</label>
-                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.dueDate}">
+                    <label class="block text-gray-600">End Date</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.endDate}">
                 </div>
             </div>
         </form>
@@ -105,7 +83,7 @@
             <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
             </a>
-            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600" hidden>
+            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600" th:if="${!project.endDate.isAfter(T(java.time.LocalDate).now())}">
                 + Add New Log
             </button>
         </div>
@@ -131,9 +109,9 @@
                         <input id="progress" name="progress" type="text" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Progress">
                     </div>
                     <div class="form-input relative mb-4">
-                        <label for="type" class="block text-gray-600">Type</label>
-                        <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded-lg">
-                            <option value="" selected disabled hidden>Choose here</option>
+                        <label for="type" class="absolute left-2 top-2 text-gray-600 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Type of Activity</label>
+                        <select id="type" name="type" class="peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200">
+                            <option value="" selected disabled hidden></option>
                             <option value="1">Design</option>
                             <option value="2">Prototyping</option>
                             <option value="3">Manufacturing</option>

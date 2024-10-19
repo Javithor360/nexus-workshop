@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutDashboard.html}">
+<head>
+    <title>Dashboard</title>
+    <script th:inline="javascript">
+        let url = [[${route}]];
+        url = url === 'admin' ? 'boss' : url;
+        const idUser = url !== 'boss' ? [[${user.id}]] : null;
+    </script>
+    <script th:src="@{/js/utils/jQuery-validate.js}"></script>
+    <script th:src="@{/js/utils/getTokenRequest.js}"></script>
+    <script th:src="@{/js/dashboard/metadata.js}"></script>
+</head>
+<body>
+    <div class="w-full md:p-6 md:pt-2" layout:fragment="custom-content">
+        <!-- <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold uppercase text-teal-800">Dashboard</h1> -->
+        <div>
+            <div class="pr-6 pb-4 mb-4">
+                <h3 class="text-2xl font-bold">Summary of the day</h3>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-8 w-full">
+            <div class="xl:col-span-3">
+                <!-- RESUME DETAILS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-8">
+                    <!-- Tarjeta 1 -->
+                    <div class="bg-blue-600/20 p-6 md:p-8 rounded-lg text-center">
+                        <div class="flex items-center justify-center gap-4">
+                            <!-- Icono en una caja separada -->
+                            <div class="flex items-center justify-center text-blue-600 bg-blue-600/50 py-3 px-3.5 rounded-full">
+                                <span class="material-symbols-outlined !text-4xl xl:!text-6xl">handyman</span>
+                            </div>
+                            <!-- Texto en otra caja separada -->
+                            <div class="">
+                                <p class="text-4xl lg:text-5xl font-bold" id="projects-progress">0</p>
+                                <p class="mt-2 font-bold text-sm lg:text-base">In Progress</p>
+                                <p class="text-gray-600 text-xs">Pending project requests</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="bg-yellow-500/20 p-6 md:p-8 rounded-lg text-center">
+                        <div class="flex items-center justify-center gap-4">
+                            <!-- Icono en una caja separada -->
+                            <div class="flex items-center justify-center text-yellow-600 bg-yellow-500/50  py-3 px-3.5 rounded-full">
+                                <span class="material-symbols-outlined !text-4xl xl:!text-6xl">check</span>
+                            </div>
+
+                            <!-- Texto en otra caja separada -->
+                            <div class="">
+                                <div class="text-4xl  lg:text-5xl font-bold" id="projects-completed">0</div>
+                                <p class="mt-2 font-bold text-sm lg:text-base">Completed</p>
+                                <p class="text-gray-600 text-xs">Projects completed by operators</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Activity history -->
+                <div class="w-full">
+
+                    <div class="flex flex-col h-full">
+                        <h3 class="text-xl lg:text-2xl font-bold mb-1">Activity History</h3>
+                        <p class="text-gray-500 pb-4 text-sm">Take a look at what's happening</p>
+                        <div class="bg-white flex-grow p-6 rounded-lg border border-slate-500">
+                            <div class="relative pt-4 pb-5 max-h-[26rem] overflow-hidden overflow-y-auto">
+                                <!-- <div class="fixed left-4 top-0 h-full w-0.5 bg-black"></div> -->
+                                <ul class="p-4" id="activities-list">
+                                    <!-- Items activities list  -->
+
+
+                                </ul>
+                            </div>
+                            <div class="text-center p-2 mt-2">
+                                <p class="text-slate-400 text-xs">Wait to see more actions taken by you or employees</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Upcoming tasks -->
+            <div class="xl:col-span-2 w-full">
+                <div class="flex flex-col h-full flex-grow w-full">
+                    <h3 class="text-xl lg:text-2xl font-bold mb-1">Upcoming tasks</h3>
+                    <p class="text-gray-500 pb-4 text-sm">Take a look at what's happening</p>
+
+                    <div class="bg-white flex flex-col flex-grow gap-3 p-4 rounded-lg border border-slate-500" id="tasks-list">
+                        <!-- Items task list  -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script> -->
+</body>
+</html>

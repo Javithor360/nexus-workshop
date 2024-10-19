@@ -135,7 +135,10 @@ public class User implements UserDetails {
     // UserDetails overridden methods for authentication
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role != null) ? role.getName() : "UNDEFINED"));
+        if (role != null && role.getName() != null) {
+            return List.of(new SimpleGrantedAuthority(role.getName()));
+        }
+        return List.of();
     }
 
     @Override

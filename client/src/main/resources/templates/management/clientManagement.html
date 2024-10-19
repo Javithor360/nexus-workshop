@@ -4,59 +4,83 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layoutDashboard.html}">
 <head>
-
-    <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
     <script th:src="@{/js/utils/jQuery-validate.js}"></script>
     <script th:src="@{/js/utils/getTokenRequest.js}"></script>
     <script th:src="@{/js/utils/floatPlaceholder.js}"></script>
     <script th:src="@{/js/management/clientManagement.js}"></script>
 
+    <style>
+        /*
+        .form-input:focus-within label,
+        .form-input.has-value label {
+            transform: translateY(-1.4rem) translateX(0.25rem);
+            color: #718096;
+            background-color: white;
+            padding: 0 0.25rem;
+        }*/
+
+        .form-input input:focus,
+        .form-input select:focus {
+            border-color: #FCD34D;
+        }
+
+        .form-input div.error{
+            color: rgb(239 68 68);
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+        .form-input div.error:before{
+            content: "⚠";
+            margin-right: 0.25rem;;
+        }
+        #modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
 </head>
 <body>
 
-<main class="flex-1 sm:p-6" layout:fragment="custom-content">
+<main class="flex-1 sm:p-2" layout:fragment="custom-content">
     <section class="px-6 mb-4">
-        <h2 class="text-xl font-bold mb-6">Save Client</h2>
+        <h2 class="text-xl font-bold mb-3">Save Client</h2>
 
         <form method="post" class="space-y-4" id="client-form">
             <div class="space-y-2">
-
                 <input type="hidden" id="id" name="id">
-
                 <div class="grid grid-cols-1 grid-rows-8 sm:grid-cols-2 sm:grid-rows-4 xl:grid-cols-4 xl:grid-rows-2 gap-6">
                     <div class="form-input relative">
-                        <input type="text" id="firstName" name="firstName" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="First Name">
-                        <label for="firstName" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">First Name</label>
+                        <input type="text" id="firstName" name="firstName" class="peer styles-input" placeholder="First Name">
+                        <label for="firstName" class="styles-label">First Name</label>
                     </div>
                     <div class="form-input relative">
-                        <input type="text" id="secondName" name="secondName" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Second Name">
-                        <label for="secondName" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Second Name</label>
+                        <input type="text" id="secondName" name="secondName" class="peer styles-input" placeholder="Second Name">
+                        <label for="secondName" class="styles-label">Second Name</label>
                     </div>
                     <div class="form-input relative">
-                        <input type="text" id="middleName" name="middleName" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Middle Name">
-                        <label for="middleName" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName" class="peer styles-input" placeholder="Middle Name">
+                        <label for="middleName" class="styles-label">Middle Name</label>
                     </div>
                     <div class="form-input relative">
-                        <input type="text" id="lastName" name="lastName" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Last Name">
-                        <label for="lastName" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" class="peer styles-input" placeholder="Last Name">
+                        <label for="lastName" class="styles-label">Last Name</label>
                     </div>
                     <div class="form-input relative">
                         <input type="email" id="email" name="email" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="E-mail">
-                        <label for="email" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">E-mail</label>
+                        <label for="email" class="styles-label">E-mail</label>
                     </div>
                     <div class="form-input relative">
                         <input type="text" id="address" name="address" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Address">
-                        <label for="address" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Address</label>
+                        <label for="address" class="styles-label">Address</label>
                     </div>
 
                     <div class="form-input relative">
                         <input type="text" id="phone" name="phone" class="peer w-full border border-black rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200" placeholder="Phone">
-                        <label for="phone" class="absolute left-2 top-2 text-gray-500 transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Phone</label>
+                        <label for="phone" class="styles-label">Phone</label>
                     </div>
 
                     <div class="flex flex-row justify-center items-center">
-                        <button type="button" class="bg-amber-300 hover:bg-amber-400 text-black max-h-10 h-10 p-2 !text-bold rounded  w-4/5 justify-self-center mr-1" id="submitBtn"><span class="font-bold">＋</span> Save Client</button>
-                        <button type="button" class="hidden bg-red-500 hover:bg-red-600 text-white max-h-10 h-10 p-2 !text-bold rounded  w-4/5 justify-self-center" id="cancelSubmit">✖ Cancel</button>
+                        <button type="button" class="bg-amber-300 hover:bg-amber-400 transition-all text-black max-h-10 h-10 p-2 !text-bold rounded  w-full justify-self-center mr-1" id="submitBtn"><span class="font-bold">＋</span> Save Client</button>
+                        <button type="button" class="hidden bg-red-500 hover:bg-red-600 transition-all text-white max-h-10 h-10 p-2 !text-bold rounded  w-full justify-self-center" id="cancelSubmit">✖ Cancel</button>
                     </div>
                 </div>
 
@@ -69,7 +93,7 @@
         <h2 class="text-xl font-bold mb-4">List of Clients</h2>
         <table class="w-full table-fixed text-center rounded-t-xl overflow-hidden" id="clientsTable">
             <thead>
-            <tr class="bg-gray-500 py-1 text-white">
+            <tr class="bg-gray-500 py-1 text-white text-sm">
                 <th class="p-2 w-14">N°</th>
                 <th class="p-2">Name</th>
                 <th class="p-2 hidden xl:table-cell">E-mail</th>
@@ -78,7 +102,7 @@
                 <th class="p-2">Actions</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="text-sm">
                 <!-- Dynamic Data -->
             </tbody>
         </table>

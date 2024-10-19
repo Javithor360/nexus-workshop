@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/users/**").authenticated()
                         .requestMatchers("/api/projects/**").authenticated()
+                        .requestMatchers("/api/activities/**").authenticated()
+                        .requestMatchers("/api/dashboard-tool/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement((sessionManager) -> sessionManager

@@ -157,7 +157,7 @@ public class UserService {
 
     /**
      * Get the user activities by user id
-     *
+     *|
      * @param id User id
      * @return List Activities
      */
