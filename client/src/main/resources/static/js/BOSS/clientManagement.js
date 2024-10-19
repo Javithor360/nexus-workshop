@@ -117,7 +117,6 @@ $.extend({ // Creating a repository of utils functions to use in this file
     resetClientForm: function (){
         $('#client-form')[0].reset(); // Clearing all the inputs
         $('input#id').val(''); // Clearing the id in the hidden input
-        $('#client-form').validate().destroy(); // Clearing the validate process
 
         $('.form-input input').each(function () { // For each input this function is applied to delete the class 'has-value'
             if ($(this).val().length === 0) {
