@@ -27,29 +27,30 @@ function loadProjects(id, userToken) {
             let deliveredProjects = 0;
             let inProgressProjects = 0;
 
-            // Loop through each project and process it
-            projects.forEach(project => {
-                // Increment total projects counter
-                totalProjects++;
+            if (projects && projects.length > 0) {
+                // Loop through each project and process it
+                projects.forEach(project => {
+                    // Increment total projects counter
+                    totalProjects++;
 
-                // Set status color and update counters based on project status
-                let statusColor = '';
-                switch (project.status.name) {
-                    case 'In Progress':
-                        inProgressProjects++;
-                        statusColor = 'bg-blue-600'; // In Progress
-                        break;
-                    case 'Completed':
-                        deliveredProjects++;
-                        statusColor = 'bg-green-500'; // Completed
-                        break;
-                    default:
-                        statusColor = 'bg-gray-500'; // Default status
-                        break;
-                }
+                    // Set status color and update counters based on project status
+                    let statusColor = '';
+                    switch (project.status.name) {
+                        case 'In Progress':
+                            inProgressProjects++;
+                            statusColor = 'bg-blue-600'; // In Progress
+                            break;
+                        case 'Completed':
+                            deliveredProjects++;
+                            statusColor = 'bg-green-500'; // Completed
+                            break;
+                        default:
+                            statusColor = 'bg-gray-500'; // Default status
+                            break;
+                    }
 
-                // Create the project card with a click event
-                const projectCard = `
+                    // Create the project card with a click event
+                    const projectCard = `
                     <div class="project-card bg-white p-5 rounded-lg border max-w-sm cursor-pointer" onclick="window.location.href='project/${project.id}'">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-bold text-gray-800 capitalize">${project.title}</h3>
@@ -61,9 +62,17 @@ function loadProjects(id, userToken) {
                     </div>
                 `;
 
-                // Append the project card to the container
-                projectGrid.append(projectCard);
-            });
+                    // Append the project card to the container
+                    projectGrid.append(projectCard);
+                });
+            } else {
+                projectGrid.append(`
+                    <div class="flex items-center justify-center gap-3 text-center py-4 bg-light rounded" style="font-size: 1.2em; color: #6c757d;">
+                        <i class="fas fa-times-circle" style="font-size: 2em; color: #dc3545;"></i>
+                        <p class="mt-2">There are no projects available in this category yet...</p>
+                    </div>
+                `);
+            }
 
             // Update counters on the interface
             $('#total-projects').text(totalProjects);
