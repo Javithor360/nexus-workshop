@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/js/utils/getTokenRequest.js}"></script>
     <script th:src="@{/js/utils/floatPlaceholder.js}"></script>
+    <script th:src="@{/js/utils/jQuery-validate.js}"></script>
     <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
     <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -83,7 +84,8 @@
             <a class="bg-gray-500 text-white mt-4 p-2 w-full rounded-lg hover:bg-gray-600 text-center" th:href="@{../project}">
                 Back
             </a>
-            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600" th:if="${!project.endDate.isAfter(T(java.time.LocalDate).now())}">
+            <button id="openModalBtn" class="bg-green-500 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white mt-4 p-2 w-full rounded-lg hover:bg-green-600"
+                    th:if="${!T(java.time.LocalDate).now().isBefore(project.startDate) && !T(java.time.LocalDate).now().isAfter(project.endDate)}">
                 + Add New Log
             </button>
         </div>
