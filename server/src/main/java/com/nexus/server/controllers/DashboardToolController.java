@@ -1,7 +1,7 @@
 package com.nexus.server.controllers;
 
 import com.nexus.server.entities.beans.DashboardTools;
-import com.nexus.server.services.DashboardToolService;
+import com.nexus.server.services.extra.DashboardToolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

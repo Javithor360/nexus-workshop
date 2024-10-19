@@ -1,4 +1,4 @@
-package com.nexus.server.services;
+package com.nexus.server.services.extra;
 
 import com.nexus.server.entities.Activity;
 import com.nexus.server.entities.Project;
@@ -8,7 +8,6 @@ import com.nexus.server.entities.dto.ProjectDTO;
 import com.nexus.server.entities.dto.UserDTO;
 import com.nexus.server.repositories.IActivityRepository;
 import com.nexus.server.repositories.IProjectRepository;
-import com.nexus.server.services.extra.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,7 @@ public class DashboardToolService {
         int totalInProgressProjects = projectRepository.findByStatusId(2L).size();
         int totalCompletedProjects = projectRepository.findByStatusId(4L).size();
         List<Activity> top5Activities = activityRepository.findTop5AllByOrderByCreatedAtDesc();
-        List<Project> top5Projects = projectRepository.findTop5AllByOrderByStartDateDesc();
+        List<Project> top5Projects = projectRepository.findTop5AllByOrderByEndDateDesc();
 
         List<ActivityDTO> top5ActivitiesDTO = top5Activities.stream()
                 .map(activity -> dtoConverter.convertToDTO(activity, dtoConverter.convertToDTO(activity.getUser())))
@@ -79,7 +78,7 @@ public class DashboardToolService {
         int totalInProgressProjects = projectRepository.findByUserIdAndStatusId(userId, 2L).size();
         int totalCompletedProjects = projectRepository.findByUserIdAndStatusId(userId, 4L).size();
         List<Activity> top5Activities = activityRepository.findTop5ByUserIdOrderByCreatedAtDesc(userId);
-        List<Project> top5Projects = projectRepository.findTop5ByUserIdOrderByStartDateDesc(userId);
+        List<Project> top5Projects = projectRepository.findTop5ByUserIdOrderByEndDateDesc(userId);
 
         List<ActivityDTO> top5ActivitiesDTO = top5Activities.stream()
                 .map(activity -> dtoConverter.convertToDTO(activity, dtoConverter.convertToDTO(activity.getUser())))
