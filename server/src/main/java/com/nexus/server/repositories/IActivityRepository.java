@@ -12,6 +12,10 @@ public interface IActivityRepository extends JpaRepository<Activity, Long> {
 
     List<Activity> findByTypeId(Long activityTypeId);
 
+    List<Activity> findTop5AllByOrderByCreatedAtDesc();
+
+    List<Activity> findTop5ByUserIdOrderByCreatedAtDesc(Long userId);
+
     /**
      * Find all activities by
      */
