@@ -107,24 +107,30 @@ of our solutions.
 
 ## Features Summary 🪄
 
+### 🔐 Landing Page.
+A main page to introduce the project and the enterprise itself.
+
+![Landing Page](https://i.imgur.com/gwu6OEr.png)
+
+### 🔐 Authentication System.
+Role-based login with specific permissions for each user.
+
+![Authentication System](https://i.imgur.com/8piqxUG.png)
+
 ### 👤 User Management.
 Administrators manage staff and projects. Operators update tasks and justify pauses.
 
+![User Management](https://i.imgur.com/LxBOLI9.png)
 
 ### 📋 Project Management.
 Project creation with task assignment and deadlines. Real-time tracking of project progress and status.
 
+![Project Management](https://i.imgur.com/ZCqoJGp.png)
+
 ### 🛒 Inventory Management.
 Register and update the status of production pieces. View available inventory.
 
-### 🔔 Automated Notifications.
-Project completion confirmations sent to clients. Task status alerts for users.
-
-### 🎫 Justification System.
-Operators can justify work pauses without stopping the production timer.
-
-### 🔐 Authentication System.
-Role-based login with specific permissions for each user.
+![Inventory Management](https://i.imgur.com/FHCPFt4.png)
 
 ## Installation Process 📦
 1. Clone the repository
@@ -158,4 +164,3 @@ Role-based login with specific permissions for each user.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">
 Nexus Workshop is distributed under an <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International License</a>.
-
