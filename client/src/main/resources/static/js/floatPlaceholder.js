@@ -7,11 +7,16 @@ $(document).ready(function () {
     });
 
     // Listen on inputs to add or remove the class 'has-value'
-    $('.form-input input, .form-input textarea, .form-input select').on('focus input', function () {
+    $('.form-input input, .form-input textarea').on('focus input', function () {
         if ($(this).val().length > 0){
             $(this).parent().addClass('has-value');
         } else {
             $(this).parent().removeClass('has-value');
+        }
+    });
+    $('.form-input select').on('focus input', function () {
+        if($(this).prop('selected', true)){
+            $(this).parent().addClass('has-value');
         }
     });
 });
