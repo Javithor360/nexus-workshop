@@ -1,16 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="template" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" th:fragment="template" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 <head>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title>Index</title>
     <link th:href="@{/main.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
-<body>
+<body class="font-poppins bg-white">
     <main layout:fragment="custom-content">
         <!-- Contenido dinámico -->
-        <h1 class="mt-2 text-xl font-bold text-8xl text-red-700" th:text="'Hello word!'" />
-        <a th:href="@{/login}" class="btn btn-primary">Login</a>
+
+
+
+        <!--Hero Component -->
+        <div class="hero min-h-screen relative bg-gradient-to-r from-emerald-950 to-emerald-900">
+
+            <div class="hero-content flex-col lg:flex-row-reverse xl:gap-[12rem] relative">
+                <img th:src="@{/img/favicon.png}" alt="Descripción de la imagen" class="max-w-sm rounded-lg h-[18rem] xl:h-[20rem]"  data-aos="fade-left"
+                     data-aos-delay="1200"
+                     />
+                <div>
+                    <h1 class="text-balance text-4xl font-bold tracking-tight text-white sm:text-6xl" data-aos="fade-down">Nexus Workshop</h1>
+                    <p class="mt-6 text-xl leading-8 text-white" data-aos="fade-down"
+                       data-aos-delay="300">
+                        Nexus Workshop is a powerful tool designed to optimize project management in metal fabrication workshops. </p>
+                    <h1 class="text-white text-md mt-5" data-aos="fade-down"
+                        data-aos-delay="600">Access to our system now!</h1>
+                    <a th:href="@{/login}"
+                       data-aos="fade-down"
+                       data-aos-delay="1200"><button class="mt-3 border border-2 border-white hover:bg-emerald-900 rounded-lg text-white px-5 py-3">Login</button></a>
+
+                </div>
+            </div>
+        </div>
+
+
+
     </main>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
