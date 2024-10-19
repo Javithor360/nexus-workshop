@@ -52,7 +52,7 @@ public class LoginController {
             }
         }
         // If there's no active session, show the login form
-        return "login";
+        return "auth/login";
     }
 
     /**
@@ -114,7 +114,7 @@ public class LoginController {
             } else {
                 // If the response body doesn't contain a token, show an error message
                 model.addAttribute("error", "Invalid credentials");
-                return "login";
+                return "auth/login";
             }
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.FORBIDDEN) {
@@ -122,10 +122,10 @@ public class LoginController {
             } else {
                 model.addAttribute("error", "An error occurred. Please try again later.");
             }
-            return "login";
+            return "auth/login";
         } catch (Exception e) {
             model.addAttribute("error", "An unexpected error occurred. Please try again later.");
-            return "login";
+            return "auth/login";
         }
     }
 

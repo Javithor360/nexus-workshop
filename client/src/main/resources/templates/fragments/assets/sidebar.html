@@ -33,30 +33,51 @@
     </div>
 
     <!-- Sidebar normal para pantallas grandes -->
-    <div class="sidebar w-full lg:w-60 min-h-screen bg-[#244444] lg:rounded-r-2xl hidden lg:block">
-        <div class="w-full p-4 flex gap-1 items-center my-2">
-            <div>
-                <span class="material-symbols-outlined text-white !text-4xl">lightbulb</span>
+    <div class="sidebar w-full lg:w-60 min-h-screen bg-[#244444] lg:rounded-r-2xl hidden lg:flex flex-col justify-between">
+        <div class="">
+            <div class="w-full p-4 flex gap-1 items-center my-2">
+                <div>
+                    <span class="material-symbols-outlined text-white !text-4xl">lightbulb</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-xl uppercase text-white leading-none">Nexus</h1>
+                    <h2 class="font-bold text-xl uppercase text-slate-400 leading-none">WorkShop</h2>
+                </div>
             </div>
-            <div>
-                <h1 class="font-bold text-xl uppercase text-white leading-none">Nexus</h1>
-                <h2 class="font-bold text-xl uppercase text-slate-400 leading-none">WorkShop</h2>
-            </div>
+
+            <nav class="space-y-2 px-3 overflow-auto">
+                <a th:href="@{/dashboard/{route}/index(route=${route})}"
+                   th:classappend="${activePage == 'home' ? 'items-nav-active' : 'items-nav'}">
+                    <span class="material-symbols-outlined mr-2">space_dashboard</span>
+                    Dashboard
+                </a>
+                <a th:href="@{/dashboard/{route}/management/project(route=${route})}"
+                   th:classappend="${activePage == 'projects' ? 'items-nav-active' : 'items-nav'}">
+                    <span class="material-symbols-outlined mr-2">hardware</span>
+                    Projects
+                </a>
+                <a sec:authorize="hasAnyAuthority('ACCESS_ADMIN_DASHBOARD', 'ACCESS_BOSS_DASHBOARD')"
+                   th:href="@{/dashboard/{route}/management/employee(route=${route})}"
+                   class="items-nav"
+                   th:classappend="${activePage == 'employee' ? 'items-nav-active' : 'items-nav'}">
+                    <span class="material-symbols-outlined mr-2">manage_accounts</span>
+                    Employees
+                </a>
+                <a sec:authorize="hasAnyAuthority('ACCESS_ADMIN_DASHBOARD', 'ACCESS_BOSS_DASHBOARD')"
+                   th:href="@{/dashboard/{route}/management/client(route=${route})}"
+                   class="items-nav"
+                   th:classappend="${activePage == 'client' ? 'items-nav-active' : 'items-nav'}">
+                    <span class="material-symbols-outlined mr-2">person_add</span>
+                    Clients
+                </a>
+            </nav>
+        </div>
+        <div class="p-4 mb-4">
+            <a href="/logout" class="bg-teal-900 px-4 py-2 border flex gap-2 justify-center items-center text-sm border-teal-800 text-white/70 font-bold text-center rounded-md hover:bg-white/30 hover:text-white hover:border-teal-700 hover:text-white transition-all duration-500">
+                <span class="material-symbols-outlined block">logout</span>
+                <p>Log out</p>
+            </a>
         </div>
 
-        <nav class="space-y-2 px-3 overflow-auto">
-            <a href="#" class="items-nav-active">
-                <span class="material-symbols-outlined mr-2">space_dashboard</span>
-                Dashboard
-            </a>
-            <a href="#" class="items-nav">
-                <span class="material-symbols-outlined mr-2">hardware</span>
-                Proyectos
-            </a>
-            <a href="#" class="items-nav">
-                <span class="material-symbols-outlined mr-2">engineering</span>
-                Operadores
-            </a>
-        </nav>
     </div>
 </div>

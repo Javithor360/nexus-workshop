@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("/dashboard/sin-uso")
 public class DashboardController {
 
     @Autowired
@@ -68,7 +68,8 @@ public class DashboardController {
     public String adminDashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "dashboard/admin/index";
+        model.addAttribute("activePage", "home");
+        return "dashboard/index";
     }
 
     @GetMapping("/admin/info")
@@ -76,7 +77,8 @@ public class DashboardController {
     public String adminInfo(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "dashboard/admin/info";
+
+        return "dashboard/info";
     }
 
     @GetMapping("/admin/users")
@@ -86,13 +88,15 @@ public class DashboardController {
         List<User> users = userService.getUsers(session.getAttribute("token").toString());
         model.addAttribute("user", user);
         model.addAttribute("users", users);
-        return "dashboard/admin/users";
+        return "dashboard/users";
     }
 
-    @GetMapping("/dashboard/admin/management/employee")
-    public String employeeManagement(Model model) {
-        model.addAttribute("pageTitle", "Empleados");
-        return "dashboard/admin/employeeManagement";
+    @GetMapping("/admin/management/employee")
+    public String employeeManagement(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("activePage", "projects");
+        return "management/employeeManagement";
     }
 
 
