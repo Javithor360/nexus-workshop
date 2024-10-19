@@ -77,7 +77,7 @@ $.extend({ // Creating a repository of utils functions to use in dashboard
         activities.forEach(activity =>{
             let date = new Date(activity.createdAt);// instance of date od craeted at
 
-            let formatedDate = date.toLocaleDateString('es', options)
+            let formatedDate = date.toLocaleDateString('en', options)
 
             const newItem = `
                 <li class="item-historial">
@@ -126,7 +126,7 @@ $.extend({ // Creating a repository of utils functions to use in dashboard
             // Create a new date object from string
             let date = new Date(task.dueDate);
             // Using Intl.DateTimeFormat to format the date
-            let formatedDate = new Intl.DateTimeFormat('es', {
+            let formatedDate = new Intl.DateTimeFormat('en', {
                 day: '2-digit', // Display day with 2 digits (01-31)
                 month: '2-digit', // Display month with 2 digits (01-12)
                 year: 'numeric' // Display full year (2024)
@@ -139,8 +139,8 @@ $.extend({ // Creating a repository of utils functions to use in dashboard
                         <span class="text-yellow-500 font-bold">${formatedDate}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-xs xl:text-sm text-gray-400">Cliente: ${task.client.name}</span>
-                        <span class="text-xs xl:text-sm text-gray-400">Fecha entrega</span>
+                        <span class="text-xs xl:text-sm text-gray-400">Client: ${task.client.name}</span>
+                        <span class="text-xs xl:text-sm text-gray-400">Expiration Date</span>
                     </div>
                 </div>
             `;

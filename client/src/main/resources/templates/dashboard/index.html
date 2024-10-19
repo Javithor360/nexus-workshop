@@ -4,7 +4,8 @@
 <head>
     <title>Dashboard</title>
     <script th:inline="javascript">
-        const url = [[${route}]];
+        let url = [[${route}]];
+        url = url === 'admin' ? 'boss' : url;
         const idUser = url !== 'boss' ? [[${user.id}]] : null;
     </script>
     <script th:src="@{/js/utils/jQuery-validate.js}"></script>
