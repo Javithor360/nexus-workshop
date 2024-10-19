@@ -187,6 +187,7 @@ $.extend({ // Creating a repository of utils functions to use in this file
                     const tbody = $('#activitiesTable tbody');
                     tbody.empty();
 
+                    let hasActivities = false;
                     activities.forEach(activity => {
                         const newRow = `
                             <tr class="border-b hover:bg-neutral-100">
@@ -199,7 +200,19 @@ $.extend({ // Creating a repository of utils functions to use in this file
                             </tr>
                         `;
                         tbody.append(newRow);
+                        hasActivities = true;
                     });
+                    if (!hasActivities) { // If there's no activities then...
+                        const newRow = `
+                        <tr>
+                            <td colspan="6" class="text-center py-4 bg-light" style="font-size: 1.2em; color: #6c757d;">
+                                <i class="fas fa-times-circle" style="font-size: 2em; color: #dc3545;"></i>
+                                <p class="mt-2">There are no activities in this project yet...</p>
+                            </td>
+                        </tr>
+                    `;
+                        tbody.append(newRow);
+                    }
 
                     resolve(activities);
                 },
