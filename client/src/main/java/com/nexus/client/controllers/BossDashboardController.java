@@ -24,16 +24,18 @@ public class BossDashboardController {
     @Autowired
     private final UserService userService;
 
+    @Autowired
+    private final ProjectService projectService;
+
     @ModelAttribute
     public void commonParams(Model model){
         model.addAttribute("route", "boss");
     }
 
-    public BossDashboardController(UserService userService) {
+    public BossDashboardController(UserService userService, ProjectService projectService) {
         this.userService = userService;
         this.projectService = projectService;
     }
-
     // ======================================== BOSS DASHBOARD ========================================
     @GetMapping("/boss/index")
     @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
@@ -56,7 +58,7 @@ public class BossDashboardController {
         model.addAttribute("activePage", "client");
         return "management/clientManagement";
     }
-
+    // ======================================== BOSS EMPLOYEE MANAGEMENT ========================================
     @GetMapping("/boss/management/employee")
     @PreAuthorize("hasAuthority('ACCESS_BOSS_DASHBOARD')")
     public String employeeManagement(HttpSession session, Model model) {
@@ -75,7 +77,8 @@ public class BossDashboardController {
     public String projectManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("pageTitle", "Placeholder");
+        model.addAttribute("pageTitle", "Your Projects");
+        model.addAttribute("activePage", "projects");
         return "dashboard/boss/projectManagement";
     }
 

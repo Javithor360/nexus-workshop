@@ -95,7 +95,7 @@ public class DashboardController {
     public String employeeManagement(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        model.addAttribute("activePage", "employee");
+        model.addAttribute("activePage", "projects");
         return "management/employeeManagement";
     }
 
