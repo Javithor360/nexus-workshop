@@ -8,8 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/js/utils/getTokenRequest.js}"></script>
     <script th:src="@{/js/utils/floatPlaceholder.js}"></script>
-    <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
-    <script th:src="@{/js/modalProjectDetail.js}"></script>
+    <script th:src="@{/js/EMPLOYEE/modalProjectDetail.js}"></script>
     <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -35,9 +34,15 @@
                 <label class="absolute block left-2 top-2 text-gray-500 bg-transparent transition-all duration-200 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base">Description</label>
                 <textarea type="text" th:text="${project.description}" disabled class="min-h-[10rem] peer w-full border border-gray-300 rounded-md p-2 placeholder-transparent focus:outline-none transition-colors duration-200"></textarea>
             </div>
-            <div class="mb-4">
-                <label class="block text-gray-600">Customer</label>
-                <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.client.name}">
+            <div class="flex space-x-4 mb-4">
+                <div class="w-1/2">
+                    <label class="block text-gray-600">Assignee</label>
+                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.user.username}">
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-gray-600">Customer</label>
+                    <input type="text" class="w-full p-2 border border-gray-300 rounded-lg" disabled th:value="${project.client.name}">
+                </div>
             </div>
             <div class="flex space-x-4">
                 <div class="w-1/2">

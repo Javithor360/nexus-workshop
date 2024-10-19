@@ -10,8 +10,14 @@
     <script th:src="@{/js/utils/floatPlaceholder.js}"></script>
     <script th:src="@{/js/EMPLOYEE/projectManagementEmployee.js}"></script>
     <link th:href="@{/CSS/formUtils.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
+        .scrollable-container{
+            max-height: 35.25rem;
+        }
+
+
         /* Hover effect por cards */
         .project-card {
             transition: transform 0.3s, box-shadow 0.3s;
@@ -20,7 +26,40 @@
             transform: translateY(-5px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+
+
+        /* Basic styles for State Buttons */
+        .filterSearch {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: none;
+        }
+
+        /* Hover effect */
+        .filterSearch:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Active state */
+        .filterSearch.active {
+            transform: translateY(-5px);
+        }
     </style>
+
+    <script>
+        //Script for State Buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.filterSearch');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <main layout:fragment="custom-content">

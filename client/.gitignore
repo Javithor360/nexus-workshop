@@ -35,3 +35,5 @@ build/
 ### NPM Packs ###
 /src/main/frontend/node_modules
 /src/main/resources/static/css/main.css
+/src/main/resources/static/main.css
+/src/main/resources/static/main_old.css
